@@ -29,23 +29,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private SessionService sessionService;
 
-    private void setCorsHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", CLIENT_URL);
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Authorization,Content-Type");
-    }
-
     @SuppressWarnings("null")
 	@Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        setCorsHeaders(response);
 
         // Handle preflight OPTIONS requests
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             return;
         }
 
