@@ -36,10 +36,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         // Handle preflight OPTIONS requests
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            return;
-        }
+        // if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+        //     response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        //     return;
+        // }
 
         String token = request.getHeader("Authorization");
 
