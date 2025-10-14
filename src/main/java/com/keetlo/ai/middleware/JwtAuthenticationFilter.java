@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -34,12 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
-        // Handle preflight OPTIONS requests
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            return;
-        }
 
         String token = request.getHeader("Authorization");
 
@@ -77,6 +72,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(@SuppressWarnings("null") HttpServletRequest request) throws ServletException {
+        
+       if (CorsUtils.isPreFlightRequest(request)) return true;
+
         String path = request.getRequestURI();
         // Exclude public endpoints
         String[] excludedPaths = { "/auth", "/stripe/webhook", "/images", "/subscription", "/ws", "/public", "/contact-message" };
