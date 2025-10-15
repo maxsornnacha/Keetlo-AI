@@ -114,7 +114,7 @@
               v-else
               class="flex h-11 w-full items-center justify-center gap-2 rounded-xl text-base font-semibold text-white transition
                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0"
-              :class="plan.packageType === 'default'
+              :class="plan.packageType === 'DEFAULT'
                 ? 'bg-slate-400/60 cursor-not-allowed'
                 : 'bg-indigo-600 hover:bg-indigo-700 cursor-pointer'"
               :disabled="plan.packageType === 'default'"
