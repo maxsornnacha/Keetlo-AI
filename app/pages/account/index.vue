@@ -369,11 +369,10 @@ async function onSaveChanges() {
     };
     await api.post(`${config.public.NUXT_PUBLIC_API_BASE}/user/update`, payload);
 
-    // sync originals and clear staged image
-    avatarBase64.value = null;
-    Object.assign(originalForm, JSON.parse(JSON.stringify(form)));
-
     showToast("Profile updated successfully!");
+    setTimeout(()=>{
+      window.location.reload();
+    }, 1000)
   } catch (err) {
     console.error(err);
     showToast("Failed to update profile");

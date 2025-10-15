@@ -53,7 +53,7 @@
       <div
         v-if="opened"
         ref="menuRef"
-        class="absolute right-0 top-12 w-[300px] bg-[#0D1117] backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden"
+        class="absolute right-0 top-12 min-w-[300px] bg-[#0D1117] backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden"
       >
         <!-- User Info -->
         <div class="flex items-center gap-3 p-4">
