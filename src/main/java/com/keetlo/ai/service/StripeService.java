@@ -22,8 +22,8 @@ public class StripeService {
     private String STRIPE_SECRET_KEY;
     @Value("${stripe.endpoint.secret}")
     private String STRIPE_ENDPOINT_SECRET;
-    @Value("${client.url}")
-    private String CLIENT_URL;
+    @Value("${stripe.return.url}")
+    private String STRIPE_RETURN_URL;
      private final JdbcTemplate database;
 
     public StripeService(StripeUtil stripeUtil, JdbcTemplate database){
@@ -54,8 +54,8 @@ public class StripeService {
         SessionCreateParams params =
             SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl(CLIENT_URL+"/payment/success?invoice_id="+invoiceId)
-                .setCancelUrl(CLIENT_URL+"/payment/cancel")
+                .setSuccessUrl(STRIPE_RETURN_URL+"/payment/success?invoice_id="+invoiceId)
+                .setCancelUrl(STRIPE_RETURN_URL+"/payment/cancel")
                 .addLineItem(lineItem)
                 .putMetadata("userId", userId)
                 .putMetadata("subscriptionPlanId", subscriptionPlanId)
