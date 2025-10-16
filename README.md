@@ -11,7 +11,4 @@ npm install --save-dev @types/prismjs
 npm i floating-vue
 npm i @ctrl/tinycolor
 
-npm install -D @nuxtjs/robots
-npm install @nuxtjs/schema-org
-npm install nuxt-simple-sitemap
-npm i 'sweetalert2@^11'
+npx nuxt module add @nuxtjs/sitemap

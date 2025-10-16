@@ -1,6 +1,6 @@
 <!-- pages/account/favorites.vue -->
 <template>
-  <main class="min-h-screen text-white px-4 lg:px-8 py-8">
+  <main class="mx-auto max-w-[1400px] min-h-screen text-white px-4 lg:px-8 py-8">
     <header class="mb-6">
       <h2 class="text-3xl md:text-4xl font-bold">Your Favorite Projects</h2>
       <p class="text-white/70 mt-1">Projects you’ve saved. Search, sort and manage them here.</p>

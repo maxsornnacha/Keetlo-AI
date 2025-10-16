@@ -4,12 +4,12 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-10">
       <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
         <div class="flex flex-col items-center gap-2 sm:items-start">
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-0">
               <nuxt-img
         src="/logo.png"
         class="h-10 w-10"
         />
-            <h3 class="text-lg font-bold">Keetlo</h3>
+            <h3 class="text-lg font-bold">EETLO</h3>
           </div>
           <p class="text-sm text-gray-400">
             © 2025 Sornnacha Buranapongwattana

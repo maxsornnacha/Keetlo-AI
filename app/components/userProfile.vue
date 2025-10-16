@@ -12,7 +12,7 @@
         </a>
         <a :href="registerUrl">
           <button
-            class="flex min-w-[84px] items-center justify-center rounded-md h-10 px-5 bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition"
+            class="cursor-pointer flex min-w-[84px] items-center justify-center rounded-md h-10 px-5 bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition"
           >
             <span>Sign Up</span>
           </button>
@@ -53,7 +53,7 @@
       <div
         v-if="opened"
         ref="menuRef"
-        class="absolute right-0 top-12 min-w-[300px] bg-[#0D1117] backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden"
+        class="absolute right-0 top-12 max-w-[90vw] min-w-[300px] bg-[#0D1117] backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden"
       >
         <!-- User Info -->
         <div class="flex items-center gap-3 p-4">
@@ -69,7 +69,7 @@
           />
           <div>
             <p class="text-white font-semibold truncate">
-              {{ props.user.firstname }} {{ props.user.lastname }}
+              {{ (props.user.firstname+" "+props.user.lastname).slice(0,22) }}{{(props.user.firstname+" "+props.user.lastname).length > 22 ? '...' : ''  }}
             </p>
             <p class="text-gray-400 text-sm truncate max-w-[180px]">{{ props.user.email }}</p>
           </div>
@@ -204,6 +204,7 @@ const manageMenu : MenuItem[] = [
   { type: "link", label: "Projects", href: "/account/projects", icon: "i-lucide-folder-open" },
   { type: "link", label: "Favorite Projects", href: "/account/favorites", icon: "i-lucide-heart" },
   // { type: "link", label: "Public projects", href: `/public/account/test-profile`, icon: "i-lucide-globe" },
+  { type: "link", label: "Orders", href: "/account/payment", icon: "i-lucide-receipt-text" },
 ];
 
 const actionMenu : MenuItem[] = [

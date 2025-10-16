@@ -7,7 +7,7 @@
         class="absolute inset-0 sm:left-[25%] top-20 z-[1] sm:w-[50%] sm:h-[80%] rounded-full blur-xl opacity-70 bg-no-repeat bg-[radial-gradient(120%_90%_at_25%_25%,_var(--tw-gradient-stops))] [--tw-gradient-stops:#60a5fa,_#22d3ee_30%,_#a78bfa_55%,_#f97316_75%,_#facc15_100%]"
       />
     </div>
-    <div class="flex flex-col items-center justify-center text-center">
+    <div class="flex flex-col items-center justify-center text-center mx-auto container p-4">
       <div
         class="relative border border-slate-50/20 min-h-[480px] w-full flex flex-col items-center justify-center rounded-2xl bg-cover bg-center bg-no-repeat p-4"
         style="

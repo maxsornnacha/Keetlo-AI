@@ -1,6 +1,7 @@
 <template>
+  <div class="border-b border-solid border-[#30363d]">
     <header
-      class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#30363d] px-4 py-4"
+      class="mx-auto max-w-[1400px] w-full flex items-center justify-between whitespace-nowrap px-4 py-4"
     >
     <Teleport to="body">
           <div
@@ -64,6 +65,7 @@
       <UserProfile :user="props.user" />
       </div>
     </header>
+    </div>
 </template>
 <script setup lang="ts">
 import type { Project } from "~/types/Projects";

@@ -144,12 +144,12 @@ const generateProject = async () => {
     const response = await api.post(
       `${config.public.NUXT_PUBLIC_API_BASE}/project/create`,
       payload,
-      { headers: { Accept: "text/event-stream" } }
     );
     const projectId = response.data.projectId;
     window.location.href = `/account/projects/${projectId}`;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      console.log(error)
       if(error.status === 401){
         window.location.href = `/auth/login?next=${window.location.href}`
       } else {
@@ -160,6 +160,7 @@ const generateProject = async () => {
       });
     }
     } else {
+      alert(3)
        await $modal.alert({ 
       title: 'Error', 
       html: `<p>${toErrorMessage(error)}</p>`, 

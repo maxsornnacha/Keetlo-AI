@@ -75,6 +75,7 @@
                <div class="lg:hidden flex gap-2 rounded-xl p-1">
               <button
                 class="border border-white/10 bg-white/5 px-3 py-1.5 text-sm rounded-lg transition text-slate-300 hover:bg-white/20 cursor-pointer"
+                @click="onRemix(props.selectedProject?.projectId)"
               >
                 <div class="inline-flex items-center gap-2">
                   <UIcon name="i-lucide-layers" class="size-4" />

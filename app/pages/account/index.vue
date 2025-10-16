@@ -1,5 +1,5 @@
 <template>
-  <main v-if="form.isLogin === 'yes'" class="col-span-12 md:col-span-9 relative">
+  <main v-if="form.isLogin === 'yes'" class="mx-auto max-w-[1200px] relative">
     <!-- Background polish -->
     <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div class="absolute inset-0 bg-[#0b0f14]"/>

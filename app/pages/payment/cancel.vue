@@ -14,7 +14,7 @@
 
     <!-- Card -->
     <section
-      class="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl px-6 py-8 sm:px-8"
+      class="w-full max-w-xl rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:backdrop-blur-md lg:shadow-2xl px-6 py-8 sm:px-8"
       aria-labelledby="cancel-title"
     >
       <!-- Warning badge -->
@@ -70,7 +70,7 @@
         <!-- Primary: Back home -->
         <a href="/" class="w-full">
           <button
-            class="cursor-pointer w-full h-11 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-colors"
+            class="cursor-pointer w-full h-11 rounded-lg bg-[#0D1117] hover:bg-[#0D1117]/70 text-white font-semibold transition-colors"
           >
             Go back home
           </button>
