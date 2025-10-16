@@ -7,13 +7,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Order {
-    @JsonProperty("invoice")
+    @JsonProperty("receiptId")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String invoice;
+    private String receiptId;
 
     @JsonProperty("userId")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userId;
+
+    @JsonProperty("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String name;
+
+    @JsonProperty("email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String email;
 
     @JsonProperty("subscriptionPlanId")
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -35,6 +43,10 @@ public class Order {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String currency = "usd";
 
+    @JsonProperty("currencySymbol")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String currencySymbol;
+
     @JsonProperty("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private PaymentStatus status = PaymentStatus.PENDING;
@@ -43,28 +55,69 @@ public class Order {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime createdAt;
 
-    @JsonProperty("status")
+    @JsonProperty("updatedAt")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime updatedAt;
 
-    // Enum for status
+    @JsonProperty("planName")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String planName;
+
+    @JsonProperty("planDescription")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String planDescription;
+
+   @JsonProperty("startDate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private LocalDateTime starDate;
+
+    @JsonProperty("endDate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private LocalDateTime endDate;
+
     public enum PaymentStatus {
-        PAID,
-        UNPAID,
-        NO_PAYMENT_REQUIRED,
-        PENDING
+    PENDING, PAID, UNPAID, FAILED, CANCELED;
+    public static PaymentStatus fromDb(String s) {
+        if (s == null) return PENDING;
+        String v = s.trim().toUpperCase();
+        switch (v) {
+            case "SUCCESS": case "SUCCEEDED": case "COMPLETED": return PAID;
+            case "CANCELLED": return CANCELED;
+        }
+        try {
+            return PaymentStatus.valueOf(v);
+        } catch (IllegalArgumentException ex) {
+            return PENDING;
+        }
     }
+}
 
     // Getters and Setters
-    public String getInvoice() {
-        return invoice;
+    public String getReceiptId() {
+        return receiptId;
     }
 
-    public void setInvoice(String invoice) {
-        this.invoice = invoice;
+    public void setReceiptId(String receiptId) {
+        this.receiptId = receiptId;
     }
 
-    public String getUserId() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+     public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+     public String getUserId() {
         return userId;
     }
 
@@ -134,6 +187,47 @@ public class Order {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
+    }
+
+    public String getPlanDescription() {
+        return planDescription;
+    }
+
+    public void setPlanDescription(String planDescription) {
+        this.planDescription = planDescription;
+    }
+
+    public String getCurrencySymbol() {
+        return currencySymbol;
+    }
+
+    public void setCurrencySymbol(String currencySymbol) {
+        this.currencySymbol = currencySymbol;
+    }
+
+   public LocalDateTime getStartDate() {
+        return starDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.starDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 }
 

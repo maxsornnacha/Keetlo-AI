@@ -2,6 +2,7 @@ package com.keetlo.ai.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.keetlo.ai.dto.StripePackageRequest;
+import com.keetlo.ai.model.Order;
 import com.keetlo.ai.model.SubscriptionPlan;
+import com.keetlo.ai.service.OrderDocumentService;
+import com.keetlo.ai.service.OrderService;
 import com.keetlo.ai.service.StripeService;
 import com.keetlo.ai.service.SubscriptionService;
 
@@ -25,7 +29,8 @@ public class StripeController {
     private final StripeService stripeService;
     private final SubscriptionService subscriptionService;
 
-    public StripeController(StripeService stripeService,  SubscriptionService subscriptionService) {
+    public StripeController(StripeService stripeService,  SubscriptionService subscriptionService
+    ) {
         this.stripeService = stripeService;
         this.subscriptionService = subscriptionService;
     }
@@ -71,6 +76,7 @@ public class StripeController {
                 return ResponseEntity.status(400).body(response);
             }
             stripeService.createOrder(payload, sigHeader);
+            
 
             response.put("message", "Webhook function got worked successfully");
             return ResponseEntity.status(200).body(response);

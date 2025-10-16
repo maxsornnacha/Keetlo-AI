@@ -50,9 +50,9 @@ public class StripeUtil {
         }
     }
 
-    public static String createInvoiceId(){
+    public static String createReceiptId(){
         String rawUuid = UUID.randomUUID().toString();  
-        String invoiceId = "kt_" + rawUuid.replaceAll("-", "");
-        return invoiceId;
+        String receiptId = "kt_" + rawUuid.replaceAll("-", "");
+        return receiptId;
     }
 }

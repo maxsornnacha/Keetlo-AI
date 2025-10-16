@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Receipt {{ receipt_id }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      /* Colors inlined (no :root):
+         ink #0b1220, muted #6b7280, line #e5e7eb, ok #16a34a, bg #ffffff, chip #ecfdf5 */
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue";
+        color: #0b1220;
+        background: #ffffff;
+        margin: 0;
+      }
+      .wrap {
+        max-width: 680px;
+        margin: 24px auto;
+        padding: 28px;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #10b981, #34d399);
+      }
+      .chip {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #ecfdf5;
+        color: #16a34a;
+        font-weight: 700;
+        font-size: 12px;
+      }
+      h1 {
+        margin: 12px 0 6px;
+        font-size: 22px;
+      }
+      .muted {
+        color: #6b7280;
+      }
+      .box {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 16px;
+        margin-top: 16px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 8px 0;
+        border-bottom: 1px dashed #e5e7eb;
+      }
+      .row:last-child {
+        border-bottom: none;
+      }
+      .big {
+        font-size: 26px;
+        font-weight: 900;
+      }
+      .right {
+        text-align: right;
+      }
+      .note {
+        margin-top: 16px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+      @media print {
+        .wrap {
+          border: none;
+          border-radius: 0;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="top">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <div>
+              <img
+              src="https://www.keetlo.com/_ipx/_/logo.png"
+              width="50"
+              height="50"
+              />
+          </div>
+          <div>
+            <div style="font-weight: 800">{{ company_name }}</div>
+            <div class="muted">{{ company_website }}</div>
+          </div>
+        </div>
+        <span class="chip">PAID</span>
+      </div>
+
+      <h1>Payment Receipt</h1>
+      <div class="muted">
+        Receipt #: {{ receipt_id }} &nbsp;•&nbsp; Date: {{ created_at }}
+      </div>
+
+      <section class="box">
+        <div class="row">
+          <div>
+            <div class="muted">Billed To</div>
+            <div><strong>{{ customer_name }}</strong></div>
+            <div class="muted">{{ customer_email }}</div>
+          </div>
+          <div class="right">
+            <div class="muted">Subscription</div>
+            <div><strong>{{ plan_name }}</strong></div>
+            <div class="muted">{{ plan_description }}</div>
+            <div class="muted">Period: {{ start_date }} to {{ end_date }}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div>Amount</div>
+          <div class="big">
+            {{ currency_symbol }}{{ amount }}
+            <span class="muted" style="font-size: 14px">({{ currency }})</span>
+          </div>
+        </div>
+      </section>
+
+      <p class="note">
+        This receipt confirms payment for the subscription listed above. It does
+        not display payment processor IDs. For support, contact {{ support_email }}.
+      </p>
+    </main>
+  </body>
+</html>

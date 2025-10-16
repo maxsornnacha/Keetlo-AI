@@ -34,16 +34,15 @@ public class ProjectController {
         private final MessageService projectMessageService;
 
         private final ProjectService projectService;
-        private final WebClient webClient = WebClient.builder()
-                        .baseUrl("http://194.195.90.160:11435/api/generate")
-                        .build();
+        private final WebClient ollamaClient;
         private final ObjectMapper objectMapper;
 
         public ProjectController(ObjectMapper objectMapper, ProjectService projectService,
-                        MessageService projectMessageService) {
+                        MessageService projectMessageService, WebClient ollamaClient) {
                 this.objectMapper = objectMapper;
                 this.projectService = projectService;
                 this.projectMessageService = projectMessageService;
+                this.ollamaClient = ollamaClient;
         }
 
         @PostMapping("/create")
@@ -82,7 +81,7 @@ public class ProjectController {
                                 "}";
 
                 try {
-                        Flux<String> aiFlux = webClient.post()
+                        Flux<String> aiFlux = ollamaClient.post()
                                         .header("Content-Type", "application/json")
                                         .bodyValue(jsonBody)
                                         .retrieve()
