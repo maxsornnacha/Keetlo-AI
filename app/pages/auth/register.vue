@@ -1,22 +1,7 @@
 <template>
-  <main v-if="!verifyEmailProcess" class="relative min-h-screen text-slate-100 overflow-x-hidden grid place-items-center px-4">
-    <!-- Background -->
-    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div class="absolute inset-0 bg-[#0b0f14]"/>
-      <div
-        class="absolute inset-0 opacity-90"
-        :style="{
-          backgroundImage: [
-            `radial-gradient(1200px 700px at 50% -12%, rgba(144,180,255,.35), rgba(144,180,255,0) 70%)`,
-            `radial-gradient(1100px 800px at 50% 92%, rgba(255,172,70,.28), rgba(255,120,110,0) 70%)`
-          ].join(', ')
-        }"
-      />
-      <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_50%,transparent_60%,rgba(0,0,0,.55))]"/>
-    </div>
-
+  <main v-if="!verifyEmailProcess" class="relative min-h-screen text-slate-100 overflow-x-hidden grid place-items-center py-8 lg:py-0 px-4">
     <form
-      class="m-16 w-full max-w-lg rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md shadow-2xl ring-1 ring-white/10"
+      class="lg:m-16 w-full lg:max-w-lg lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:p-6 md:p-8 lg:backdrop-blur-md lg:shadow-2xl lg:ring-1 lg:ring-white/10"
       @submit.prevent="onRegister"
     >
       <!-- Header -->

@@ -1,22 +1,7 @@
 <template>
-  <main class="relative min-h-[80vh] grid place-items-center overflow-hidden text-slate-100 px-4 py-16">
-    <!-- Background -->
-    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div class="absolute inset-0 bg-[#0b0f14]"/>
-      <div
-        class="absolute inset-0 opacity-90"
-        :style="{
-          backgroundImage: [
-            `radial-gradient(1200px 700px at 50% -12%, rgba(144,180,255,.35), rgba(144,180,255,0) 70%)`,
-            `radial-gradient(1100px 800px at 50% 92%, rgba(255,172,70,.28), rgba(255,120,110,0) 70%)`
-          ].join(', ')
-        }"
-      />
-      <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_50%,transparent_60%,rgba(0,0,0,.55))]"/>
-    </div>
-
-    <div class="w-full max-w-md">
-      <div class="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md shadow-2xl ring-1 ring-white/10 text-center">
+  <main class="relative lg:min-h-[80vh] grid place-items-center overflow-hidden text-slate-100 px-4 py-16">
+    <div class="w-full lg:max-w-md">
+      <div class="lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:p-6 md:p-8 lg:backdrop-blur-md lg:shadow-2xl lg:ring-1 lg:ring-white/10 text-center">
         <!-- Header -->
         <div class="flex items-center justify-center gap-3 mb-3">
           <UIcon name="i-lucide-shield-check" class="size-6 text-indigo-300" />

@@ -1,6 +1,6 @@
 <template>
   <main
-    class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    class="flex-grow flex items-center justify-center"
   >
     <div class="w-full max-w-md space-y-8">
       <div>

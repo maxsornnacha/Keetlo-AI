@@ -308,7 +308,7 @@
                     <iframe
                       :srcdoc="project.mainHtmlContent"
                       title="preview"
-                      class="rounded-md shadow bg-white pointer-events-none min-w-[320dvw] md:min-w-[180dvw] lg:min-w-auto min-h-[150dvh]"
+                      class="rounded-md shadow bg-white pointer-events-none min-w-[370dvw] sm:min-w-[250dvw] md:min-w-[200dvw] lg:min-w-auto min-h-[150dvh]"
                       :style="{
                         width: DESKTOP_W + 'px',
                         height: DESKTOP_H + 'px',

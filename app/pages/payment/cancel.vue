@@ -51,7 +51,7 @@
           </li>
           <li class="flex items-start gap-3">
             <UIcon name="i-lucide-shield" class="mt-0.5 size-4 text-white/60" />
-            <span>We didn’t bill your card and your order wasn’t created.</span>
+            <span>We didn’t bill your card.</span>
           </li>
           <li class="flex items-start gap-3">
             <UIcon

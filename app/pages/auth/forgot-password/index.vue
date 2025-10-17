@@ -1,31 +1,13 @@
 <template>
-  <main class="relative min-h-screen text-white">
-    <!-- Subtle background -->
-    <div class="pointer-events-none absolute inset-0 -z-10">
-      <div class="absolute inset-0 bg-[#0b0f14]" />
-      <div
-        class="absolute inset-0 opacity-90"
-        :style="{
-          backgroundImage: [
-            `radial-gradient(1200px 700px at 50% -15%, rgba(144,180,255,0.35), rgba(144,180,255,0.05) 55%, rgba(144,180,255,0) 80%)`,
-            `radial-gradient(1100px 800px at 50% 95%, rgba(255,172,70,0.35), rgba(255,120,110,0.18) 45%, rgba(255,120,110,0) 80%)`
-          ].join(', ')
-        }"
-      />
-      <div
-        class="absolute inset-0 opacity-40 mix-blend-overlay"
-        :style="{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.2px)', backgroundSize: '6px 6px' }"
-      />
-    </div>
-
+  <main class="relative lg:min-h-screen text-white">
     <!-- No token: request email -->
-    <div v-if="!token" class="flex flex-col items-center justify-center px-4 py-16 sm:py-24">
+    <div v-if="!token" class="flex flex-col items-center justify-center lg:px-4 py-16 sm:py-24">
       <div
         v-if="!sendEmailSuccess"
-        class="w-full max-w-md"
+        class="w-full lg:max-w-md"
       >
         <div
-          class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl ring-1 ring-white/10"
+          class="relative overflow-hidden lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:backdrop-blur-md lg:shadow-2xl lg:ring-1 lg:ring-white/10"
         >
           <!-- Accent line -->
           <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
@@ -84,7 +66,7 @@
               <!-- Submit -->
               <button
                 type="submit"
-                class="group relative flex w-full items-center justify-center gap-2 rounded-xl h-12 px-4 font-semibold
+                class="cursor-pointer group relative flex w-full items-center justify-center gap-2 rounded-xl h-12 px-4 font-semibold
                        text-white transition
                        focus:outline-none focus:ring-2 focus:ring-blue-400/60
                        disabled:opacity-60 disabled:cursor-not-allowed
@@ -115,9 +97,9 @@ class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r f
       </div>
 
       <!-- Email sent state -->
-      <div v-else class="w-full max-w-md">
-        <div class="overflow-hidden rounded-2xl border border-emerald-400/20 bg-emerald-400/10 backdrop-blur-md p-6 sm:p-8 ring-1 ring-emerald-400/30">
-          <div class="flex items-start gap-4">
+      <div v-else class="w-full lg:max-w-md">
+        <div class="overflow-hidden lg:rounded-2xl lg:border lg:border-emerald-400/20 lg:bg-emerald-400/10 lg:backdrop-blur-md lg:p-6 sm:p-8 lg:ring-1 lg:ring-emerald-400/30">
+          <div class=" px-4 lg:px-0 flex items-start gap-4">
             <div class="my-1 px-2 pt-2 pb-1 inline-flex size-10 items-center justify-center rounded-lg bg-emerald-400/20 ring-1 ring-emerald-400/40">
               <UIcon name="i-lucide-check-circle-2" class="size-6 text-emerald-300" />
             </div>
@@ -143,10 +125,10 @@ class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r f
       </div>
 
       <!-- Valid -->
-      <div v-else-if="isTokenValid" class="mx-auto w-full max-w-lg">
-        <div class="overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl ring-1 ring-white/10">
+      <div v-else-if="isTokenValid" class="mx-auto w-full lg:max-w-lg">
+        <div class="overflow-hidden lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:backdrop-blur-md lg:shadow-2xl lg:ring-1 lg:ring-white/10">
           <div class="p-6 sm:p-8">
-            <div class="mb-6 flex items-center gap-3">
+            <div class="hidden lg:block mb-6 flex items-center gap-3">
               <div class="inline-flex size-10 items-center justify-center rounded-lg bg-indigo-400/20 ring-1 ring-indigo-400/30">
                 <UIcon name="i-lucide-lock" class="size-5 text-indigo-300" />
               </div>
@@ -162,7 +144,7 @@ class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r f
 
       <!-- Invalid -->
       <div v-else class="mx-auto w-full max-w-lg">
-        <div class="overflow-hidden rounded-2xl border border-rose-400/20 bg-rose-400/10 backdrop-blur-md p-6 sm:p-8 ring-1 ring-rose-400/30">
+        <div class="overflow-hidden lg:rounded-2xl lg:border lg:border-rose-400/20 lg:bg-rose-400/10 lg:backdrop-blur-md lg:p-6 sm:p-8 lg:ring-1 lg:ring-rose-400/30">
           <div class="flex items-start gap-4">
             <div class="mt-1 inline-flex size-10 items-center justify-center rounded-lg bg-rose-400/20 ring-1 ring-rose-400/40">
               <UIcon name="i-lucide-alert-octagon" class="size-6 text-rose-300" />

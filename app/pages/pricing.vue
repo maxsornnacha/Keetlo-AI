@@ -197,7 +197,7 @@
         </h3>
         <p class="mt-2 text-white/70">Please try again later.</p>
         <button
-          class="mt-6 rounded-lg bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/15 border border-white/10"
+          class="cursor-pointer mt-6 rounded-lg bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/15 border border-white/10"
           @click="$router.go(0)"
         >
           Retry

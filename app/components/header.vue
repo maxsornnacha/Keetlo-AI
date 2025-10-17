@@ -14,7 +14,7 @@
         <UIcon name="i-lucide-menu" class="size-6" />
       </button>
 
-      <NuxtLink to="/" class="flex items-center gap-0 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md">
+      <NuxtLink to="/" class="flex items-center gap-0">
         <nuxt-img src="/logo.png" class="h-9 w-9" />
         <h1 class="text-xl font-bold tracking-tight">EETLO</h1>
       </NuxtLink>

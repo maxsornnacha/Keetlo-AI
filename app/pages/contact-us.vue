@@ -70,7 +70,7 @@
             />
           </div>
 
-          <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center justify-end gap-3">
             <p v-if="errorMessage" class="text-sm text-red-400">
               {{ errorMessage }}
             </p>
@@ -100,6 +100,14 @@
             >
               <span class="material-symbols-outlined"> mail </span>
               keetlo.ai@gmail.com
+            </a>
+            <p/>
+             <a
+              class="mt-4 inline-flex items-center gap-2 text-[#1173d4] hover:text-[#1173d4]/90 font-medium"
+              href="mailto:keetlo.ai@gmail.com"
+            >
+              <span class="material-symbols-outlined"> mail </span>
+              sornnacha.bu@gmail.com
             </a>
           </div>
         </div>
