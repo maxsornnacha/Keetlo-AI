@@ -81,7 +81,9 @@ public class ProjectController {
                                 "}";
 
                 try {
-                        Flux<String> aiFlux = ollamaClient.post()
+                        Flux<String> aiFlux = ollamaClient
+                                        .post()
+                                        .uri("/api/generate")
                                         .header("Content-Type", "application/json")
                                         .bodyValue(jsonBody)
                                         .retrieve()

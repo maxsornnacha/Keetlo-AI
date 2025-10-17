@@ -4,6 +4,8 @@ import com.keetlo.ai.model.Order;
 import com.keetlo.ai.service.OrderDocumentService;
 import com.keetlo.ai.service.OrderService;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
+@Slf4j
 public class OrderController {
-
-    private static final Logger log = LoggerFactory.getLogger(OrderController.class);
     private final OrderService orderService;
     private final OrderDocumentService orderDocumentService;
 

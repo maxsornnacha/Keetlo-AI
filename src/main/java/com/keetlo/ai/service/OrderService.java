@@ -1,11 +1,17 @@
 package com.keetlo.ai.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.keetlo.ai.model.Order;
 import com.keetlo.ai.model.Order.PaymentStatus;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class OrderService {
     private final JdbcTemplate database;
 
@@ -46,18 +53,24 @@ public class OrderService {
             order.setCurrency(currency);
             order.setCurrencySymbol(symbolFor(currency));
             order.setStatus(PaymentStatus.fromDb(resultRow.getString("status")));
-            order.setStartDate(resultRow.getTimestamp("start_date") != null ? resultRow.getTimestamp("start_date").toLocalDateTime() : null);
-            order.setEndDate(resultRow.getTimestamp("end_date") != null ? resultRow.getTimestamp("end_date").toLocalDateTime() : null);
-            order.setCreatedAt(resultRow.getTimestamp("created_at") != null ? resultRow.getTimestamp("created_at").toLocalDateTime() : null);
+            order.setStartDate(resultRow.getTimestamp("start_date") != null
+                    ? resultRow.getTimestamp("start_date").toLocalDateTime()
+                    : null);
+            order.setEndDate(
+                    resultRow.getTimestamp("end_date") != null ? resultRow.getTimestamp("end_date").toLocalDateTime()
+                            : null);
+            order.setCreatedAt(resultRow.getTimestamp("created_at") != null
+                    ? resultRow.getTimestamp("created_at").toLocalDateTime()
+                    : null);
             order.setPlanName(resultRow.getString("plan_name"));
             order.setPlanDescription(resultRow.getString("plan_description"));
-            
+
             return order;
         }
     };
 
     public Optional<Order> getSingleOrderByReceiptIdAndUserId(String receiptId, String userId) {
-        final String sql = """ 
+        final String sql = """
                 SELECT
                     orders.receipt_id, orders.user_id, orders.subscription_plan_id,
                     orders.amount, orders.currency, orders.status, orders.start_date, orders.end_date, orders.created_at,
@@ -75,8 +88,8 @@ public class OrderService {
         }
     }
 
-        public Optional<Order> getSingleOrderByReceiptId(String receiptId) {
-        final String sql = """ 
+    public Optional<Order> getSingleOrderByReceiptId(String receiptId) {
+        final String sql = """
                 SELECT
                     orders.receipt_id, orders.user_id, orders.subscription_plan_id,
                     orders.amount, orders.currency, orders.status, orders.start_date, orders.end_date, orders.created_at,
@@ -97,7 +110,7 @@ public class OrderService {
     public List<Order> getOrdersByUserId(String userId, int limit, int offset) {
         final String sql = """
                 SELECT
-                    orders.receipt_id, orders.user_id, orders.subscription_plan_id, 
+                    orders.receipt_id, orders.user_id, orders.subscription_plan_id,
                     orders.amount, orders.currency, orders.status, orders.start_date, orders.end_date, orders.created_at,
                     subscription_plans.name AS plan_name, subscription_plans.description AS plan_description,
                     CONCAT(orders.firstname, ' ', orders.lastname) AS name, orders.email
@@ -115,6 +128,20 @@ public class OrderService {
         final String sql = "SELECT COUNT(*) FROM orders WHERE user_id = ?";
         Integer n = database.queryForObject(sql, Integer.class, userId);
         return n != null ? n : 0;
+    }
+
+    @Transactional
+    public int expireOldPendingOrders() {
+        // Postgres: now() - interval '10 minutes'
+        String sql = """
+                  UPDATE orders
+                  SET status = 'CANCELED'
+                  WHERE status = 'PENDING'
+                   AND created_at <= NOW() - INTERVAL 10 MINUTE;
+                """;
+        int n = database.update(sql);
+        log.info("expireOldPendingOrders: {}", n);
+        return n;
     }
 
 }

@@ -29,6 +29,48 @@ public class UserSubscriptionPlan {
 
     public UserSubscriptionPlan(){};
 
+     // Getters
+    public String getUserSubscriptionPlanId() {
+        return userSubscriptionPlanId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getSubscriptionPlanId() {
+        return subscriptionPlanId;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    // Setters
+    public void setUserSubscriptionPlanId(String userSubscriptionPlanId) {
+        this.userSubscriptionPlanId = userSubscriptionPlanId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setSubscriptionPlanId(String subscriptionPlanId) {
+        this.subscriptionPlanId = subscriptionPlanId;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     // Additional Method
     public String createUserSubscriptionPlanId() {
         return UUID.randomUUID().toString();

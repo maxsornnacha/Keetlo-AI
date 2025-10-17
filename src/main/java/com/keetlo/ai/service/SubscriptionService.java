@@ -1,18 +1,24 @@
 package com.keetlo.ai.service;
 
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.keetlo.ai.dto.GetSubscriptionPlansByTokenResult;
 import com.keetlo.ai.model.SubscriptionPlan;
 import com.keetlo.ai.model.UserSubscriptionPlan;
 import com.keetlo.ai.util.JwtUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class SubscriptionService {
     private final JdbcTemplate database;
     private final JwtUtil jwtUtil;
@@ -99,8 +105,10 @@ public class SubscriptionService {
                 SELECT subscription_plan_id, requests_per_day FROM subscription_plans WHERE package_type = 'DEFAULT'
                 """;
         String sql = """
-            INSERT INTO user_subscription_plans (user_subscription_plan_id, user_id, subscription_plan_id, left_requests)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO user_subscription_plans (user_subscription_plan_id, user_id, subscription_plan_id, left_requests,
+            receipt_id, start_date, end_date
+            )
+            VALUES (?, ?, ?, ?, NULL, NULL, NULL)
         """;
         try{
             UserSubscriptionPlan userSubscriptionPlan = new UserSubscriptionPlan();
@@ -122,5 +130,52 @@ public class SubscriptionService {
             return false; 
         }
     }
+
+    @Transactional
+  public int resetDailyRequestTokens() {
+    // Postgres
+    String sql = """
+        UPDATE user_subscription_plans
+        JOIN subscription_plans
+        ON subscription_plans.subscription_plan_id = user_subscription_plans.subscription_plan_id
+        SET user_subscription_plans.left_requests = subscription_plans.requests_per_day,
+            user_subscription_plans.updated_at   = NOW()
+        WHERE user_subscription_plans.left_requests IS NOT NULL;
+      """;
+    int n = database.update(sql);
+    log.info("resetDailyRequestTokens: {}", n);
+    return n;
+  }
+
+  @Transactional
+  public int downgradeExpiredToDefault(ZoneId zone) {
+    // 1) fetch DEFAULT plan id + daily quota
+    var def = database.queryForObject("""
+      SELECT subscription_plan_id, requests_per_day
+      FROM subscription_plans
+      WHERE package_type = 'DEFAULT'
+    """, (rs, _) -> Map.of(
+        "id", rs.getString("subscription_plan_id"),
+        "quota", rs.getInt("requests_per_day")
+    ));
+    if (def == null) return 0;
+    String defaultPlanId = (String) def.get("id");
+    Integer defaultQuota   = (Integer) def.get("quota");
+
+    // 2) set DEFAULT where expired (end_date < today in zone)
+    String sql = """
+      UPDATE user_subscription_plans
+      SET subscription_plan_id = ?,
+          left_requests = ?,
+          receipt_id = NULL,
+          start_date = NULL,
+          end_date = NULL
+      WHERE end_date IS NOT NULL
+        AND end_date < NOW()
+    """;
+    int n = database.update(sql, defaultPlanId, defaultQuota);
+    log.info("downgradeExpiredToDefault: {}", n);
+    return n;
+  }
 
 }
