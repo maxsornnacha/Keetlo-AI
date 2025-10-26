@@ -182,14 +182,9 @@ const opened = ref(false);
 const menuRef = ref<HTMLElement | null>(null);
 const profileRef = ref<HTMLElement | null>(null);
 const nextQuery = ref(route.query.next);
-const currentUrl = ref("");
 
-onMounted(() => {
-  currentUrl.value = window.location.href;
-});
-
-const loginUrl = computed(() => `/auth/login?next=${nextQuery.value || currentUrl.value}`);
-const registerUrl = computed(() => `/auth/register?next=${nextQuery.value || currentUrl.value}`);
+const loginUrl = computed(() => `/auth/login?next=${nextQuery.value || route.fullPath}`);
+const registerUrl = computed(() => `/auth/register?next=${nextQuery.value || route.fullPath}`);
 
 
 interface MenuItem {

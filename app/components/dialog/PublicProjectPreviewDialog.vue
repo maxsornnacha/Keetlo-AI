@@ -51,7 +51,7 @@
               </button>
               <a
                 class="border border-gray-200 px-3 py-1.5 text-sm rounded-lg transition text-black hover:bg-gray-200 cursor-pointer"
-                :href="props.selectedProject?.link + `?back=${fullPath}`"
+                :href="props.selectedProject?.link + `?back=${route.fullPath}`"
               >
                 <div class="inline-flex items-center gap-2">
                   <UIcon name="i-lucide-folder" class="size-4" />
@@ -114,13 +114,13 @@
 import axios from 'axios';
 import type { PublicProject } from '~/types/PublicProject';
 import PageLoader from '../ui/PageLoader.vue';
+const route = useRoute();
 const config = useRuntimeConfig();
 const props = defineProps<{
     selectedProject: PublicProject | null;
     closePreview: ()=>void;
 }>();
 const { selectedProject, closePreview } = toRefs(props);
-const fullPath = ref(window.location.href);
 const loadingOnRemix = ref(false);
 const { $modal } = useNuxtApp()
 
