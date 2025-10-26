@@ -87,7 +87,7 @@
               <!-- Cover -->
               <div
                 :ref="el => setPreviewRef(project.projectId, el as HTMLElement)"
-                class="cursor-pointer group relative w-full rounded-2xl overflow-hidden border border-gray-200 h-[300px] lg:h-[250px]"
+                class="cursor-pointer group relative w-full rounded-2xl overflow-hidden border border-gray-200 bg-white h-[300px] lg:h-[250px]"
                 @click="openPreview(project)"
               >
                 <div
@@ -95,20 +95,7 @@
                 />
 
                 <div class="absolute inset-0 grid place-items-center">
-                  <iframe
-                    :srcdoc="project.mainHtmlContent"
-                    title="preview"
-                    class="rounded-md shadow bg-white pointer-events-none min-w-[290dvw] sm:min-w-[250dvw] md:min-w-[200dvw] lg:min-w-[120dvw] xl:min-w-[104dvw] 2xl:min-w-[97dvw] 4xl:min-w-auto min-h-[150dvh]"
-                    :style="{
-                      width: DESKTOP_W + 'px',
-                      height: DESKTOP_H + 'px',
-                      transform: `scale(${getScale(project.projectId)})`,
-                      transformOrigin: 'top left',
-                    }"
-                    sandbox="allow-scripts allow-same-origin"
-                    referrerpolicy="no-referrer"
-                    @load="lockIframe"
-                  />
+                  <img :src="`/api/thumbnail/${project.projectId}`" :alt="project.projectId || 'No title'" class="w-full aspect-[16/10] object-cover" loading="lazy">
                 </div>
 
                 <!-- floating actions -->
@@ -353,9 +340,6 @@ function resizeOne(id: string) {
   const ch = el.clientHeight;
   const s = Math.max(0.05, Math.min(cw / DESKTOP_W, ch / DESKTOP_H));
   scales[id] = s;
-}
-function getScale(id: string) {
-  return scales[id] ?? 0.3;
 }
 function queueResizeAll() {
   requestAnimationFrame(() => {

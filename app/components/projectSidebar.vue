@@ -6,7 +6,7 @@
   >
     <!-- Search -->
     <div
-      class="sticky top-0 z-30 p-4 backdrop-blur-sm border-b border-gray-200"
+      class="sticky top-0 z-30 p-4 backdrop-blur-sm border-b border-gray-200 bg-white"
     >
       <label for="project-search" class="sr-only">Search projects</label>
       <div class="relative">
@@ -63,14 +63,7 @@
             <div
               class="flex-none w-[50px] h-[50px] overflow-hidden border border-gray-200 rounded-md shadow bg-white relative"
             >
-              <iframe
-                :srcdoc="project.mainHtmlContent"
-                title="preview"
-                class="absolute top-0 left-0 w-[1000px] h-[1200px] origin-top-left scale-[0.1] pointer-events-none"
-                sandbox="allow-scripts allow-same-origin"
-                referrerpolicy="no-referrer"
-                @load="lockIframe"
-              />
+             <img :src="`/api/thumbnail/${project.projectId}`" alt="" class="w-full aspect-[16/10] object-cover" loading="lazy">
             </div>
 
             <!-- Meta -->

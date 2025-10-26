@@ -342,7 +342,7 @@ import { TinyColor } from '@ctrl/tinycolor'
 import SockJS from "sockjs-client";
 import debounce from 'lodash/debounce'
 import { Client } from "@stomp/stompjs";
-import { reactive, ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted } from "vue";
 import type { WebPage } from "~/modules/pageStream";
 import type { PagePosition } from "~/types/PagePostion";
 import type { Project } from "~/types/Projects";
@@ -370,19 +370,19 @@ const props = defineProps<{
 const loadingOnDeletePage = ref(false);
 
 const canvasWidth = computed(() => {
-  if (!webPages.length) return 1200 // default
+  if (!webPages.value.length) return 1200 // default
 
   const maxRight = Math.max(
-    ...webPages.map(p => p.left + p.width)
+    ...webPages.value.map(p => p.left + p.width)
   )
   return maxRight + 200 // padding at the end
 })
 
 const canvasHeight = computed(() => {
-  if (!webPages.length) return 800 // default
+  if (!webPages.value.length) return 800 // default
 
   const maxBottom = Math.max(
-    ...webPages.map(p => p.top + p.height)
+    ...webPages.value.map(p => p.top + p.height)
   )
   return maxBottom + 200 
 })
@@ -475,8 +475,8 @@ const initialWidth = ref(1200);
 const initialHeight = ref(1400);
 const initialDpr = ref(2);
 
-const webPages = reactive(props.webPages);
-const selectedPage = ref<null | (typeof webPages)[0]>(null);
+const webPages = ref(props.webPages);
+const selectedPage = ref<null | (typeof webPages.value)[0]>(null);
 const activeTab = ref<"preview" | "code">("preview");
 const selectedPath = ref<null | string>(null);
 const config = useRuntimeConfig();
@@ -534,11 +534,8 @@ const deletePage = async (page: WebPage) => {
 })
 if (!ok){return;}
     if (page.generatedPageId === props.project.indexPage) {
-      alert(
-        "This page is the main public main/index page, please change to another one before deleting"
-      );
       await $modal.alert({ 
-        title: 'Project successfully craeted!', 
+        title: 'Error', 
         html: `</div>This page is the main public main/index page, please change to another one before deleting.</p>`,
          variant: 'danger' 
         });
@@ -549,8 +546,9 @@ if (!ok){return;}
       await api.delete(
         `${config.public.NUXT_PUBLIC_API_BASE}/page/delete/${page.generatedPageId}`
       );
-     await props.getProject();
+      await props.getProject();
       await props.getPages();
+      webPages.value = webPages.value.filter((item)=>item.generatedPageId !== page.generatedPageId);
       await $modal.alert({ 
         title: 'Page successfully deleted!', 
         html: `<p>Page got deleted successfully!"</p>`, 
@@ -584,7 +582,7 @@ watch(
 );
 
 const onChangePath = (generatedPageId: string) => {
-  const found = webPages.find(
+  const found = webPages.value.find(
     (page) => page.generatedPageId === generatedPageId
   );
   if (!found) {
@@ -595,7 +593,7 @@ const onChangePath = (generatedPageId: string) => {
 };
 
 const openPreview = (generatedPageId: string) => {
-  const found = webPages.find(
+  const found = webPages.value.find(
     (page) => page.generatedPageId === generatedPageId
   );
   if (!found) {
@@ -649,13 +647,13 @@ const stopDrag = () => {
 };
 
 // Resize
-let resizingPage: (typeof webPages)[0] | null = null;
+let resizingPage: (typeof webPages.value)[0] | null = null;
 let startWidth = 0;
 let startHeight = 0;
 let startX = 0;
 let startY = 0;
 
-const startResize = (e: MouseEvent, page: (typeof webPages)[0]) => {
+const startResize = (e: MouseEvent, page: (typeof webPages.value)[0]) => {
   resizingPage = page;
   startWidth = page.width;
   startHeight = page.height;

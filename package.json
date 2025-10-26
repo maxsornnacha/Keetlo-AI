@@ -28,6 +28,7 @@
     "lodash": "^4.17.21",
     "nuxt": "^4.1.1",
     "pinia": "^3.0.3",
+    "playwright": "^1.56.1",
     "prismjs": "^1.30.0",
     "sockjs-client": "^1.6.1",
     "tailwindcss": "^4.1.13",

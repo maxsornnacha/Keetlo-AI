@@ -35,14 +35,7 @@
         <div class="px-6 pb-6 pt-5 overflow-auto max-h-[90dvh] flex flex-col gap-4 lg:gap-8">
 
           <div class="self-center flex-none w-[250px] h-[250px] overflow-hidden border border-gray-200 rounded-md shadow-lg bg-white relative">
-              <iframe
-                :srcdoc="project.mainHtmlContent"
-                class="absolute top-0 left-0 w-[850px] h-[1200px] transform origin-top-left scale-[0.3]"
-                style="pointer-events: none;"
-                sandbox="allow-scripts allow-same-origin" 
-                referrerpolicy="no-referrer"
-                @load="lockIframe"
-              />
+              <img :src="`/api/thumbnail/${project.projectId}`" :alt="project.title || 'No title'" class="w-full aspect-[16/10] object-cover" loading="lazy">
             </div>
            <div>
                       <!-- Title -->

@@ -11,7 +11,7 @@
         />
         <div class="flex items-center gap-2">
           <aside
-            class="h-screen bg-white opacity-90 fixed inset-y-0 left-0 z-50 transform transition-transform duration-300"
+            class="h-screen bg-white fixed inset-y-0 left-0 z-50 transform transition-transform duration-300"
             :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
           >
             <div

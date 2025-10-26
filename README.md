@@ -10,5 +10,7 @@ npm install jszip file-saver
 npm install --save-dev @types/prismjs
 npm i floating-vue
 npm i @ctrl/tinycolor
+npm i playwright
+npx playwright install --with-deps chromium
 
 npx nuxt module add @nuxtjs/sitemap

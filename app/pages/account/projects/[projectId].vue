@@ -110,17 +110,7 @@
                   class="cursor-pointer relative h-[108px] w-[108px] overflow-hidden rounded-lg bg-white shadow"
                   @click="onPageSelection(page)"
                 >
-                  <iframe
-                    :srcdoc="page.htmlContent"
-                    class="absolute left-0 top-0 h-[1200px] w-[1200px] origin-top-left scale-[0.09]"
-                    style="pointer-events: none"
-                    sandbox="allow-scripts allow-same-origin"
-                    referrerpolicy="no-referrer"
-                    @load="lockIframe"
-                  />
-                  <div
-                    class="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-black/5"
-                  />
+                  <img :src="`/api/thumbnail/page/${page.generatedPageId}`" :alt="page.label" class="w-full aspect-[16/10] h-full object-cover" loading="lazy">
                 </button>
               </div>
             </template>
@@ -325,8 +315,10 @@
       name="i-lucide-loader-circle"
       class="size-12 text-indigo-400 animate-spin"
     />
-    <p class="mt-3 text-sm text-gray-700">
-      Loading chat session {{ projectId }}
+    <p class="mt-3 text-sm text-gray-700 flex justify-center items-center flex-col lg:flex-row gap-2 flex-wrap">
+      <span>Loading chat session:</span>
+      <span class="sm:hidden">{{ projectId.length > 25 ? projectId.slice(0,25)+"..." : projectId }}</span>
+      <span class="hidden sm:block">{{ projectId }}</span>
     </p>
   </div>
 </template>
@@ -382,7 +374,7 @@ const project = reactive<Project>({
   mainHtmlContent: "",
 });
 
-const webPages = reactive<WebPage[]>([]);
+const webPages = ref<WebPage[]>([]);
 const selectedPage = ref<null | WebPage>(null);
 const showUpdateDialog = ref(false);
 
@@ -416,7 +408,7 @@ const pageTitle = computed(() =>
 );
 
 const pageDesc = computed(() => {
-  const pageCount = Array.isArray(webPages) ? webPages.length : 0;
+  const pageCount = Array.isArray(webPages) ? webPages.value.length : 0;
   const updated = project?.updatedAt
     ? new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
         new Date(project.updatedAt)
@@ -562,7 +554,7 @@ const getPages = async () => {
     const response = await api.get(
       `${config.public.NUXT_PUBLIC_API_BASE}/page/list/${projectId}`
     );
-    Object.assign(webPages, response.data);
+    webPages.value = response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       errorMessage.value =
@@ -756,7 +748,7 @@ watch(webPages, (value) => {
 const onCreatePages = async (projectMessageId: string, message: string) => {
   try {
     const myToken = getToken();
-    const pagePosition = handlePagePosition(webPages.length);
+    const pagePosition = handlePagePosition(webPages.value.length);
     loadingCreatePages.value = pagePosition;
     progressCreatePages.value.status = true;
     progressCreatePages.value.progress = 1;
@@ -796,7 +788,7 @@ const onCreatePages = async (projectMessageId: string, message: string) => {
         }
       },
       async (page: WebPage) => {
-          const pagePosition = handlePagePosition(webPages.length);
+          const pagePosition = handlePagePosition(webPages.value.length);
 
           const payload1 = {
             ...page,
@@ -839,7 +831,7 @@ const onCreatePages = async (projectMessageId: string, message: string) => {
           progressCreatePages.value.progress = 100;
           progressCreatePages.value.label = "Page is ready to use!";
 
-          webPages.push(page);
+          webPages.value.push(page);
           loadingCreatePages.value = null;
           progressCreatePages.value.status = false;
           setTimeout(() => {
@@ -878,7 +870,7 @@ watch(loadingProject, async (val) => {
 });
 
 const downloadProject = async () => {
-  if (!webPages.length) {
+  if (!webPages.value.length) {
     await $modal.alert({
       title: "Success",
       html: `<p>No pages to download</p>`,
@@ -889,7 +881,7 @@ const downloadProject = async () => {
 
   const zip = new JSZip();
 
-  webPages.forEach((page, index) => {
+  webPages.value.forEach((page, index) => {
     const fileName = `${page.label || "page-" + (index + 1)}.html`;
     zip.file(fileName, page.htmlContent);
   });

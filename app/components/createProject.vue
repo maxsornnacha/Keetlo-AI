@@ -202,7 +202,6 @@ const generateProject = async () => {
       });
     }
     } else {
-      alert(3)
        await $modal.alert({ 
       title: 'Error', 
       html: `<p>${toErrorMessage(error)}</p>`, 

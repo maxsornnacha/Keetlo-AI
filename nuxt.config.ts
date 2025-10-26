@@ -2,6 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
+  nitro: { preset: 'node-server' },
   devtools: { enabled: false },
   modules: [
     "@nuxt/ui",
