@@ -27,6 +27,7 @@ import com.keetlo.ai.dto.CreateMessageStreamReq;
 import com.keetlo.ai.model.Page;
 import com.keetlo.ai.service.MessageService;
 import com.keetlo.ai.service.PageService;
+import com.keetlo.ai.util.ImageTokenReplacer;
 
 import reactor.core.publisher.Flux;
 
@@ -39,15 +40,18 @@ public class PageController {
   private final WebClient ollamaClient;
     private final WebClient geminiClient;
     private final ObjectMapper objectMapper;
+    private final ImageTokenReplacer imageTokenReplacer;
 
     public PageController(ObjectMapper objectMapper, PageService pageService,  MessageService messageService, WebClient openAiClient,
-                        WebClient ollamaClient,  WebClient geminiClient) {
+                        WebClient ollamaClient,  WebClient geminiClient,  ImageTokenReplacer imageTokenReplacer) {
         this.objectMapper = objectMapper;
         this.pageService = pageService;
         this.messageService = messageService;
         this.openAiClient = openAiClient;
         this.ollamaClient = ollamaClient;
         this.geminiClient = geminiClient;
+        this.imageTokenReplacer = imageTokenReplacer;
+        
     }
 
     private String buildSystemPrompt(){
@@ -97,16 +101,28 @@ If `pages` is empty or missing: emit a single error object using the same schema
     - Header (sticky nav) with logo/icon + brand on the left, nav/actions on the right:
       `<header class="border-b"><nav class="container mx-auto px-6 py-4 flex justify-between items-center"><div class="flex items-center gap-2">[logo/icon + name]</div><div class="flex items-center gap-4">[nav/actions]</div></nav></header>`
   - <main> with purpose-fit sections (flexible):
-      - Use: `https://placehold.co/800x600/png` (or `.../jpg`) when having images
     - `<footer class="border-t">` with Contact/About/Privacy/Terms; if Lucide is included, social icons may be used.
   - If Lucide is included, add `<script>lucide.createIcons();</script>` before `</body>`.
+
+  ## Image token rules
+- Do NOT output real image URLs.
+- Use machine-readable tokens inside HTML attributes for images and backgrounds:
+  - <img src="[[IMG:hero|gaming|1200x630|crop]]" .../>
+  - <section style="background-image:url('[[IMG:banner|promotion|1600x900|cover]]')">
+- Token syntax (strict): [[IMG:{slot}|{query}|{WxH}|{fit}]]
+  - slot: hero|banner|card|thumb (free-form kebab allowed)
+  - query: a short keyword or phrase (latin only), use hyphens instead of spaces (e.g., gaming-gear)
+  - WxH: like 1200x630 (both integers)
+  - fit: crop|fill|max (default: crop)
+- Always provide alt text using the query in human words, e.g., alt="Gaming hero background".
+- Keep tokens JSON-escaped as normal strings; do not break NDJSON rules.
 
 ## Background theme rule
 - **Default background**: solid white (`bg-white` on `<body>`).
 - **If the user explicitly requests a background or theme** (e.g., `dark`, `black`, `{"bg":"#111827"}`, `{"bg":"slate-900"}`, `{"bg":"linear-gradient(135deg,#0ea5e9 0%,#22d3ee 100%)"}`):
   - Use the requested background site-wide:
-    - Tailwind color name: add `bg-[color]` to `<body>` (e.g., `bg-slate-900`) and ensure readable contrast with `text-white` or `text-gray-900`.
-    - Hex/rgb/hsl/gradient: set `style="background:[value]"` on `<body>` and ensure readable contrast with `text-white` or `text-gray-900`.
+    - Tailwind color name: add `bg-[color]` to `<body>` (e.g., `bg-gray-900`) and ensure readable contrast with `text-black` or `text-gray-900`.
+    - Hex/rgb/hsl/gradient: set `style="background:[value]"` on `<body>` and ensure readable contrast with `text-black` or `text-gray-900`.
 
 ## Anchor/link rule
 - **All `<a>` elements must use `href="#"`** (stub links), including nav, CTAs, and footer links.
@@ -164,12 +180,13 @@ If any check fails, reformat and try again. Then emit the single line.
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userInput = request.getInput();
 
-        String useAI = "gpt"; 
+        String useAI = "gemini"; 
 
    if (useAI.equals("gpt")) {
         ObjectNode body = objectMapper.createObjectNode();
-        // body.put("model", "gpt-5-nano");
-            body.put("model", "gpt-4.1");
+        body.put("model", "gpt-4.1-mini");
+        body.put("temperature", 0.5);
+        //     body.put("model", "gpt-4.1");
         body.put("stream", true);
         ArrayNode msgs = objectMapper.createArrayNode();
         msgs.add(objectMapper.createObjectNode().put("role","system").put("content", this.buildSystemPrompt()));
@@ -305,6 +322,22 @@ If any check fails, reformat and try again. Then emit the single line.
                 });
     }
 
+    }
+
+    @PostMapping("/hydrate-images")
+    public ResponseEntity<?> hydrateImages(@RequestBody Page request) {
+       Map<String, Object> response = new HashMap<>();
+        String html = request.getHtmlContent();
+        if (html == null || html.isBlank()) {
+            response.put("message", "htmlContent is required");
+          return ResponseEntity.badRequest().body(response);
+        }
+        var cache = imageTokenReplacer.newRequestCache();
+        String hydrated = imageTokenReplacer.replaceAll(html, cache);
+         hydrated = imageTokenReplacer.ensureSrcset(hydrated);   
+        response.put("message", "Success");
+        response.put("hydratedHtmlContent", hydrated);
+        return ResponseEntity.status(200).body(response);
     }
 
     @PostMapping("/upload")

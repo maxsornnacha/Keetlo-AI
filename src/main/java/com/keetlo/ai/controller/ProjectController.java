@@ -76,7 +76,7 @@ public class ProjectController {
                 String jsonBody = "{\n" +
                                 "  \"model\":\"llama3:8b-instruct-q4_K_M\",\n" +
                                 "  \"prompt\":\"User input: " + userInput
-                                + "\\nTask: Create a project based on this input. Output a JSON stringify with fields: title, description, type, tags. Keep JSON stringify strictly valid and Do **not** include explanations, text, bullet points, or markdown.\"\n"
+                                + "\\nTask: Create a project based on this input. Output a JSON stringify with fields: title, description, type, tags. Keep JSON stringify strictly valid and all keys need to have value and Do **not** include explanations, text, bullet points, or markdown.\"\n"
                                 +
                                 "}";
 

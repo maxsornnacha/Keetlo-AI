@@ -41,6 +41,7 @@ public class PublicProjectController {
     public ResponseEntity<Map<String, Object>> getPublicProjects(
             @RequestParam(name = "q", required = false) String q,
             @RequestParam(name = "sort", required = false) String sort,
+            @RequestParam(name = "type", required = false) String type,
             @RequestParam(name = "tags", required = false) String tagsCsv,
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "pageSize", defaultValue = "16") int pageSize,
@@ -60,7 +61,7 @@ public class PublicProjectController {
         try{
 
         Map<String, Object> result = publicProjectService.getPublicProjects(
-                q, sort, tagsCsv, page, pageSize, userId
+                q, sort, type, tagsCsv, page, pageSize, userId
         );
         return ResponseEntity.ok(result);
         } catch (Exception e) {

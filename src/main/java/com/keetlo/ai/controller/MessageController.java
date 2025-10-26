@@ -97,20 +97,20 @@ public class MessageController {
                 Write in Thai or English to match the most recent user input.
 
                 OUTPUT RULES (stream-safe, plain text only):
-                1) First line EXACTLY:
-                To design a comprehensive website related to the user input, we might consider the following pages:
-                2) Then list the pages to generate. Output a maximum of 1 pages (1). The number pages will be acordding to user input, ONE PER LINE, each formatted as:
-                Page Name - Full description
-                3) Do NOT use HTML, markdown, or entities (no <br/>, no &nbsp;). Plain text only.
-                4) Do NOT repeat pages already present in the user inputs.
-                5) No extra blank lines; keep each item under 200 characters; never split an item across multiple lines.
-                6) End the response with a single newline.
+                1) Answer is flexible, good response for user input, and response only 1 language not combine many languages
+                2) Even if user input is about website-page creation or not, then summerize the user input to redeclare what user's brief and then suggest list the pages to generate. Output a maximum of 1 pages (1). The number pages will be acordding to user input, ONE PER LINE, each formatted as:
+                Defining page name - Defining full description
+                4) Do NOT use HTML, markdown, or entities (no <br/>, no &nbsp;). Plain text only.
+                5) Do NOT repeat pages already present in the user inputs.
+                6) No extra blank lines; keep each item under 10000 characters; never split an item across multiple lines.
+                7) End the response with a single newline.
 
                 ## Description Rule
                 - Do Not use HTML, markdown, entities or Special characters in description 
              """.formatted(contextBuilder.toString(), userInput);
 
                 String useAI = "gpt";
+                // String useAI = "ollama";
 
                 if (useAI.equals("gpt")) {
                         ObjectNode body = objectMapper.createObjectNode();
@@ -139,7 +139,7 @@ public class MessageController {
                                         // OpenAI SSE frames look like: "data: {...}" and end with "data: [DONE]"
                                         .flatMap(chunk -> Flux.fromArray(chunk.split("\\r?\\n")))
                                         .filter(line -> !line.isBlank())
-                                        .map(line -> line.startsWith("data:") ? line.substring(5).trim() : line.trim())
+                                        .map(line -> line.startsWith("data:") ? line.substring(5) : line)
                                         .filter(data -> !data.isEmpty() && !data.equals("[DONE]"))
                                         .map(data -> {
                                                 try {

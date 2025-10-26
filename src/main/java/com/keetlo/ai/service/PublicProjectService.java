@@ -29,6 +29,7 @@ public class PublicProjectService {
     public Map<String, Object> getPublicProjects(
             String q, // search text (optional)
             String sort, // newest | popular | copyCount | name
+            String type,
             String tagsCsv, // comma-separated tags (AND semantics)
             int page,
             int pageSize,
@@ -57,6 +58,8 @@ public class PublicProjectService {
                 "projects.public_at IS NULL, projects.public_at DESC"; // newest
         };
 
+
+
         // ---- parse tags (AND semantics) ----
         List<String> tags = new ArrayList<>();
         if (tagsCsv != null && !tagsCsv.isBlank()) {
@@ -70,6 +73,30 @@ public class PublicProjectService {
         // ---- WHERE (public only + optional q on title/desc/user name) ----
         StringBuilder where = new StringBuilder(" WHERE projects.is_public = 1 ");
         List<Object> whereParams = new ArrayList<>();
+
+        if(type != null && !type.equals("") && !type.toLowerCase().equals("all") && !type.toLowerCase().equals("others")){
+            String like = "%" + type.trim().toLowerCase() + "%";
+            where.append("""
+                 AND (LOWER(projects.type) LIKE ?)
+            """);
+            whereParams.add(like);
+        } else if (type != null && type.toLowerCase().equals("others")){
+               where.append("""
+                 AND (LOWER(projects.type) != ? 
+                 AND LOWER(projects.type) != ? 
+                 AND LOWER(projects.type) != ? 
+                 AND LOWER(projects.type) != ?
+                 AND LOWER(projects.type) != ?
+                 AND LOWER(projects.type) != ?
+                 )
+            """);
+            whereParams.add("Website".toLowerCase());
+            whereParams.add("Project".toLowerCase());
+            whereParams.add("Natural".toLowerCase());
+            whereParams.add("Internal Tools".toLowerCase());
+            whereParams.add("Travel".toLowerCase());
+            whereParams.add("Information".toLowerCase());
+        }
 
         if (q != null && !q.isBlank()) {
             String like = "%" + q.trim().toLowerCase() + "%";
