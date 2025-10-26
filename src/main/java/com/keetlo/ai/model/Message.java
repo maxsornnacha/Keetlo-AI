@@ -3,9 +3,13 @@ package com.keetlo.ai.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Message {
     private String projectMessageId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String projectId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userId;
     private String role; // "user" or "ai"
     private String message;

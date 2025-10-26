@@ -458,12 +458,13 @@ public class PublicProjectService {
                         project_messages.created_at
                     FROM project_messages
                     WHERE project_messages.project_id = ?
-                    ORDER BY project_messages.created_at ASC, project_messages.project_message_id ASC
+                    ORDER BY project_messages.created_at ASC
                 """, (resultRow, _) -> {
             Message m = new Message();
             m.setProjectMessageId(resultRow.getString("project_message_id"));
             m.setRole(resultRow.getString("role_name"));
             m.setMessage(resultRow.getString("message"));
+            m.setCreatedAt(resultRow.getTimestamp("created_at").toLocalDateTime());
             return m;
         }, sourceProjectId);
 
@@ -474,9 +475,9 @@ public class PublicProjectService {
             final String newMessageId = message.createProjectChatId();
             messageIdMap.put(m.getProjectMessageId(), newMessageId);
             database.update("""
-                        INSERT INTO project_messages (project_message_id, project_id, user_id, role, message)
-                        VALUES (?, ?, ?, ?, ?)
-                    """, newMessageId, newProjectId, requesterUserId, m.getRole(), m.getMessage());
+                        INSERT INTO project_messages (project_message_id, project_id, user_id, role, message, created_at)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    """, newMessageId, newProjectId, requesterUserId, m.getRole(), m.getMessage(), m.getCreatedAt());
         }
 
         // 4) Copy generated_pages linked to those messages; keep mapping oldGenId ->
