@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -177,7 +178,8 @@ If any check fails, reformat and try again. Then emit the single line.
 
     @PostMapping(value = "/generate", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> generatePages(@RequestBody CreateMessageStreamReq request) {
-        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = (String) auth.getPrincipal();
         String userInput = request.getInput();
 
         String useAI = "gemini"; 
@@ -369,7 +371,8 @@ If any check fails, reformat and try again. Then emit the single line.
     @GetMapping("/list/{projectId}")
     public ResponseEntity<?> getPagesByProject(@PathVariable String projectId) {
         try {
-           String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String userId = (String) auth.getPrincipal();
             List<Page> pages = pageService.fetchingPages(projectId, userId);
             return ResponseEntity.ok(pages);
         } catch (Exception e) {
@@ -390,7 +393,8 @@ If any check fails, reformat and try again. Then emit the single line.
       @DeleteMapping("/delete/{generatedPageId}")
         public ResponseEntity<?> deletePage(@PathVariable String generatedPageId) {
         try {
-            String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String userId = (String) auth.getPrincipal();
             boolean deleted = pageService.deletePageByGeneratedPageId(generatedPageId, userId);
 
             if (deleted) {

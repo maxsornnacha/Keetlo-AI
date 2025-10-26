@@ -567,4 +567,15 @@ public class PublicProjectService {
         return newProjectId;
     }
 
+        public Page getPageByGeneratedPageId(String generatedPageId){
+         String sql = """
+                    SELECT html_content
+                    FROM generated_pages
+                    WHERE generated_page_id = ?
+                    ORDER BY created_at DESC
+                    """;
+            return database.queryForObject(sql, new BeanPropertyRowMapper<>(Page.class), generatedPageId);
+    
+    }
+
 }

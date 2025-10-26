@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.keetlo.ai.model.Page;
 import com.keetlo.ai.model.PublicProject;
 import com.keetlo.ai.service.PublicProjectService;
 import com.keetlo.ai.service.SessionService;
@@ -91,6 +92,17 @@ public class PublicProjectController {
                 }
                 return ResponseEntity.ok(project);
         }
+
+     @GetMapping("/page/{generatedPageId}")
+    public ResponseEntity<?> getPageByGeneratedPageId(@PathVariable String generatedPageId) {
+        try{
+           Page page = publicProjectService.getPageByGeneratedPageId(generatedPageId);
+           return ResponseEntity.ok(page);
+        } catch (Exception e) {
+          System.out.println("Error fetching page: " + e.getMessage());
+         return ResponseEntity.status(500).body(Collections.singletonMap("error", e.getMessage()));
+        }
+    }
 
 
   @PostMapping("/{projectId}/favorite")
