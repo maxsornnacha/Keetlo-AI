@@ -2,7 +2,7 @@
 <template>
   <main class="min-h-screen">
     <!-- States -->
-    <div v-if="loading" class="h-[100vh] grid place-items-center text-white/70">
+    <div v-if="loading" class="h-[100vh] grid place-items-center text-black/70">
       Loading receipt…
     </div>
     <div v-else-if="errorMsg" class="h-[100vh] grid place-items-center text-red-300">
@@ -10,7 +10,7 @@
     </div>
 
     <!-- Viewer -->
-    <section v-else class="overflow-hidden border border-white/10 bg-slate-900/40">
+    <section v-else class="overflow-hidden border border-white/10 bg-gray-900/40">
       <iframe
         v-if="iframeSrc"
         ref="iframeEl"

@@ -9,7 +9,6 @@
     </div>
 
     <div v-else-if="layout2">
-      <Header :user="user" />
       <div class="min-h-[70vh]">
         <NuxtPage :user="user" />
       </div>
@@ -21,7 +20,7 @@
 
     <div v-else>
       <Header :user="user" />
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 min-h-[70vh]">
+      <div class="max-w-[1400px] mx-auto container p-4 lg:p-8 min-h-[75vh]">
         <NuxtPage :user="user" />
       </div>
       <Footer />
@@ -49,7 +48,9 @@ const route = useRoute()
 const layout1 = computed(() =>
   route.path === '/' 
   || route.path.includes('/account/favorites')
+   || route.path === ('/account')
   || route.path.includes('/account/payment')
+  ||   route.path === '/features'
 )
 const layout2 = computed(() =>
   route.fullPath.includes('/auth')

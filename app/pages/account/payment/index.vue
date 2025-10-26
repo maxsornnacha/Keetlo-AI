@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <main class="mx-auto max-w-[1400px] min-h-screen text-white px-4 lg:px-8 py-8">
+  <main class="mx-auto max-w-[1400px] min-h-[75dvh] text-black px-4 lg:px-8 py-8">
     <!-- Heading -->
     <div>
-      <h1 class="text-3xl font-bold mb-1 reveal will-change-transform transition duration-500 ease-out">
+      <h1 class="text-2xl font-bold mb-1 reveal will-change-transform transition duration-500 ease-out">
         Your Orders
       </h1>
       <p class="text-gray-400 mb-6 reveal will-change-transform transition duration-500 ease-out">
@@ -15,30 +15,30 @@
 <!-- ===== New, compact Orders list ===== -->
 <!-- Desktop table -->
 <div class="hidden md:block reveal will-change-transform transition duration-500 ease-out">
-  <table class="min-w-full divide-y divide-slate-800 bg-slate-800/30 rounded-lg shadow-lg">
+  <table class="min-w-full divide-y divide-gray-200 bg-white rounded-lg border border-gray-200">
     <thead>
-      <tr class="bg-slate-800/70">
-        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-300">Receipt</th>
-        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-300">Plan</th>
-        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-300">Period</th>
-        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-300">Total</th>
-        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-300">Status</th>
-        <th class="px-4 py-3 text-right text-xs font-medium uppercase text-gray-300">Action</th>
+      <tr class="bg-gray-200">
+        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-700">Receipt</th>
+        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-700">Plan</th>
+        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-700">Period</th>
+        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-700">Total</th>
+        <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-700">Status</th>
+        <th class="px-4 py-3 text-right text-xs font-medium uppercase text-gray-700">Action</th>
       </tr>
     </thead>
 
-    <tbody class="divide-y divide-slate-800 text-sm">
+    <tbody class="divide-y divide-gray-200 text-sm">
       <tr
         v-for="order in orders"
         :key="order.receiptId"
-        class="hover:bg-slate-800/40 transition"
+        class="hover:bg-gray-100 transition"
       >
         <!-- Receipt -->
         <td class="px-4 py-3">
           <div class="flex items-center gap-2">
             <span class="font-mono truncate max-w-[160px]" :title="order.receiptId">#{{ order.receiptId }}</span>
           </div>
-          <div class="text-xs text-white/60" :title="formatDate(order.createdAt)">
+          <div class="text-xs text-black/60" :title="formatDate(order.createdAt)">
             Created: {{ formatDate(order.createdAt) }}
           </div>
         </td>
@@ -46,7 +46,7 @@
         <!-- Plan -->
         <td class="px-4 py-3">
           <div class="font-medium">{{ order.planName || '—' }}</div>
-          <div class="text-xs text-white/60 line-clamp-1" :title="order.planDescription">{{ order.planDescription }}</div>
+          <div class="text-xs text-black/60 line-clamp-1" :title="order.planDescription">{{ order.planDescription }}</div>
         </td>
 
         <!-- Period -->
@@ -54,7 +54,7 @@
           <div>{{ formatDate(order.startDate) || '—' }}</div>
           <div><span class="text-yellow-500">to</span> {{ formatDate(order.endDate) || '—' }}</div>
         </td>
-        <td v-else class="px-4 py-3 text-white/50">
+        <td v-else class="px-4 py-3 text-black/50">
           None
         </td>
 
@@ -79,16 +79,16 @@
             v-if="order.status === 'PAID'"
             :href="downloadHref(order)"
             target="_blank"
-            class="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm hover:bg-white/15"
+            class="inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm hover:bg-gray-200"
           >
             View receipt
           </a>
-          <span v-else class="text-white/50">None</span>
+          <span v-else class="text-black/50">None</span>
         </td>
       </tr>
 
       <tr v-if="!loading && orders.length === 0">
-        <td colspan="6" class="px-4 py-6 text-center text-white/70">No orders found.</td>
+        <td colspan="6" class="px-4 py-6 text-center text-black/70">No orders found.</td>
       </tr>
     </tbody>
   </table>
@@ -99,11 +99,11 @@
   <article
     v-for="order in orders"
     :key="order.receiptId"
-    class="rounded-xl border border-white/10 bg-white/5 p-4"
+    class="rounded-xl border border-gray-200 bg-gray-100 p-4"
   >
-    <header class="flex items-start justify-between gap-3">
+    <header class="flex flex-wrap items-start justify-between gap-3">
       <div>
-        <div class="text-xs text-white/60">Receipt</div>
+        <div class="text-xs text-black/60">Receipt</div>
         <div class="font-mono text-sm">#{{ order.receiptId }}</div>
       </div>
       <span
@@ -115,56 +115,56 @@
     </header>
 
     <div class="mt-3">
-      <div class="text-xs text-white/60">Plan</div>
+      <div class="text-xs text-black/60">Plan</div>
       <div class="font-medium">{{ order.planName || '—' }}</div>
-      <div v-if="order.planDescription" class="text-xs text-white/60 line-clamp-2">
+      <div v-if="order.planDescription" class="text-xs text-black/60 line-clamp-2">
         {{ order.planDescription }}
       </div>
     </div>
 
     <div class="mt-3 grid grid-cols-2 gap-4">
       <div>
-        <div class="text-xs text-white/60">Start</div>
+        <div class="text-xs text-black/60">Start</div>
         <div class="text-sm">{{ formatDate(order.startDate) || '—' }}</div>
       </div>
       <div>
-        <div class="text-xs text-white/60">End</div>
+        <div class="text-xs text-black/60">End</div>
         <div class="text-sm">{{ formatDate(order.endDate) || '—' }}</div>
       </div>
     </div>
 
     <div class="mt-3 flex items-center justify-between">
       <div>
-        <div class="text-xs text-white/60">Total</div>
+        <div class="text-xs text-black/60">Total</div>
         <div class="font-semibold">{{ money(order.amount, order.currency) }}</div>
       </div>
       <a
         v-if="order.status === 'PAID'"
         :href="downloadHref(order)"
         target="_blank"
-        class="rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm hover:bg-white/15"
+        class="rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm hover:bg-gray-200"
       >
         View Receipt
       </a>
     </div>
 
-    <footer class="mt-3 text-xs text-white/50">
+    <footer class="mt-3 text-xs text-black/50">
       Created: {{ formatDate(order.createdAt) }}
     </footer>
   </article>
 
-  <div v-if="!loading && orders.length === 0" class="text-center text-white/70 py-8">
+  <div v-if="!loading && orders.length === 0" class="text-center text-black/70 py-8">
     No orders found.
   </div>
 </div>
 
 
     <!-- Pagination -->
-    <div class="mt-16 flex items-center justify-between">
-      <div class="text-sm text-white/70">
+    <div class="mt-8 flex items-center justify-between">
+      <div class="text-sm text-black/70">
         Showing
-        <span class="text-white">{{ startIndex + 1 }}</span>–<span class="text-white">{{ endIndex }}</span>
-        of <span class="text-white">{{ displayTotal }}</span>
+        <span class="text-black">{{ startIndex + 1 }}</span>–<span class="text-black">{{ endIndex }}</span>
+        of <span class="text-black">{{ displayTotal }}</span>
       </div>
 
       <div class="flex items-center gap-2">
@@ -182,14 +182,14 @@
             v-if="p !== '...'"
             class="rounded-xl px-3 py-2 text-sm border transition"
             :class="page === p
-              ? 'bg-indigo-500/30 border-indigo-400/40 text-white'
-              : 'bg-white/10 border-white/10 hover:bg-white/15 text-white/90 cursor-pointer'"
+              ? 'bg-indigo-500/30 border-indigo-400/40 text-black'
+              : 'bg-white/10 border-white/10 hover:bg-white/15 text-black/90 cursor-pointer'"
             :aria-current="page === p ? 'page' : undefined"
             @click="page = p as number"
           >
             {{ p }}
           </button>
-          <span v-else class="px-2 text-sm text-white/60 select-none" aria-hidden="true">…</span>
+          <span v-else class="px-2 text-sm text-black/60 select-none" aria-hidden="true">…</span>
         </template>
 
         <button
@@ -355,7 +355,7 @@ function downloadHref(o: Order) {
 
 function statusClass(status?: string) {
   const s = (status || '').toLowerCase();
-  if (s === 'active' || s === 'paid') return 'bg-green-700 text-green-50';
+  if (s === 'active' || s === 'paid') return 'bg-emerald-500 text-green-50';
   if (s === 'pending' || s === 'processing') return 'bg-amber-700 text-amber-50';
   return 'bg-gray-700 text-gray-100';
 }

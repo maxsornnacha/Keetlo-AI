@@ -1,6 +1,6 @@
 <template>
   <main
-    class="relative min-h-screen grid place-items-center overflow-hidden text-white"
+    class="relative min-h-screen grid place-items-center overflow-hidden text-black"
   >
     <!-- Soft gradient background -->
     <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
@@ -36,27 +36,27 @@
         <h1 id="cancel-title" class="text-3xl font-bold tracking-tight">
           Payment Canceled
         </h1>
-        <p class="text-white/70">
+        <p class="text-black/70">
           Your payment was canceled.
-          <span class="text-white/80">No charge was made.</span>
+          <span class="text-black/80">No charge was made.</span>
         </p>
       </header>
 
       <!-- Helpful info -->
       <div class="mt-6 rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-        <ul class="space-y-3 text-sm text-white/75">
+        <ul class="space-y-3 text-sm text-black/75">
           <li class="flex items-start gap-3">
-            <UIcon name="i-lucide-info" class="mt-0.5 size-4 text-white/60" />
+            <UIcon name="i-lucide-info" class="mt-0.5 size-4 text-black/60" />
             <span>If this was a mistake, you can safely try again.</span>
           </li>
           <li class="flex items-start gap-3">
-            <UIcon name="i-lucide-shield" class="mt-0.5 size-4 text-white/60" />
+            <UIcon name="i-lucide-shield" class="mt-0.5 size-4 text-black/60" />
             <span>We didn’t bill your card.</span>
           </li>
           <li class="flex items-start gap-3">
             <UIcon
               name="i-lucide-life-buoy"
-              class="mt-0.5 size-4 text-white/60"
+              class="mt-0.5 size-4 text-black/60"
             />
             <span
               >Need help? Our team can assist you with checkout issues.</span
@@ -70,7 +70,7 @@
         <!-- Primary: Back home -->
         <a href="/" class="w-full">
           <button
-            class="cursor-pointer w-full h-11 rounded-lg bg-[#0D1117] hover:bg-[#0D1117]/70 text-white font-semibold transition-colors"
+            class="cursor-pointer w-full h-11 rounded-lg bg-[#0D1117] hover:bg-[#0D1117]/70 text-black font-semibold transition-colors"
           >
             Go back home
           </button>
@@ -79,7 +79,7 @@
         <!-- Secondary: Try again (optional: point back to your pricing/checkout) -->
         <a href="/pricing" class="w-full">
           <button
-            class="cursor-pointer w-full h-11 rounded-lg bg-white/10 hover:bg-white/15 text-white font-medium transition-colors"
+            class="cursor-pointer w-full h-11 rounded-lg bg-white/10 hover:bg-white/15 text-black font-medium transition-colors"
           >
             Try again
           </button>
@@ -87,7 +87,7 @@
       </div>
 
       <!-- Support -->
-      <p class="mt-6 text-center text-sm text-white/60">
+      <p class="mt-6 text-center text-sm text-black/60">
         Still stuck?
         <a class="text-indigo-300 hover:text-indigo-200" href="/contact-us"
           >Contact support</a

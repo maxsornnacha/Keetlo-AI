@@ -34,7 +34,13 @@ export default defineNuxtConfig({
             "Describe what you want and Keetlo generates beautiful, production-ready HTML pages with tailwindcss styling. Explore trending projects, remix ideas, and ship faster with AI.",
         },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/logo.png" }],
+     link: [
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-48.png" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/favicon-192.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" }
+    ]
     },
   },
    site: { 

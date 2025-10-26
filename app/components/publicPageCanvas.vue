@@ -1,25 +1,25 @@
 <!-- components/PageCanvas.vue -->
 <template>
-  <div class="relative w-full h-screen" :style="{ backgroundColor: canvasBg }">
+  <div class="relative w-full h-screen border border-gray-200" :style="{ backgroundColor: canvasBg }">
     <!-- Header -->
     <div
-      class="absolute w-[200px] top-0 right-0 flex items-center justify-end gap-4 p-4 text-white z-30"
+      class="absolute w-[200px] top-0 right-0 flex items-center justify-end gap-4 p-4 text-black z-30"
     >
       <div class="flex items-center gap-2">
         <!-- Zoom controls -->
-        <div class="flex gap-2 border border-slate-50/30 p-1 rounded-lg bg-black/70">
+        <div class="flex gap-2 border border-gray-50/30 p-1 rounded-lg bg-white/20 backdrop-blur-sm">
           <button
-            class="px-3 py-1 text-black bg-white rounded cursor-pointer hover:bg-gray-200"
+            class="px-3 py-1 text-black border border-gray-200 bg-gray-50 rounded cursor-pointer hover:bg-gray-200"
             @click="zoomOut"
           >
             -
           </button>
-          <span class="text-white flex gap-1 items-center">
+          <span class="text-black flex gap-1 items-center">
             <UIcon name="i-lucide-search" class="size-5" />
             ({{ (scale * 500).toFixed(0) }}%)
           </span>
           <button
-            class="px-3 py-1 text-black bg-white rounded cursor-pointer hover:bg-gray-200"
+            class="px-3 py-1 text-black border border-gray-200 bg-gray-50 rounded cursor-pointer hover:bg-gray-200"
             @click="zoomIn"
           >
             +
@@ -33,12 +33,12 @@
             v-tooltip="'Canvas background color'"
             aria-haspopup="true"
             :aria-expanded="showPalette"
-            class="cursor-pointer border border-slate-50/30 hover:bg-slate-900/90 bg-[#0D1117]/80 p-2 rounded-md flex gap-2 items-center"
+            class="cursor-pointer border border-gray-50/30 hover:bg-gray-200 bg-white/10 backdrop-blue-sm p-2 rounded-md flex gap-2 items-center"
             @click="showPalette = !showPalette"
           >
             <UIcon name="i-lucide-palette" class="w-4 h-4" />
             <span
-              class="inline-block w-4 h-4 rounded border border-white/20"
+              class="inline-block w-4 h-4 rounded border border-gray-200"
               :style="{ backgroundColor: canvasBg }"
             />
           </button>
@@ -47,17 +47,17 @@
           <div
             v-if="showPalette"
             ref="PaletteMenuRef"
-            class="absolute right-0 mt-2 min-w-56 rounded-xl bg-[#0D1117] ring-1 ring-white/20 p-3 shadow-xl z-40"
+            class="absolute right-0 mt-2 min-w-56 rounded-xl bg-white ring-1 ring-white/20 p-3 shadow-xl z-40"
             @keydown.escape="showPalette = false"
           >
-            <div class="mb-2 text-xs uppercase tracking-wider text-slate-300">
+            <div class="mb-2 text-xs uppercase tracking-wider text-gray-700">
               Canvas background
             </div>
             <div class="grid grid-cols-8 gap-2 mb-3">
               <button
                 v-for="c in presetColors"
                 :key="c"
-                class="h-6 w-6 rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
+                class="cursor-pointer h-6 w-6 rounded-md border border-black/10 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 :style="{ backgroundColor: c }"
                 :aria-label="c"
                 @click="setCanvasBg(c)"
@@ -73,17 +73,17 @@
               <input
                 v-model="canvasBg"
                 type="text"
-                class="flex-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+                class="flex-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-sm text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
                 placeholder="#0f172a"
               >
               <button
-                class="px-2 py-1 rounded-md text-xs bg-white/10 hover:bg-white/20"
+                class="px-2 py-1 rounded-md text-xs bg-gray-200 hover:bg-gray-100 cursor-pointer"
                 @click="showPalette = false"
               >
                 Done
               </button>
             </div>
-            <div class="mt-2 text-[11px] text-slate-400">
+            <div class="mt-2 text-[11px] text-gray-400">
               Hint: press <kbd class="px-1 rounded bg-white/10">Ctrl</kbd> /
               <kbd class="px-1 rounded bg-white/10">⌘</kbd> + wheel to zoom
             </div>
@@ -138,28 +138,28 @@
             >
               <button
                 v-tooltip="'Preview'"
-                class="text-white px-8 border-r-2 border-slate-50/90 bg-[#0D1117] hover:bg-slate-700 py-8 rounded-l-full cursor-pointer"
+                class="text-black px-8 border-r-2 border-gray-50/90 bg-[#0D1117] text-white hover:bg-gray-700 py-8 rounded-l-full cursor-pointer"
                 @click.stop="openPreview(page.generatedPageId)"
               >
                 <UIcon name="i-lucide-maximize-2" class="size-22" />
               </button>
               <button
                 v-tooltip="'View HTML'"
-                class="text-white px-8 border-r-2 border-slate-50/90 bg-[#0D1117] hover:bg-slate-700 py-8 cursor-pointer"
+                class="text-black px-8 border-r-2 border-gray-50/90 bg-[#0D1117] text-white hover:bg-gray-700 py-8 cursor-pointer"
                 @click.stop="viewHTML(page)"
               >
                 <UIcon name="i-lucide-code-xml" class="size-24" />
               </button>
               <button
                 v-tooltip="'Mobile view'"
-                class="text-white px-8 border-r-2 border-slate-50/90 bg-[#0D1117] hover:bg-slate-700 py-8 cursor-pointer"
+                class="text-black px-8 border-r-2 border-gray-50/90 bg-[#0D1117] text-white hover:bg-gray-700 py-8 cursor-pointer"
                 @click.stop="mobileView(page)"
               >
                 <UIcon name="i-lucide-smartphone" class="size-24" />
               </button>
               <button
                 v-tooltip="'Desktop browser view'"
-                class="text-white px-8 border-r-2 border-slate-50/90 bg-[#0D1117] hover:bg-slate-700 py-8 rounded-r-full cursor-pointer"
+                class="text-black px-8 border-r-2 border-gray-50/90 bg-[#0D1117] text-white hover:bg-gray-700 py-8 rounded-r-full cursor-pointer"
                 @click.stop="desktopView(page)"
               >
                 <UIcon name="i-lucide-screen-share" class="size-24" />
@@ -180,7 +180,7 @@
 
           <iframe
             :srcdoc="page.htmlContent"
-            class="w-full h-[calc(100%-100px)] pointer-events-none rounded-md shadow-lg bg-white border border-slate-300"
+            class="w-full h-[calc(100%-100px)] pointer-events-none rounded-md shadow-lg bg-white border border-gray-300"
             :class="{
               'ring-4 ring-blue-500': selectedPageId === page.generatedPageId,
             }"

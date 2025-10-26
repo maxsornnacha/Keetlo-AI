@@ -20,7 +20,7 @@
 
       <!-- Panel -->
       <div
-        class="bg-[#0D1117] relative w-full max-w-2xl rounded-2xl border border-white/10 p-0 text-slate-100 shadow-2xl ring-1 ring-white/10"
+        class="bg-gray-50 relative w-full max-w-2xl rounded-2xl border border-gray-200 p-0 text-gray-700 shadow-2xl ring-1 ring-gray-200"
       >
         <!-- Thin accent line -->
         <div class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"/>
@@ -28,18 +28,18 @@
         <!-- Header -->
         <div class="flex items-start justify-between gap-4 px-6 pt-6">
           <div class="space-y-1">
-            <div class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-indigo-300/90">
+            <div class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-2.5 py-1 text-xs text-indigo-500">
               <UIcon name="i-lucide-globe" class="size-4" />
               Visibility
             </div>
-            <h2 class="text-xl font-semibold leading-tight">Update Project Public Status</h2>
-            <p class="text-sm text-slate-400">
+            <h2 class="text-xl text-black leading-tight">Update Project Public Status</h2>
+            <p class="text-sm text-gray-400">
               Control whether your project is publicly accessible and choose which page is the main entry point.
             </p>
           </div>
 
             <button
-              class="bg-red-600 group cursor-pointer rounded-full px-2 pt-2 pb-1 hover:bg-red-700 text-white transition"
+              class="group cursor-pointer rounded-md px-2 pt-2 pb-1 hover:bg-gray-200 text-black transition"
               aria-label="Close dialog"
               @click="close"
             >
@@ -50,18 +50,18 @@
         <!-- Body -->
         <div class="px-6 pb-6 pt-4 max-h-[70dvh] overflow-auto">
           <!-- Public toggle -->
-          <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+          <div class="rounded-xl border border-gray-200 bg-gray-100 p-4">
             <div class="flex items-center justify-between gap-4">
               <div class="space-y-0.5">
                 <div class="flex items-center gap-2">
                   <UIcon
-                        :name="isPublicLocal ? 'i-lucide-globe' : 'i-lucide-lock'" class="size-5"
-                         :class="isPublicLocal ? 'text-emerald-400' : 'text-slate-300'"/>
+                        :name="isPublicLocal ? 'i-lucide-globe' : 'i-lucide-lock'" class="size-5 text-gray-700"
+                         :class="isPublicLocal ? 'text-emerald-500' : 'text-gray-300'"/>
                   <span class="font-medium">
                     {{ isPublicLocal ? 'Project is Public' : 'Project is Private' }}
                   </span>
                 </div>
-                <p class="text-sm text-slate-400">
+                <p class="text-sm text-gray-400">
                   {{ isPublicLocal
                     ? 'Anyone with the link can view the public index page.'
                     : 'Only you can access this project. It will not be publicly visible.'
@@ -73,7 +73,7 @@
               <label class="relative inline-flex cursor-pointer items-center">
                 <input v-model="isPublicLocal" type="checkbox" class="sr-only peer">
                 <div
-                  class="h-7 w-12 rounded-full bg-slate-600/60 transition peer-checked:bg-emerald-500/70 ring-1 ring-inset ring-white/10"
+                  class="h-7 w-12 rounded-full bg-gray-600/60 transition peer-checked:bg-emerald-500/70 ring-1 ring-inset ring-gray-200"
                 />
                 <span
                   class="pointer-events-none absolute left-1 top-1 h-5 w-5 rounded-full bg-white shadow
@@ -85,7 +85,7 @@
             <!-- Warning when making public -->
             <div
               v-if="isPublicLocal"
-              class="mt-4 inline-flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-amber-200"
+              class="mt-4 inline-flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-100 px-3 py-2 text-amber-500"
             >
               <UIcon name="i-lucide-alert-triangle" class="mt-0.5 size-4" />
               <p class="text-xs leading-relaxed">
@@ -101,7 +101,7 @@
               <!-- Fallback select (keeps your binding intact) -->
               <select
                 v-model="selectedIndexPageLocal"
-                class="hidden md:block rounded-lg border border-white/10 bg-[#0D1117] px-3 py-2 text-sm"
+                class="hidden md:block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:border focus:border-indigo-500 cursor-pointer"
               >
                 <option value="" disabled>Select a page</option>
                 <option
@@ -119,8 +119,8 @@
               <label
                 v-for="page in webPages"
                 :key="page.generatedPageId"
-                class="group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/5 p-3 ring-1 ring-white/10 transition
-                       hover:border-indigo-400/40 hover:ring-indigo-400/20"
+                class="group relative cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 p-3 transition
+                       hover:border-indigo-500"
               >
                 <input
                   v-model="selectedIndexPageLocal"
@@ -130,7 +130,7 @@
                 >
                 <div class="flex items-center gap-3">
                   <!-- tiny live preview -->
-                  <div class="relative h-14 w-20 overflow-hidden rounded-md border border-white/10 bg-white">
+                  <div class="relative h-14 w-20 overflow-hidden rounded-md border border-gray-200 bg-white">
                     <iframe
                       :srcdoc="page.htmlContent"
                       class="absolute left-0 top-0 h-[1000px] w-[1200px] origin-top-left scale-[0.06] pointer-events-none"
@@ -140,36 +140,36 @@
                     />
                   </div>
                   <div class="min-w-0">
-                    <div class="truncate text-sm font-medium text-white">{{ page.label }}</div>
-                    <div class="text-xs text-slate-400">{{ page.path }}</div>
+                    <div class="truncate text-sm font-medium text-black">{{ page.label }}</div>
+                    <div class="text-xs text-gray-400">{{ page.path }}</div>
                   </div>
                 </div>
 
                 <!-- check mark -->
                 <div
-                  class="pointer-events-none absolute right-3 top-3 hidden rounded-full bg-emerald-500/20 px-1 pt-1 text-emerald-300 ring-1 ring-emerald-500/30 peer-checked:block"
+                  class="pointer-events-none absolute right-3 top-3 hidden rounded-full bg-emerald-500 px-1 pt-1 text-white ring-1 ring-emerald-500/30 peer-checked:block"
                 >
                   <UIcon name="i-lucide-check" class="size-4" />
                 </div>
               </label>
             </div>
 
-            <p class="mt-2 text-xs text-slate-400">
+            <p class="mt-2 text-xs text-gray-400">
               The selected page becomes your public landing page.
             </p>
           </div>
         </div>
 
         <!-- Footer actions (sticky inside panel) -->
-        <div class="sticky bottom-0 flex items-center justify-end gap-2 rounded-b-2xl border-t border-white/10 bg-[#0D1117]/80 px-6 py-4 backdrop-blur-sm">
+        <div class="sticky bottom-0 flex items-center justify-end gap-2 rounded-b-2xl border-t border-gray-200 px-6 py-4 backdrop-blur-sm">
           <button
-            class="cursor-pointer rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition"
+            class="min-w-[120px] cursor-pointer rounded-lg border border-gray-200 px-4 py-2 text-sm hover:bg-gray-200 transition"
             @click="close"
           >
             Cancel
           </button>
           <button
-            class="cursor-pointer rounded-xl bg-indigo-500 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-600 active:scale-[.99] transition"
+            class="min-w-[120px] cursor-pointer rounded-lg bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-600 active:scale-[.99] transition"
             @click="save"
           >
             Save changes

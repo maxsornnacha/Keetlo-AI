@@ -2,26 +2,26 @@
   <main
     class="flex-grow flex items-center justify-center"
   >
-    <div class="w-full max-w-md space-y-8">
+    <div class="w-full lg:max-w-md space-y-8">
       <div>
         <h2
-          class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+          class="mt-6 text-center text-2xl font-semibold"
         >
           Change Your Password
         </h2>
-        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+        <p class="mt-2 text-center text-sm text-gray-400">
           Update your password for better security.
         </p>
       </div>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
-        <div class="rounded-lg shadow-sm -space-y-px">
+        <div class="rounded-lg">
           <div>
             <label class="sr-only" for="new-password">New Password</label>
             <input
               id="new-password"
               v-model="form.newPassword"
               autocomplete="new-password"
-              class="appearance-none rounded-t-lg relative block w-full px-3 py-4 border border-gray-300 dark:border-gray-700 bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+              class="appearance-none rounded-t-lg relative block w-full p-3 border border-gray-200 placeholder-gray-400 focus:outline-none focus:border focus:border-indigo-500"
               name="new-password"
               placeholder="New Password"
               required
@@ -36,7 +36,7 @@
               id="confirm-new-password"
               v-model="form.confirmPassword"
               autocomplete="new-password"
-              class="appearance-none rounded-b-lg relative block w-full px-3 py-4 border border-gray-300 dark:border-gray-700 bg-background-light dark:bg-background-dark placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+              class="appearance-none rounded-b-lg relative block w-full p-3 border border-gray-200 placeholder-gray-400 focus:outline-none focus:border focus:border-indigo-500"
               name="confirm-new-password"
               placeholder="Confirm New Password"
               required
@@ -50,17 +50,20 @@
             uppercase and lowercase letters, numbers, and symbols.
           </p>
         </div>
-        <div v-if="errorMessage" class="my-2 text-red-500 self-start">
-          <p>{{ errorMessage }}</p>
+             <div
+          v-if="errorMessage"
+          class="mt-3 rounded-md border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-500"
+        >
+          {{ errorMessage }}
         </div>
         <div>
           <button
             :disabled="loadingSubmit || !onValidate()"
-            class="flex min-w-[84px] w-full items-center justify-center overflow-hidden rounded-md h-12 px-4 transition-colors text-white text-base font-bold leading-normal tracking-[0.015em]"
+            class="flex min-w-[84px] w-full items-center justify-center overflow-hidden rounded-md h-11 px-4 transition-colors text-white leading-normal tracking-[0.015em]"
             :class="
               loadingSubmit || !onValidate()
-                ? 'bg-indigo-400 cursor-default'
-                : 'bg-indigo-600 hover:bg-indigo-700 cursor-pointer'
+                ? 'bg-indigo-400 cursor-not-allowed'
+                : 'bg-indigo-500 hover:bg-indigo-600 cursor-pointer'
             "
           >
             <span v-if="loadingSubmit" class="flex items-center gap-2">

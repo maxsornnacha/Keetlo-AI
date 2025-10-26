@@ -1,29 +1,64 @@
 <template>
-  <main v-if="!verifyEmailProcess" class="relative min-h-screen text-slate-100 overflow-x-hidden grid place-items-center py-8 lg:py-0 px-4">
+  <main v-if="!verifyEmailProcess" class="flex lg:gap-16 xl:gap-32 lg:min-h-screen lg:items-center lg:justify-center py-16 lg:py-0 px-4">
+        <div
+        class="hidden min-w-[500px] flex-0 lg:flex flex-col items-center justify-center gap-8"
+      >
+        <h2
+          class="text-center font-semibold tracking-tight leading-tight text-4xl xl:text-5xl uppercase"
+        >
+          Build Your Dream
+          <span class="relative inline-block">
+            <span
+              class="bg-gradient-to-r from-indigo-500 via-sky-500 to-cyan-400 bg-clip-text text-transparent"
+            >
+              UX/UI
+            </span>
+            <span
+              aria-hidden="true"
+              class="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-indigo-500/70 via-sky-500/70 to-cyan-400/70 blur-[1px]"
+            />
+          </span>
+          With Me
+        </h2>
+        <nuxt-img
+          src="/images/auth/login.png"
+          class="lg:w-[380px] lg:h-[380px] xl:w-[450px] xl:h-[450px]"
+          alt="Login Image"
+        />
+      </div>
     <form
-      class="lg:m-16 w-full lg:max-w-lg lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:p-6 md:p-8 lg:backdrop-blur-md lg:shadow-2xl lg:ring-1 lg:ring-white/10"
+      class="lg:m-16 w-full lg:max-w-lg lg:rounded-2xl lg:border lg:border-gray-200 lg:bg-white lg:p-6 md:p-8"
       @submit.prevent="onRegister"
     >
       <!-- Header -->
-      <div class="text-center mb-6">
-        <h2 class="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-300">
+      <div 
+       class="text-center mb-8 flex justify-center flex-col items-center gap-4"
+        >
+          <NuxtLink to="/" class="flex items-center gap-0">
+            <nuxt-img src="/icon-256.png" class="size-6" />
+            <h1 class="text-3xl font-semibold tracking-tight">EETLO</h1>
+          </NuxtLink>
+          <div>
+        <h2 class="text-2xl font-semibold">
           Create your account
         </h2>
-        <p class="text-slate-400 mt-2">Start building your Vue projects with AI.</p>
+        <p class="text-gray-400 mt-2">Start building your HTML projects with AI.</p>
+        </div>
       </div>
 
       <!-- Form fields -->
       <div class="flex w-full flex-col gap-4">
         <!-- Firstname -->
         <div>
-          <label class="block text-sm font-medium text-slate-200 mb-2" for="firstname">Firstname</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="firstname">Firstname</label>
           <input
             id="firstname"
             v-model.trim="form.firstname"
+            required
             maxlength="50"
             autocomplete="given-name"
-            class="px-3 py-2 w-full h-11 rounded-lg text-white bg-[#161B22] border placeholder:text-slate-500 focus:outline-none transition-colors"
-            :class="!validFirst ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : 'border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/40'"
+            class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
+            :class="!validFirst ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : ''"
             placeholder="Enter your firstname"
           >
           <p v-if="!validFirst" class="text-xs text-rose-400 mt-1">Please enter at least 2 characters.</p>
@@ -31,14 +66,15 @@
 
         <!-- Lastname -->
         <div>
-          <label class="block text-sm font-medium text-slate-200 mb-2" for="lastname">Lastname</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="lastname">Lastname</label>
           <input
             id="lastname"
             v-model.trim="form.lastname"
+            required
             maxlength="50"
             autocomplete="family-name"
-            class="px-3 py-2 w-full h-11 rounded-lg text-white bg-[#161B22] border placeholder:text-slate-500 focus:outline-none transition-colors"
-            :class="!validLast ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : 'border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/40'"
+                            class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
+            :class="!validLast ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : ''"
             placeholder="Enter your lastname"
           >
           <p v-if="!validLast" class="text-xs text-rose-400 mt-1">Please enter at least 2 characters.</p>
@@ -46,15 +82,16 @@
 
         <!-- Email -->
         <div>
-          <label class="block text-sm font-medium text-slate-200 mb-2" for="email">Email</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="email">Email</label>
           <input
             id="email"
             v-model.trim="form.email"
+            required
             maxlength="50"
             autocomplete="email"
             inputmode="email"
-            class="px-3 py-2 w-full h-11 rounded-lg text-white bg-[#161B22] border placeholder:text-slate-500 focus:outline-none transition-colors"
-            :class="emailError ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : 'border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/40'"
+                            class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
+            :class="emailError ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : ''"
             placeholder="you@example.com"
             type="email"
           >
@@ -63,16 +100,17 @@
 
         <!-- Password -->
         <div>
-          <label class="block text-sm font-medium text-slate-200 mb-2" for="password">Password</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="password">Password</label>
           <div class="relative">
             <input
               id="password"
               ref="passwordEl"
               v-model="form.password"
+              required
               maxlength="50"
               autocomplete="new-password"
               :type="showPassword ? 'text' : 'password'"
-              class="px-3 py-2 w-full h-11 rounded-lg text-white bg-[#161B22] border placeholder:text-slate-500 focus:outline-none transition-colors"
+                              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               :class="passwordError ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : 'border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/40'"
               placeholder="Enter your password"
               @keyup.caps-lock="capsOn = true"
@@ -80,7 +118,7 @@
             >
             <button
               type="button"
-              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-slate-300 hover:text-white hover:bg-white/10"
+                class="cursor-pointer absolute right-2 top-[55%] -translate-y-1/2 rounded-md p-1.5 text-gray-500 hover:text-black hover:bg-white/10"
               :aria-label="showPassword ? 'Hide password' : 'Show password'"
               @click="showPassword = !showPassword"
             >
@@ -104,8 +142,8 @@
           </div>
 
           <!-- Password rules -->
-          <div class="mt-2 space-y-1 text-xs text-slate-400">
-            <p class="font-medium text-slate-300">Password must:</p>
+          <div class="mt-2 space-y-1 text-xs text-gray-400">
+            <p class="font-medium text-gray-300">Password must:</p>
             <ul class="list-disc pl-5">
               <li :class="ruleClass(minLenOk)">Be at least 8 characters long</li>
               <li :class="ruleClass(hasLettersOk)">Include letters</li>
@@ -117,21 +155,22 @@
 
         <!-- Confirm Password -->
         <div>
-          <label class="block text-sm font-medium text-slate-200 mb-2" for="confirm-password">Confirm Password</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2" for="confirm-password">Confirm Password</label>
           <div class="relative">
             <input
               id="confirm-password"
               v-model="form.confirmPassword"
+              required
               maxlength="50"
               autocomplete="new-password"
               :type="showConfirm ? 'text' : 'password'"
-              class="px-3 py-2 w-full h-11 rounded-lg text-white bg-[#161B22] border placeholder:text-slate-500 focus:outline-none transition-colors"
+                              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               :class="!passwordsMatch ? 'border-rose-500/60 focus:border-rose-400 focus:ring-rose-400/40' : 'border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/40'"
               placeholder="Confirm your password"
             >
             <button
               type="button"
-              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-slate-300 hover:text-white hover:bg-white/10"
+                class="cursor-pointer absolute right-2 top-[55%] -translate-y-1/2 rounded-md p-1.5 text-gray-500 hover:text-black hover:bg-white/10"
               :aria-label="showConfirm ? 'Hide password' : 'Show password'"
               @click="showConfirm = !showConfirm"
             >
@@ -142,14 +181,14 @@
         </div>
 
         <!-- Error -->
-        <div v-if="errorMessage" class="rounded-md border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-200">
+        <div v-if="errorMessage" class="rounded-md border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-500">
           {{ errorMessage }}
         </div>
 
         <!-- Submit -->
         <button
           type="submit"
-          class="mt-2 flex w-full min-w-[84px] h-12 items-center justify-center rounded-lg px-4 text-white text-sm font-semibold tracking-[0.015em] transition-colors"
+          class="mt-2 flex w-full min-w-[84px] h-12 items-center justify-center rounded-lg px-4 text-white text-sm tracking-[0.015em] transition-colors"
           :class="canSubmit ? 'bg-indigo-600 hover:bg-indigo-700 cursor-pointer' : 'bg-indigo-500/50 cursor-not-allowed'"
           :disabled="!canSubmit || loadingSubmit"
         >
@@ -163,15 +202,15 @@
 
       <!-- Footer -->
       <div class="mt-6 text-center">
-        <span class="text-slate-400">Already have an account?</span>
-        <NuxtLink href="/auth/login" class="underline ml-1 hover:text-[#1F6FEB]">Log in</NuxtLink>
+        <span class="text-gray-600">Already have an account?</span>
+        <NuxtLink href="/auth/login" class="underline ml-1 hover:text-indigo-500">Log in</NuxtLink>
       </div>
 
-      <p class="text-slate-500 text-xs mt-6 text-center">
+      <p class="text-gray-400 text-xs mt-6 text-center">
         By signing up, you agree to our
-        <NuxtLink class="text-slate-300 hover:text-white underline" href="/terms-of-service">Terms of Service</NuxtLink>
+        <NuxtLink class="text-gray-500 hover:text-indigo-500 underline" href="/terms-of-service">Terms of Service</NuxtLink>
         and
-        <NuxtLink class="text-slate-300 hover:text-white underline" href="/privacy-policy">Privacy Policy</NuxtLink>.
+        <NuxtLink class="text-gray-500 hover:text-indigo-500 underline" href="/privacy-policy">Privacy Policy</NuxtLink>.
       </p>
     </form>
   </main>
@@ -226,18 +265,18 @@ const capsOn = ref(false)
 const passwordEl = ref<HTMLInputElement | null>(null)
 
 /** Simple validators */
-const emailError = computed(() => !/^\S+@\S+\.\S+$/.test(form.email.trim()))
-const validFirst = computed(() => form.firstname.trim().length >= 2)
-const validLast  = computed(() => form.lastname.trim().length >= 2)
+const emailError = computed(() => form.email && !/^\S+@\S+\.\S+$/.test(form.email.trim()))
+const validFirst = computed(() => !form.firstname || form.firstname.trim().length >= 2)
+const validLast  = computed(() => !form.lastname || form.lastname.trim().length >= 2)
 
 /** Password checks */
 const minLenOk      = computed(() => form.password.length >= 8)
 const hasLettersOk  = computed(() => /[a-zA-Z]/.test(form.password))
 const hasNumbersOk  = computed(() => /\d/.test(form.password))
-const hasSymbolsOk  = computed(() => /[!@#$%^&*(),.?":{}|<>]/.test(form.password))
+const hasSymbolsOk  = computed(() =>  /[!@#$%^&*(),.?":{}|<>]/.test(form.password))
 
-const passwordError = computed(() => !(minLenOk.value && hasLettersOk.value && hasNumbersOk.value && hasSymbolsOk.value))
-const passwordsMatch = computed(() => form.password !== '' && form.password === form.confirmPassword)
+const passwordError = computed(() => form.password && !(minLenOk.value && hasLettersOk.value && hasNumbersOk.value && hasSymbolsOk.value))
+const passwordsMatch = computed(() => !form.confirmPassword || (form.password !== '' && form.password === form.confirmPassword))
 
 /** Strength heuristic (0–4) */
 const strengthScore = computed(() => {
@@ -268,7 +307,7 @@ const strengthTextClass = computed(() => [
 
 /** Helpers */
 function ruleClass(ok: boolean) {
-  return ok ? 'text-emerald-300' : 'text-slate-400'
+  return ok ? 'text-emerald-300' : 'text-gray-400'
 }
 function onPwdKey(e: KeyboardEvent) {
   capsOn.value = !!e.getModifierState?.('CapsLock')

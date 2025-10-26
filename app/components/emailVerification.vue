@@ -1,20 +1,20 @@
 <template>
-  <main class="relative lg:min-h-[80vh] grid place-items-center overflow-hidden text-slate-100 px-4 py-16">
+  <main class="relative lg:min-h-[80vh] grid place-items-center overflow-hidden text-gray-700 px-4 py-16">
     <div class="w-full lg:max-w-md">
-      <div class="lg:rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:p-6 md:p-8 lg:backdrop-blur-md lg:shadow-2xl lg:ring-1 lg:ring-white/10 text-center">
+      <div class="lg:rounded-2xl lg:border lg:border-gray-200 lg:bg-white lg:p-6 md:p-8 text-center">
         <!-- Header -->
         <div class="flex items-center justify-center gap-3 mb-3">
-          <UIcon name="i-lucide-shield-check" class="size-6 text-indigo-300" />
-          <span class="text-sm text-indigo-200/90">Secure Verification</span>
+          <UIcon name="i-lucide-shield-check" class="size-6 text-indigo-500" />
+          <span class="text-sm text-indigo-500">Secure Verification</span>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-300">
+        <h1 class="text-2xl font-semibold tracking-tight">
           Enter Verification Code
         </h1>
 
-        <p class="mt-3 text-slate-400">
+        <p class="mt-3 text-gray-400">
           We’ve sent a 6-digit code to
-          <span class="font-medium text-white">{{ props.email }}</span>.
+          <span class="font-medium text-black">{{ props.email }}</span>.
           The code can be used up to 5 times within 10 minutes.
         </p>
 
@@ -33,21 +33,21 @@
               type="text"
               class="text-center text-xl sm:text-2xl font-semibold rounded-xl
                      h-14 w-14 sm:h-14 sm:w-14
-                      text-white placeholder:text-slate-500
-                     border border-white/10 focus:outline-none
-                     focus:border-[#1F6FEB] focus:ring-2 focus:ring-[#1F6FEB]/40
+                      text-black placeholder:text-gray-500
+                     border border-gray-200 focus:outline-none
+                     focus:border-indigo-500
                      transition"
-              :class="otp[i] ? 'ring-2 ring-emerald-400/70 border-emerald-400/40' : ''"
+              :class="otp[i] ? 'ring-2 ring-emerald-500 border-emerald-400' : ''"
               @input="onInput($event, i)"
               @keydown="onKeyDown($event, i)"
             >
           </div>
 
           <!-- Error / help -->
-          <div v-if="errorMessage" class="mt-4 rounded-md border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-200">
+          <div v-if="errorMessage" class="mt-4 rounded-md border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-700">
             {{ errorMessage }}
           </div>
-          <p v-else class="mt-4 text-xs text-slate-400">
+          <p v-else class="mt-4 text-xs text-gray-400">
             Tip: The form auto-submits when all 6 digits are entered.
           </p>
 
@@ -55,9 +55,9 @@
           <div class="mt-6 flex flex-col items-center gap-4">
             <button
               :disabled="!onValidate()"
-              class="cursor-pointer flex w-full max-w-xs items-center justify-center rounded-lg px-4 py-3 text-sm font-bold text-white transition
-                     disabled:cursor-not-allowed disabled:bg-indigo-500/50
-                     enabled:bg-indigo-600 enabled:hover:bg-indigo-700"
+              class="cursor-pointer flex w-full max-w-xs items-center justify-center rounded-lg px-4 py-3 text-sm text-white transition
+                     disabled:cursor-not-allowed disabled:bg-indigo-500
+                     enabled:bg-indigo-500 enabled:hover:bg-indigo-600"
               :class="loadingSubmit ? 'cursor-default' : ''"
               type="submit"
             >
@@ -68,16 +68,16 @@
               <span v-else>Verify</span>
             </button>
 
-            <div class="text-sm text-slate-400">
+            <div class="text-sm text-gray-500">
               Didn’t receive the code?
               <button
                 v-if="!isResendDisabled"
-                class="font-medium text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline cursor-pointer"
+                class="text-indigo-500 hover:text-indigo-400 underline-offset-4 hover:underline cursor-pointer"
                 type="button"
                 @click="onResend"
               >
                 <span v-if="loadingResend" class="inline-flex items-center gap-2">
-                  <UIcon name="i-lucide-loader-circle" class="size-4 text-white animate-spin" />
+                  <UIcon name="i-lucide-loader-circle" class="size-4 text-black animate-spin" />
                   Sending…
                 </span>
                 <span v-else>Resend Code</span>

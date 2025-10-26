@@ -1,6 +1,6 @@
 <template>
   <main
-    class="relative flex flex-1 flex-col items-center text-slate-100 overflow-x-hidden"
+    class="relative flex flex-1 flex-col items-center text-gray-100 overflow-x-hidden"
   >
     <div>
       <!-- Heading -->
@@ -8,11 +8,11 @@
         class="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center"
       >
         <h1
-          class="bg-gradient-to-b from-white to-slate-300 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl"
+          class="text-black text-4xl font-extrabold text-4xl"
         >
           Choose the plan that's right for you
         </h1>
-        <p class="text-lg text-slate-400">
+        <p class="text-lg text-gray-400">
           Simple, transparent pricing. No hidden fees. Cancel anytime.
         </p>
       </header>
@@ -32,11 +32,11 @@
         <div
           v-for="plan in subscriptionPlans"
           :key="plan.subscriptionPlanId"
-          class="group relative overflow-hidden rounded-2xl border p-7 sm:p-8 shadow-2xl transition backdrop-blur-md hover:shadow-[0_10px_40px_rgba(99,102,241,0.25)]"
+          class="group relative overflow-hidden rounded-2xl p-7 sm:p-8 border transition backdrop-blur-md"
           :class="
             plan.mostPopular === 1
               ? 'border-indigo-400/40 bg-gradient-to-b from-indigo-500/10 to-indigo-400/5 ring-1 ring-indigo-400/40'
-              : 'border-white/10 bg-white/5 ring-1 ring-white/10'
+              : 'border-gray-200 ring-1 ring-white/10'
           "
         >
           <!-- Popular badge -->
@@ -60,17 +60,17 @@
 
           <!-- Plan header -->
           <div class="flex flex-col gap-2">
-            <h2 class="text-2xl font-semibold text-white">{{ plan.name }}</h2>
+            <h2 class="text-2xl font-semibold text-black">{{ plan.name }}</h2>
 
             <!-- Price block -->
             <div class="mt-2">
               <div class="flex items-baseline gap-2">
-                <span class="text-5xl font-extrabold tracking-tight text-white">
+                <span class="text-5xl font-extrabold tracking-tight text-black">
                   ${{ plan.price.toFixed(2) }}
                 </span>
-                <span class="text-sm text-slate-400">/ month</span>
+                <span class="text-sm text-gray-400">/ month</span>
               </div>
-              <p class="mt-2 text-sm text-slate-400">
+              <p class="mt-2 text-sm text-gray-400">
                 {{ plan.description }}
               </p>
             </div>
@@ -81,18 +81,18 @@
             <button
               v-if="plan.isActive === 1"
               disabled
-              class="flex h-11 w-full cursor-default items-center justify-center rounded-xl border border-white/10 bg-white/10 px-6 text-base font-semibold text-white"
+              class="flex h-11 w-full cursor-default items-center justify-center rounded-xl border border-gray-200 bg-gray-200 px-6 text-base font-semibold text-black"
             >
               Currently Using
             </button>
 
             <button
               v-else
-              class="flex h-11 w-full items-center justify-center gap-2 rounded-xl text-base font-semibold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0"
+              class="flex h-11 w-full items-center justify-center gap-2 rounded-xl text-base font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0"
               :class="
                 plan.packageType === 'DEFAULT'
-                  ? 'bg-slate-500/50 cursor-not-allowed'
-                  : 'bg-indigo-600 hover:bg-indigo-700 cursor-pointer'
+                  ? 'bg-gray-200 cursor-not-allowed text-black '
+                  : 'bg-indigo-600 hover:bg-indigo-700 cursor-pointer text-white'
               "
               :disabled="plan.packageType === 'DEFAULT'"
               @click="onUpgradePackage(plan.subscriptionPlanId)"
@@ -103,7 +103,7 @@
 
             <!-- Trust row -->
             <div
-              class="mt-3 flex items-center justify-center gap-3 text-xs text-white/60"
+              class="mt-3 flex items-center justify-center gap-3 text-xs text-black/60"
             >
               <UIcon name="i-lucide-shield-check" class="size-4" />
               <span>Secure checkout</span>
@@ -114,13 +114,13 @@
 
           <!-- Feature list -->
           <ul
-            class="mt-7 space-y-3 border-t border-white/10 pt-6 text-sm text-slate-200"
+            class="mt-7 space-y-3 border-t border-white/10 pt-6 text-sm text-black"
           >
-            <li class="flex items-center gap-3" v-if="plan.requestsPerDay">
+            <li v-if="plan.requestsPerDay" class="flex items-center gap-3">
               <UIcon name="i-lucide-check" class="size-5 text-emerald-400" />
               <span>{{ plan.requestsPerDay }} requests / day</span>
             </li>
-            <li class="flex items-center gap-3" v-else>
+            <li v-else class="flex items-center gap-3">
               <UIcon name="i-lucide-check" class="size-5 text-emerald-400" />
               <span>Unlimited requests</span>
             </li>
@@ -166,17 +166,17 @@
         <div
           v-for="i in 3"
           :key="i"
-          class="w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7 sm:p-8"
+          class="w-full overflow-hidden rounded-2xl border border-black/10 bg-black/5 p-7 sm:p-8"
         >
-          <div class="h-6 w-40 rounded bg-white/10 animate-pulse" />
-          <div class="mt-4 h-10 w-86 rounded bg-white/10 animate-pulse" />
-          <div class="mt-2 h-3 w-3/4 rounded bg-white/10 animate-pulse" />
-          <div class="mt-6 h-11 w-full rounded-xl bg-white/10 animate-pulse" />
-          <ul class="mt-7 space-y-3 border-t border-white/10 pt-6">
+          <div class="h-6 w-40 rounded bg-black/10 animate-pulse" />
+          <div class="mt-4 h-10 w-86 rounded bg-black/10 animate-pulse" />
+          <div class="mt-2 h-3 w-3/4 rounded bg-black/10 animate-pulse" />
+          <div class="mt-6 h-11 w-full rounded-xl bg-black/10 animate-pulse" />
+          <ul class="mt-7 space-y-3 border-t border-black/10 pt-6">
             <li
               v-for="j in 6"
               :key="j"
-              class="h-4 w-5/6 rounded bg-white/10 animate-pulse"
+              class="h-4 w-5/6 rounded bg-black/10 animate-pulse"
             />
           </ul>
         </div>
@@ -185,19 +185,19 @@
       <!-- Error / empty state -->
       <section
         v-else
-        class="mx-auto mt-12 max-w-xl text-center rounded-2xl border border-white/10 bg-white/5 p-8"
+        class="mx-auto mt-12 max-w-xl text-center rounded-2xl border border-gray-200 bg-white p-8"
       >
         <div
-          class="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-white/10"
+          class="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-indigo-500"
         >
-          <UIcon name="i-lucide-alert-circle" class="size-8 text-white/80" />
+          <UIcon name="i-lucide-alert-circle" class="size-6 text-white" />
         </div>
-        <h3 class="text-xl font-bold text-white">
+        <h3 class="text-xl font-bold text-black">
           {{ errorMessage || "No plans available" }}
         </h3>
-        <p class="mt-2 text-white/70">Please try again later.</p>
+        <p class="mt-2 text-black/70">Please try again later.</p>
         <button
-          class="cursor-pointer mt-6 rounded-lg bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/15 border border-white/10"
+          class="min-w-[120px] cursor-pointer mt-6 rounded-lg bg-white px-4 py-2 text-sm text-black hover:bg-gray-200 border border-gray-200"
           @click="$router.go(0)"
         >
           Retry

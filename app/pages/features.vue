@@ -1,30 +1,20 @@
 <template>
   <main>
-    <div
-      class="flex items-center justify-center pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-    >
+    <div class="flex flex-col items-center justify-center text-center">
       <div
-        class="absolute inset-0 sm:left-[25%] top-20 z-[1] sm:w-[50%] sm:h-[80%] rounded-full blur-xl opacity-70 bg-no-repeat bg-[radial-gradient(120%_90%_at_25%_25%,_var(--tw-gradient-stops))] [--tw-gradient-stops:#60a5fa,_#22d3ee_30%,_#a78bfa_55%,_#f97316_75%,_#facc15_100%]"
-      />
-    </div>
-    <div class="flex flex-col items-center justify-center text-center mx-auto container p-4">
-      <div
-        class="relative border border-slate-50/20 min-h-[480px] w-full flex flex-col items-center justify-center rounded-2xl bg-cover bg-center bg-no-repeat p-4"
+        class="relative border border-gray-50/20 min-h-[480px] w-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat p-4"
         style="
-          background-image: linear-gradient(
-              rgba(0, 0, 0, 0.5) 0%,
-              rgba(0, 0, 0, 0.8) 100%
-            ),
-            url('https://lh3.googleusercontent.com/aida-public/AB6AXuAI5fx7UPG6RE9ZLrEFgAFO0O9aMSIYLKTh9JT_F39DD2S5E3L989qXfoKNtLX_CbdHyWhuL6NpWUltsAQSmeKmUZ_8r_L8GqlfKPNz_z0RemH1VyhVzGPLO32OcWcuRoFxwQMejaD5WKr4DkLRaolPe76RG-5AR16-b--qmGUmRwDYnMzOE5qVKo_x5WR1GJFob5DtSw48etiRG9Y3DJIsqErPNpBaISI6VdbB8U-IvAPbuGnnkWGbLs3ixCmkI1gDyPQqPa_7A5Q');
+          background-image: 
+            url('/images/backgrounds/keetlo-hero-bg-light.webp');
         "
       >
         <div class="max-w-3xl space-y-6">
           <h1
-            class="text-4xl font-extrabold tracking-tighter sm:text-5xl lg:text-6xl"
+            class="text-4xl sm:text-5xl lg:text-6xl"
           >
             Generate HTML Page Projects with AI
           </h1>
-          <p class="text-lg text-gray-300 sm:text-xl">
+          <p class="text-lg text-gray-500 sm:text-xl">
             Keetlo AI simplifies web development by automatically generating
             projects with html-tailwindcss pages, complete with a live UX/UI
             preview. Experience the future of coding with AI-powered efficiency.
@@ -32,7 +22,7 @@
         </div>
         <a href="/account/projects">
           <button
-            class="cursor-pointer mt-8 rounded-md bg-indigo-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+            class="cursor-pointer mt-8 rounded-md bg-indigo-600 px-8 py-3 text-lg text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
           >
             Get Started Today
           </button>
@@ -54,7 +44,7 @@
           class="mt-16 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
         >
           <div
-            class="flex flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900/50 p-6 shadow-lg backdrop-blur-sm"
+            class="flex flex-col gap-4 rounded-xl bg-white border border-gray-200 p-6 shadow-lg backdrop-blur-sm"
           >
             <span class="text-blue-500"
               ><UIcon name="i-lucide-brain" class="size-10 bg-indigo-500"
@@ -68,7 +58,7 @@
             </div>
           </div>
           <div
-            class="flex flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900/50 p-6 shadow-lg backdrop-blur-sm"
+            class="flex flex-col gap-4 rounded-xl bg-white border border-gray-200 p-6 shadow-lg backdrop-blur-sm"
           >
             <span class="text-blue-500"
               ><UIcon name="i-lucide-code" class="size-10 bg-indigo-500"
@@ -82,7 +72,7 @@
             </div>
           </div>
           <div
-            class="flex flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900/50 p-6 shadow-lg backdrop-blur-sm"
+            class="flex flex-col gap-4 rounded-xl bg-white border border-gray-200 p-6 shadow-lg backdrop-blur-sm"
           >
             <span class="text-blue-500"
               ><UIcon name="i-lucide-eye" class="size-10 bg-indigo-500"
@@ -96,7 +86,7 @@
             </div>
           </div>
           <div
-            class="flex flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900/50 p-6 shadow-lg backdrop-blur-sm"
+            class="flex flex-col gap-4 rounded-xl bg-white border border-gray-200 p-6 shadow-lg backdrop-blur-sm"
           >
             <span class="text-blue-500"
               ><UIcon name="i-lucide-rocket" class="size-10 bg-indigo-500"
@@ -183,7 +173,7 @@
       <div class="mt-10 flex items-center justify-center gap-x-6">
         <a href="/account/projects">
           <button
-            class="cursor-pointer rounded-md bg-indigo-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+            class="cursor-pointer rounded-md bg-indigo-600 px-8 py-3 text-lg text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
           >
             Get Started for Free
           </button>

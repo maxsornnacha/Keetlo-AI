@@ -3,16 +3,16 @@
     <div class="mx-auto max-w-4xl">
       <div class="mb-12 text-center">
         <h1
-          class="text-4xl md:text-5xl font-extrabold tracking-tighter text-white"
+          class="text-2xl font-bold tracking-tighter text-black"
         >
           Privacy Policy
         </h1>
-        <p class="mt-4 text-lg text-gray-400">Last updated: July 26, 2024</p>
+        <p class="mt-4 text-gray-400">Last updated: July 26, 2024</p>
       </div>
       <div class="space-y-10">
         <section>
           <h2
-            class="text-2xl font-bold text-white border-l-4 border-indigo-500 pl-4 mb-4"
+            class="text-xl font-bold text-black border-l-4 border-indigo-500 pl-4 mb-4"
           >
             Data We Collect
           </h2>
@@ -27,7 +27,7 @@
         </section>
         <section>
           <h2
-            class="text-2xl font-bold text-white border-l-4 border-indigo-500 pl-4 mb-4"
+            class="text-xl font-bold text-black border-l-4 border-indigo-500 pl-4 mb-4"
           >
             Purpose of Data Collection
           </h2>
@@ -42,7 +42,7 @@
         </section>
         <section>
           <h2
-            class="text-2xl font-bold text-white border-l-4 border-indigo-500 pl-4 mb-4"
+            class="text-xl font-bold text-black border-l-4 border-indigo-500 pl-4 mb-4"
           >
             Data Sharing
           </h2>
@@ -58,7 +58,7 @@
         </section>
         <section>
           <h2
-            class="text-2xl font-bold text-white border-l-4 border-indigo-500 pl-4 mb-4"
+            class="text-xl font-bold text-black border-l-4 border-indigo-500 pl-4 mb-4"
           >
             User Rights
           </h2>
@@ -72,7 +72,7 @@
         </section>
         <section>
           <h2
-            class="text-2xl font-bold text-white border-l-4 border-indigo-500 pl-4 mb-4"
+            class="text-xl font-bold text-black border-l-4 border-indigo-500 pl-4 mb-4"
           >
             Security Measures
           </h2>

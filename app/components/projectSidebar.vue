@@ -1,25 +1,25 @@
 <template>
   <aside
     ref="scrollEl"
-    class="overflow-y-auto backdrop-blur-sm flex flex-col w-96 border-r border-[#30363d] bg-[#0D1117]/60"
+    class="overflow-y-auto backdrop-blur-sm flex flex-col w-96 lg:border-r lg:border-gray-200"
     :class="props.heightFull ? 'h-screen' : 'h-[90dvh]'"
   >
     <!-- Search -->
     <div
-      class="sticky top-0 z-30 p-4 bg-[#0D1117]/80 backdrop-blur-sm border-b border-[#30363d]"
+      class="sticky top-0 z-30 p-4 backdrop-blur-sm border-b border-gray-200"
     >
       <label for="project-search" class="sr-only">Search projects</label>
       <div class="relative">
         <UIcon
           name="i-lucide-search"
-          class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-slate-400"
+          class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400"
         />
         <input
           id="project-search"
           v-model="searchTerm"
           type="text"
           placeholder="Search projects…"
-          class="w-full rounded-md border border-[#30363d] bg-transparent pl-10 pr-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/60 focus:border-blue-600/60"
+          class="w-full rounded-md border border-gray-200 bg-transparent pl-10 pr-3 py-2 text-sm text-black placeholder:text-gray-500 focus:outline-none focus:border focus:border-indigo-500"
           @input="onSearchChange"
         >
         <!-- Clear -->
@@ -28,7 +28,7 @@
           class="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-white/10 cursor-pointer"
           @click="clearSearch"
         >
-          <UIcon name="i-lucide-x" class="size-4 text-slate-300" />
+          <UIcon name="i-lucide-x" class="size-4 text-gray-300" />
         </button>
       </div>
     </div>
@@ -38,12 +38,12 @@
       <div
         v-for="i in 9"
         :key="i"
-        class="flex gap-3 items-center p-3 rounded-md border border-white/5 bg-white/5 animate-pulse"
+        class="flex gap-3 items-center p-3 rounded-md border border-white/5 bg-black/5 animate-pulse"
       >
-        <div class="w-[50px] h-[50px] rounded-md bg-white/10" />
+        <div class="w-[50px] h-[50px] rounded-md bg-black/10" />
         <div class="flex-1 space-y-2">
-          <div class="h-3 w-3/4 rounded bg-white/10" />
-          <div class="h-3 w-1/2 rounded bg-white/10" />
+          <div class="h-3 w-3/4 rounded bg-black/10" />
+          <div class="h-3 w-1/2 rounded bg-black/10" />
         </div>
       </div>
     </div>
@@ -55,13 +55,13 @@
           v-for="project in projects"
           :key="project.projectId"
           :to="`/account/projects/${project.projectId}`"
-          class="group block rounded-md p-3 border border-transparent hover:border-white/10 hover:bg-white/5 transition-colors"
-          :class="props.project?.projectId === project.projectId ? 'border-white/10 bg-white/5' :''"
+          class="group block rounded-md p-3 border border-transparent hover:border-gray-200 hover:bg-gray-100 transition-colors"
+          :class="props.project?.projectId === project.projectId ? 'border-gray-200 bg-gray-100' :''"
         >
           <div class="flex gap-3 items-center">
             <!-- Mini preview (iframe) -->
             <div
-              class="flex-none w-[50px] h-[50px] overflow-hidden border rounded-md shadow bg-white relative"
+              class="flex-none w-[50px] h-[50px] overflow-hidden border border-gray-200 rounded-md shadow bg-white relative"
             >
               <iframe
                 :srcdoc="project.mainHtmlContent"
@@ -75,26 +75,26 @@
 
             <!-- Meta -->
             <div class="min-w-0 flex-1">
-              <p class="font-medium text-sm text-white truncate">
+              <p class="font-medium text-sm text-black truncate">
                 {{ project.title || "No title" }}
               </p>
-              <p class="text-xs text-slate-400 truncate">
+              <p class="text-xs text-gray-400 truncate">
                 {{ project.type || "No type" }}
               </p>
-              <p class="text-[11px] text-slate-500 mt-0.5">
+              <p class="text-[11px] text-gray-500 mt-0.5">
                 Updated: {{ formatDate(project.updatedAt) }}
               </p>
             </div>
 
             <UIcon
               name="i-lucide-chevron-right"
-              class="size-4 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity"
+              class="size-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity"
             />
           </div>
         </NuxtLink>
 
         <!-- Loading more -->
-        <div v-if="loadingMore" class="p-3 text-center text-slate-400">
+        <div v-if="loadingMore" class="p-3 text-center text-gray-400">
           Loading more…
         </div>
 
@@ -103,7 +103,7 @@
       </template>
 
       <!-- Empty -->
-      <div v-else class="p-3 text-slate-400">No projects found.</div>
+      <div v-else class="p-3 text-gray-400">No projects found.</div>
 
       <!-- Error -->
       <div

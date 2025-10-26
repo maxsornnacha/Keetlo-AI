@@ -18,20 +18,20 @@
           <div
             v-if="selectedPage && type === 2"
             ref="panelRef"
-            class="relative w-full max-h-full h-full bg-white dark:bg-gray-950 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden"
+            class="relative w-full max-h-full h-full bg-gray-50 shadow-2xl border border-gray-200 overflow-hidden"
             role="dialog"
             aria-modal="true"
           >
             <!-- Header -->
             <header
-              class="flex items-center justify-between px-5 py-3 border-b border-gray-200 dark:border-gray-800"
+              class="flex items-center justify-between px-5 py-2 border-b border-gray-200"
             >
               <h2 class="text-lg font-semibold">
                 {{ props.selectedPage?.label }}
               </h2>
               <div class="flex items-center gap-2">
                 <button
-                  class="cursor-pointer rounded-full px-2 pt-2 pb-1 bg-red-600 text-white hover:bg-red-700 transition"
+                  class="cursor-pointer rounded-md px-2 pt-2 pb-1 text-black hover:bg-gray-200 transition"
                   aria-label="Close preview"
                   @click="close()"
                 >
@@ -42,7 +42,7 @@
 
             <!-- Browser chrome (address bar) -->
             <div
-              class="flex items-center gap-3 px-4 py-2 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950"
+              class="flex items-center gap-3 px-4 py-2 border-b border-gray-200 bg-gray-50"
             >
               <div class="flex items-center gap-1">
                 <span class="inline-block w-3 h-3 rounded-full bg-red-500" />
@@ -52,21 +52,21 @@
               <div class="flex items-center gap-2 ml-3">
                 <button
                   disabled
-                  class="rounded-md border border-gray-300 dark:border-gray-700 px-2 py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-900 disabled:opacity-40"
+                  class="rounded-md border border-gray-300 px-2 py-1 text-sm disabled:opacity-40"
                 >
                   ←
                 </button>
                 <button
                   disabled
-                  class="rounded-md border border-gray-300 dark:border-gray-700 px-2 py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-900 disabled:opacity-40"
+                  class="rounded-md border border-gray-300 px-2 py-1 text-sm disabled:opacity-40"
                 >
                   →
                 </button>
                 <button
                   disabled
-                  class="rounded-md border border-gray-300 dark:border-gray-700 px-2 py-1 text-base hover:bg-gray-50 dark:hover:bg-gray-900"
+                  class="rounded-md border border-gray-300 px-2 py-1 text-sm"
                 >
-                  <UIcon name="i-lucide-rotate-cw" class="size-4 mt-1" />
+                  <UIcon name="i-lucide-rotate-cw" class="size-3 mt-1" />
                 </button>
               </div>
               <div class="flex-1 flex items-center gap-2 min-w-0">
@@ -75,19 +75,17 @@
                   disabled
                   type="text"
                   spellcheck="false"
-                  class="flex-1 min-w-0 rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-1.5 bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900"
+                  class="flex-1 min-w-0 rounded-lg border border-gray-200 px-3 py-1.5 bg-white focus:bg-white dark:focus:bg-gray-900"
                 >
-                <button
-                  class="rounded-lg px-4 py-1.5 text-white hover:opacity-95 bg-indigo-600"
-                >
-                  Go
+                <button class="rounded-lg px-4 py-1.5 text-white bg-indigo-500">
+                  GO
                 </button>
               </div>
             </div>
 
             <!-- Controls -->
             <div
-              class="flex flex-wrap items-end gap-4 px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/60"
+              class="flex flex-wrap items-end gap-4 px-4 py-3 border-b border-gray-200 bg-gray-50"
             >
               <div class="flex items-end gap-3">
                 <label class="text-xs"
@@ -97,7 +95,7 @@
                     type="number"
                     min="200"
                     max="2400"
-                    class="block border border-gray-300 dark:border-gray-700 rounded px-2 py-1 w-24 bg-white dark:bg-gray-900"
+                    class="block border border-gray-200 rounded px-2 py-1 w-24 bg-white focus:outline-none focus:border focus:border-indigo-500"
                   >
                 </label>
                 <label class="text-xs"
@@ -107,14 +105,14 @@
                     type="number"
                     min="200"
                     max="3000"
-                    class="block border border-gray-300 dark:border-gray-700 rounded px-2 py-1 w-24 bg-white dark:bg-gray-900"
+                    class="block border border-gray-200 rounded px-2 py-1 w-24 bg-white focus:outline-none focus:border focus:border-indigo-500"
                   >
                 </label>
                 <label class="text-xs"
                   >DPR
                   <select
                     v-model.number="dpr"
-                    class="block border border-gray-300 dark:border-gray-700 rounded px-2 py-1 w-24 bg-white dark:bg-gray-900"
+                    class="block border border-gray-200 rounded px-2 py-1 w-24 bg-white focus:outline-none focus:border focus:border-indigo-500"
                   >
                     <option :value="1">1x</option>
                     <option :value="1.5">1.5x</option>
@@ -129,7 +127,7 @@
                   >Scale Mode
                   <select
                     v-model="scaleMode"
-                    class="block border border-gray-300 dark:border-gray-700 rounded px-2 py-1 w-40 bg-white dark:bg-gray-900"
+                    class="block border border-gray-200 rounded px-2 py-1 w-40 bg-white cursor-pointer focus:outline-none focus:border focus:border-indigo-500"
                   >
                     <option value="dpr">DPR (1/DPR)</option>
                     <option value="fit">Fit to Window</option>
@@ -137,7 +135,7 @@
                   </select>
                 </label>
                 <button
-                  class="cursor-pointer flex items-center gap-2 rounded-md border border-gray-300 dark:border-gray-700 px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-900"
+                  class="cursor-pointer flex items-center gap-2 rounded-md border border-gray-200 text-sm px-3 py-1 hover:bg-gray-200"
                   title="Rotate"
                   @click="rotate"
                 >
@@ -147,7 +145,7 @@
               </div>
 
               <div
-                class="ml-auto text-sm text-gray-600 dark:text-gray-300 truncate"
+                class="ml-auto text-xs text-gray-500 truncate"
                 :title="infoText"
               >
                 {{ infoText }}

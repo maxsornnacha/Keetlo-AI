@@ -15,13 +15,13 @@
     >
       <div
         tabindex="0"
-        class="relative w-full max-w-2xl rounded-2xl bg-[#0D1117] shadow-2xl ring-1 ring-white/10"
+        class="relative w-full max-w-2xl rounded-2xl bg-gray-50 shadow-2xl ring-1 ring-gray-200"
       >
         <!-- Header -->
         <div
-          class="flex items-center justify-between rounded-t-2xl border-b border-white/10 px-6 py-4"
+          class="flex items-center justify-between rounded-t-2xl border-b border-gray-200 px-4 py-2"
         >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
             <span
               class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px] shadow-emerald-400/70"
             />
@@ -33,29 +33,27 @@
             />
           </div>
 
-          <h2 id="dialog-title" class="text-lg font-semibold tracking-tight">
-            Edit Project
-          </h2>
-           <button
-          class="px-2 pt-1 h-9 w-9 rounded-full hover:bg-red-700 cursor-pointer"
-          @click="close"
-        >
-          <UIcon name="i-lucide-x" class="size-5" />
-        </button>
+          <h2 id="dialog-title" class="text-lg tracking-tight">Edit Project</h2>
+          <button
+            class="px-2 pt-1 h-9 w-9 rounded-md hover:bg-gray-200 cursor-pointer"
+            @click="close"
+          >
+            <UIcon name="i-lucide-x" class="size-5" />
+          </button>
         </div>
 
         <!-- Body -->
         <form class="px-6 py-5" @submit.prevent="submitEdit">
           <!-- Title -->
           <div class="mb-4">
-            <label class="mb-1.5 block text-sm font-medium text-slate-300"
+            <label class="mb-1.5 block text-sm font-medium text-gray-700"
               >Title</label
             >
             <input
               ref="titleRef"
               v-model="form.title"
               type="text"
-              class="w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-slate-100 placeholder-slate-400 focus:border-indigo-400/30 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               placeholder="Project title"
               required
             >
@@ -63,53 +61,53 @@
 
           <!-- Description -->
           <div class="mb-4">
-            <label class="mb-1.5 block text-sm font-medium text-slate-300"
+            <label class="mb-1.5 block text-sm font-medium text-gray-700"
               >Description</label
             >
             <textarea
               v-model="form.description"
               rows="4"
-              class="w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-slate-100 placeholder-slate-400 focus:border-indigo-400/30 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+              class="px-3 py-2 w-full min-h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               placeholder="What is this project about?"
             />
           </div>
 
           <!-- Type -->
           <div class="mb-4">
-            <label class="mb-1.5 block text-sm font-medium text-slate-300"
+            <label class="mb-1.5 block text-sm font-medium text-gray-700"
               >Type</label
             >
             <input
               v-model="form.type"
               type="text"
-              class="w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-slate-100 placeholder-slate-400 focus:border-indigo-400/30 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               placeholder="e.g. Web, Mobile, Data"
             >
           </div>
 
           <!-- Tags -->
           <div class="mb-1.5">
-            <label class="mb-1.5 block text-sm font-medium text-slate-300"
+            <label class="mb-1.5 block text-sm font-medium text-gray-700"
               >Tags (comma separated)</label
             >
             <input
               v-model="form.tagsStr"
               type="text"
-              class="w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-slate-100 placeholder-slate-400 focus:border-indigo-400/30 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               placeholder="design, vue, tailwind"
             >
           </div>
 
           <!-- Tags preview -->
           <div v-if="tagsPreview.length" class="mb-4">
-            <div class="text-xs uppercase tracking-wider text-slate-400">
+            <div class="text-xs uppercase tracking-wider text-gray-400">
               Preview
             </div>
             <div class="mt-2 flex flex-wrap gap-2">
               <span
                 v-for="tag in tagsPreview"
                 :key="tag"
-                class="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200"
+                class="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-700"
               >
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
                   <path
@@ -127,11 +125,11 @@
 
           <!-- Actions -->
           <div
-            class="mt-6 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:justify-end"
+            class="mt-6 flex flex-col-reverse items-stretch gap-2 sm:flex-row sm:justify-end"
           >
             <button
               type="button"
-              class="cursor-pointer inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400/40 active:scale-[.99] transition"
+              class="min-w-[120px] cursor-pointer inline-flex items-center justify-center rounded-md border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none  active:scale-[.99] transition"
               @click="close"
             >
               Cancel
@@ -139,7 +137,7 @@
 
             <button
               type="submit"
-              class="cursor-pointer inline-flex items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 active:scale-[.99] transition"
+              class="min-w-[120px] cursor-pointer inline-flex items-center justify-center rounded-md bg-indigo-500 hover:bg-indigo-600 px-4 py-2 text-sm text-white focus:outline-none active:scale-[.99] transition"
             >
               Save
             </button>

@@ -3,38 +3,48 @@
   <div class="relative w-full h-screen">
     <!-- Header -->
     <div
-      class="relative sticky top-0 left-0 flex items-center justify-between gap-4 p-4 bg-[#0D1117] opacity-90 backdrop-blue-sm text-white z-30"
+      class="relative sticky top-0 left-0 flex items-center justify-between gap-4 p-2 opacity-90 backdrop-blue-sm text-black z-30"
     >
       <div class="hidden lg:block">
-        <h2 class="text-lg font-semibold">
-          {{ props.project.title || "No title" }}
+        <h2 class=" font-semibold">
+          {{ props.project?.title && props.project?.title.length > 50 ? props.project.title.slice(0, 50)+"..." : props.project.title || "No title" }}
         </h2>
       </div>
 
       <div class="flex items-center gap-2">
+        <button
+        v-tooltip="'Collapsed'"
+         class="cursor-pointer flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
+          @click="props.toggleChatDisplay"
+        >
+              <UIcon
+      :name="props.chatDisplayIsCollapsed ? 'i-lucide-panel-right-open' : 'i-lucide-panel-left-close'"
+      class="size-5"
+    />
+        </button>
         <!-- Download project -->
         <button
-          class="cursor-pointer min-w-[80px] border border-slate-50/20 hover:bg-slate-50/20 py-1 rounded-md flex items-center gap-2 px-2"
+                v-tooltip="'Download Project'"
+            class="cursor-pointer flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
           @click="props.downloadProject"
         >
           <UIcon name="i-lucide-download" class="size-5" />
-          Download
         </button>
 
         <!-- Zoom controls -->
         <div class="flex gap-2 border border-slate-50/30 p-1 rounded-lg">
           <button
-            class="px-3 py-1 text-black bg-white rounded cursor-pointer hover:bg-gray-200"
+            class="px-3 py-1 text-black border border-gray-200 rounded cursor-pointer hover:bg-gray-200"
             @click="zoomOut"
           >
             -
           </button>
-          <span class="text-white flex gap-1 items-center">
-            <UIcon name="i-lucide-search" class="size-5" />
-            ({{ (scale * 500).toFixed(0) }}%)
+          <span class="text-black flex gap-1 items-center">
+            <UIcon name="i-lucide-search" class="size-4" />
+            ({{ (scale * 700).toFixed(0) }}%)
           </span>
           <button
-            class="px-3 py-1 text-black bg-white rounded cursor-pointer hover:bg-gray-200"
+            class="px-3 py-1 text-black border border-gray-200 rounded cursor-pointer hover:bg-gray-200"
             @click="zoomIn"
           >
             +
@@ -48,12 +58,12 @@
             v-tooltip="'Canvas background color'"
             aria-haspopup="true"
             :aria-expanded="showPalette"
-            class="cursor-pointer border border-slate-50/30 hover:bg-slate-900/90 bg-[#0D1117] p-2 rounded-md flex gap-2 items-center"
+            class="cursor-pointer border border-gray-200 hover:bg-gray-200 p-2 rounded-md flex gap-2 items-center"
             @click="showPalette = !showPalette"
           >
             <UIcon name="i-lucide-palette" class="w-4 h-4" />
             <span
-              class="inline-block w-4 h-4 rounded border border-white/20"
+              class="inline-block w-4 h-4 rounded border border-gray-200"
               :style="{ backgroundColor: canvasBg }"
             />
           </button>
@@ -62,17 +72,17 @@
           <div
             v-if="showPalette"
             ref="PaletteMenuRef"
-            class="absolute right-0 mt-2 min-w-56 rounded-xl bg-[#0D1117] ring-1 ring-white/20 p-3 shadow-xl z-40"
+            class="absolute right-0 mt-2 min-w-56 rounded-xl bg-white ring-1 ring-white/20 p-3 shadow-xl z-40"
             @keydown.escape="showPalette = false"
           >
-            <div class="mb-2 text-xs uppercase tracking-wider text-slate-300">
+            <div class="mb-2 text-xs uppercase tracking-wider text-slate-700">
               Canvas background
             </div>
             <div class="grid grid-cols-8 gap-2 mb-3">
               <button
                 v-for="c in presetColors"
                 :key="c"
-                class="h-6 w-6 rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
+                class="h-6 w-6 rounded-md border border-gray-200 focus:outline-none focus:border focus:border-indigo-500 cursor-pointer"
                 :style="{ backgroundColor: c }"
                 :aria-label="c"
                 @click="setCanvasBg(c)"
@@ -92,7 +102,7 @@
                 placeholder="#0f172a"
               >
               <button
-                class="px-2 py-1 rounded-md text-xs bg-white/10 hover:bg-white/20"
+                class="px-2 py-1 rounded-md text-xs bg-gray-100 hover:bg-gray-200 cursor-pointer"
                 @click="showPalette = false"
               >
                 Done
@@ -107,16 +117,16 @@
 
         <!-- Public toggle -->
         <button
-          class="cursor-pointer border border-slate-50/30 hover:bg-slate-900/90 bg p-2 rounded-md flex gap-1 items-center"
+          v-tooltip="'Public'"
+          class="cursor-pointer flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
           @click="props.onOpenChangePublicStatusDialog"
         >
-          Public
           <UIcon
             name="i-lucide-globe"
-            class="w-4 h-4"
+            class="size-5"
             :class="
               project?.isPublic === 1
-                ? 'text-green-500 animate-pulse'
+                ? 'text-emerald-600 animate-pulse'
                 : 'text-red-500'
             "
           />
@@ -127,7 +137,7 @@
     <!-- Canvas viewport (mouse zoom + background) -->
     <div
       ref="viewportRef"
-      class="relative overflow-auto z-10 py-8 max-h-full max-w-full"
+      class="relative overflow-auto z-10 py-8 max-h-full max-w-full rounded-lg border border-slate-200"
       :style="{ backgroundColor: canvasBg }"
       @click="selectedPageId = null"
       @wheel="onWheel"
@@ -177,7 +187,7 @@
           >
             <div
               v-if="selectedPageId === page.generatedPageId"
-              class="absolute -top-56 left-0 flex z-10 pointer-events-auto"
+              class="absolute -top-56 left-0 flex z-10 pointer-events-auto border border-gray-200 rounded-full"
             >
               <button
                 v-tooltip="'Preview'"
@@ -216,7 +226,7 @@
               </button>
               <button
                 v-tooltip="'Delete'"
-                class="text-white px-8 border-r-2 border-slate-50/90 bg-[#0D1117] hover:bg-slate-700 py-8 rounded-r-full cursor-pointer"
+                class="text-white px-8 bg-[#0D1117] hover:bg-slate-700 py-8 rounded-r-full cursor-pointer"
                 @click.stop="deletePage(page)"
               >
                 <UIcon name="i-lucide-trash-2" class="size-24" />
@@ -354,6 +364,8 @@ const props = defineProps<{
   downloadProject: () => void;
   downloadSinglePage: (arg: WebPage) => void;
   onOpenChangePublicStatusDialog: () => void;
+  toggleChatDisplay: () => void;
+  chatDisplayIsCollapsed: boolean;
 }>();
 const loadingOnDeletePage = ref(false);
 
@@ -376,7 +388,7 @@ const canvasHeight = computed(() => {
 })
 
 /** Zoom state */
-const scale = ref(0.2);
+const scale = ref(0.15);
 const MIN_SCALE = 0.1;
 const MAX_SCALE = 3;
 

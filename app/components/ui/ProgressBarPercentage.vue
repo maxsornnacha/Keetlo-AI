@@ -1,8 +1,8 @@
 <template>
   <div class="w-full max-w-md">
     <div class="flex justify-between mb-2">
-      <span class="text-slate-300 font-medium">{{ label }}</span>
-      <span class="text-slate-300 font-medium">{{ progress }}%</span>
+      <span class="text-gray-700 font-medium">{{ label }}</span>
+      <span class="text-gray-700 font-medium">{{ progress }}%</span>
     </div>
     <div class="w-full bg-gray-300 rounded-full h-2 overflow-hidden">
       <div

@@ -19,10 +19,6 @@
         <!-- Backdrop (layered) -->
         <div class="absolute inset-0">
           <div class="absolute inset-0 bg-black/70" @click="close(false)" />
-          <!-- subtle radial glow -->
-          <div class="pointer-events-none absolute inset-0 opacity-30">
-            <div class="absolute left-1/2 top-1/2 h-[60vh] w-[60vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.25),transparent_60%)]" />
-          </div>
         </div>
 
         <!-- Dialog -->
@@ -39,18 +35,18 @@
             role="dialog"
             aria-modal="true"
             :aria-labelledby="titleId"
-            class="relative w-full max-w-md"
+            class="relative w-full max-w-md m-4"
           >
             <!-- gradient halo border -->
-            <div class="pointer-events-none absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-indigo-400/40 via-sky-400/35 to-emerald-400/35 blur-[10px]" />
+            <div class="pointer-events-none absolute -inset-[1px]" />
             <div
-              class="relative rounded-2xl border border-white/10 bg-[#0D1117]/95 text-white shadow-2xl ring-1 ring-white/10"
+              class="relative rounded-lg border border-gray-200 bg-gray-50 text-black shadow-2xl"
             >
               <!-- focus trap sentinels -->
               <button ref="startSentinel" class="sr-only" @focus="focusFirst" />
 
               <!-- Header -->
-              <div class="flex items-start gap-3 p-4 sm:p-5 border-b border-white/10">
+              <div class="flex items-center gap-3 p-2">
                 <div
                   class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br"
                   :class="iconBg"
@@ -72,7 +68,7 @@
                 </div>
 
                 <div class="min-w-0">
-                  <h2 :id="titleId" class="text-base sm:text-lg font-semibold tracking-tight">
+                  <h2 :id="titleId" class="text-base font-semibold tracking-tight">
                     {{ state.title }}
                   </h2>
                 </div>
@@ -80,23 +76,21 @@
                 <!-- Close button -->
                 <button
                   type="button"
-                  class="ml-auto inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 transition"
+                  class="ml-auto inline-flex p-2 cursor-pointer items-center justify-center rounded-lg text-black hover:bg-gray-200 transition"
                   aria-label="Close dialog"
                   @click="close(false)"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 22 22" fill="none" stroke="currentColor">
-                    <path d="M18 6L6 18M6 6l12 12" stroke-width="1.5" stroke-linecap="round" />
-                  </svg>
+                  <UIcon name="i-lucide-x" class="size-5" />
                 </button>
               </div>
 
               <!-- Body -->
-              <div class="max-h-[58vh] overflow-y-auto p-4 sm:p-5 text-slate-300 text-sm leading-6 scroll-smooth [scrollbar-width:thin] [scrollbar-color:#475569_transparent]">
+              <div class="max-h-[58vh] overflow-y-auto py-4 px-2 text-gray-700 text-sm">
                 <div v-html="state.html" />
               </div>
 
               <!-- Actions -->
-              <div class="p-3 sm:p-4 flex flex-col sm:flex-row justify-end gap-2 border-t border-white/10">
+              <div class="p-2 flex flex-col sm:flex-row justify-end gap-2">
                <button
                   v-if="state.confirmText"
                   ref="confirmBtn"
@@ -111,7 +105,7 @@
                   v-if="state.kind === 'confirm'"
                   ref="cancelBtn"
                   type="button"
-                  class="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center rounded-lg px-4 py-2.5 bg-white/10 hover:bg-white/20 text-slate-200 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 transition"
+                  class="cursor-pointer inline-flex w-full sm:w-auto min-w-[120px] items-center justify-center rounded-md p-2 hover:bg-gray-200 text-gray-700 border border-gray-200 text-sm font-medium transition"
                   @click="close(false)"
                 >
                   {{ state.cancelText ?? "Cancel" }}
@@ -177,8 +171,7 @@ const iconColor = computed(() =>
 
 const confirmClass = computed(() => {
   const base =
-    "cursor-pointer inline-flex w-full sm:w-auto items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium " +
-    "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 transition shadow-sm";
+    "cursor-pointer inline-flex w-full sm:w-auto min-w-[120px] items-center justify-center rounded-lg p-2 text-sm"
 
   switch (state.value.variant) {
     case "danger":

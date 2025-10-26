@@ -2,10 +2,8 @@
   <main>
     <div class="mx-auto max-w-4xl">
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-          Contact Us
-        </h1>
-        <p class="mt-4 text-lg leading-8 text-[#92adc9]">
+        <h1 class="text-2xl font-bold tracking-tight text-black">Contact Us</h1>
+        <p class="mt-2 text-base leading-8 text-gray-400">
           We're here to help! Reach out to our team for any questions or support
           you may need.
         </p>
@@ -20,7 +18,7 @@
                 v-model="form.name"
                 maxlength="255"
                 autocomplete="name"
-                class="px-4 py-2 form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-white bg-[#161B22] border border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB] focus:ring-opacity-50 h-11 placeholder:text-gray-500 px-3 font-normal leading-normal transition-colors"
+                class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
                 name="name"
                 placeholder="Your Name"
                 type="text"
@@ -34,7 +32,7 @@
                 v-model="form.email"
                 maxlength="255"
                 autocomplete="email"
-                class="px-4 py-2 form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-white bg-[#161B22] border border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB] focus:ring-opacity-50 h-11 placeholder:text-gray-500 px-3 font-normal leading-normal transition-colors"
+                class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
                 name="email"
                 placeholder="Your Email"
                 type="email"
@@ -49,7 +47,7 @@
               id="subject"
               v-model="form.subject"
               maxlength="255"
-              class="px-4 py-2 form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-white bg-[#161B22] border border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB] focus:ring-opacity-50 h-11 placeholder:text-gray-500 px-3 font-normal leading-normal transition-colors"
+              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               name="subject"
               placeholder="Subject"
               type="text"
@@ -62,7 +60,7 @@
               id="message"
               v-model="form.message"
               maxlength="500"
-              class="px-4 py-2 form-input flex w-full min-w-0 flex-1 rounded-md text-white bg-[#161B22] border border-[#30363d] focus:border-[#1F6FEB] focus:ring-[#1F6FEB] focus:ring-opacity-50 min-h-[140px] placeholder:text-gray-500 px-3 font-normal leading-normal transition-colors"
+              class="px-3 py-2 w-full min-h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               name="message"
               placeholder="Your Message"
               rows="6"
@@ -75,9 +73,9 @@
               {{ errorMessage }}
             </p>
             <button
-              class="flex w-full lg:w-auto min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-indigo-600 text-white text-sm font-semibold leading-normal tracking-[0.015em] hover:bg-indigo-700/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              class="flex w-full text-white lg:w-auto min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-11 px-6 bg-indigo-500 text-black leading-normal tracking-[0.015em] hover:bg-indigo-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               type="submit"
-              :disabled="loading || (!form.name || !form.email || !form.subject || !form.message)"
+              :disabled="loading"
             >
               <span v-if="!loading">Send Message</span>
               <span v-else>Sending…</span>
@@ -87,10 +85,10 @@
 
         <div class="space-y-8">
           <div>
-            <h2 class="text-xl font-semibold leading-7 text-white">
+            <h2 class="text-xl font-semibold leading-7 text-black">
               Other Ways to Reach Us
             </h2>
-            <p class="mt-2 text-[#92adc9]">
+            <p class="mt-2 text-gray-400">
               You can also contact us directly via email. We aim to respond to
               all inquiries within 24 hours.
             </p>
@@ -101,8 +99,8 @@
               <span class="material-symbols-outlined"> mail </span>
               keetlo.ai@gmail.com
             </a>
-            <p/>
-             <a
+            <p />
+            <a
               class="mt-4 inline-flex items-center gap-2 text-[#1173d4] hover:text-[#1173d4]/90 font-medium"
               href="mailto:keetlo.ai@gmail.com"
             >
@@ -151,50 +149,52 @@ const form = reactive<ContactMessage>({
   message: "",
 });
 
-const loading = ref(false)
-const errorMessage = ref<string | null>(null)
+const loading = ref(false);
+const errorMessage = ref<string | null>(null);
 
 const onSubmit = async () => {
-  errorMessage.value = null
+  errorMessage.value = null;
 
-  if (!form.name || !form.email || !form.subject ||  !form.message) {
-    errorMessage.value = 'Please fill in name, email, subject and message.'
-    return
+  if (!form.name || !form.email || !form.subject || !form.message) {
+    errorMessage.value = "Please fill in name, email, subject and message.";
+    return;
   }
 
-  loading.value = true
+  loading.value = true;
   try {
     const payload = {
       name: form.name,
       email: form.email,
       subject: form.subject,
       message: form.message,
-    }
+    };
 
-    await api.post(`${config.public.NUXT_PUBLIC_API_BASE}/contact-message/create`, payload);
-     await $modal.alert({ 
-      title: 'Project successfully craeted!', 
-      html: `<p>Thanks! Your message has been sent.</p>`, 
-      variant: 'success' 
+    await api.post(
+      `${config.public.NUXT_PUBLIC_API_BASE}/contact-message/create`,
+      payload
+    );
+    await $modal.alert({
+      title: "Project successfully craeted!",
+      html: `<p>Thanks! Your message has been sent.</p>`,
+      variant: "success",
     });
 
-    form.name = ''
-    form.email = ''
-    form.subject = ''
-    form.message = ''
+    form.name = "";
+    form.email = "";
+    form.subject = "";
+    form.message = "";
   } catch (error: unknown) {
     // try to surface a readable message
-    if(axios.isAxiosError(error)){
-    const msg =
-      error?.response?.data?.message ||
-      'Something went wrong. Please try again.'
-    errorMessage.value = msg;
+    if (axios.isAxiosError(error)) {
+      const msg =
+        error?.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      errorMessage.value = msg;
     } else {
-       errorMessage.value = 'Something went wrong. Please try again.';
+      errorMessage.value = "Something went wrong. Please try again.";
     }
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
-
+};
 </script>

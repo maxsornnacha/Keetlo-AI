@@ -5,7 +5,7 @@
       v-if="props.project"
       ref="projectRef"
       v-tooltip="'Project menu'"
-      class="cursor-pointer flex items-center gap-2 hover:text-gray-300"
+      class="cursor-pointer flex items-center gap-2 hover:text-gray-400"
       @click="onOpen"
     >
       <UIcon name="i-lucide-ellipsis" class="size-7" />
@@ -23,24 +23,24 @@
     <div
       v-if="opened"
       ref="menuRef"
-      class="absolute right-0 top-12 w-[280px] bg-[#0D1117] backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden transition-all"
+      class="absolute right-0 top-12 w-[280px] bg-white backdrop-blur-xl border border-gray-200 rounded-xl shadow-2xl z-50 overflow-hidden transition-all"
     >
       <!-- Project Header -->
-      <div class="flex flex-col p-4 border-b border-slate-700">
-        <h3 class="text-white font-semibold truncate">{{ props.project?.title }}</h3>
-        <p class="text-xs text-gray-400 truncate">{{ props.project?.description || 'No description' }}</p>
+      <div class="flex flex-col p-4 border-b border-gray-200">
+        <h3 class="text-black font-semibold truncate">{{ props.project?.title || 'No title' }}</h3>
+        <p class="text-xs text-gray-500 truncate">{{ props.project?.description || 'No description' }}</p>
       </div>
 
       <!-- Action List -->
-      <ul class="divide-y divide-slate-800">
+      <ul class="divide-y divide-gray-200">
         <li
           v-for="(item, index) in menuItems"
           :key="index"
-          class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-[#1e2632] hover:text-white cursor-pointer transition"
+          class="flex items-center gap-3 px-4 py-3 text-sm text-black hover:bg-gray-100 hover:text-black cursor-pointer transition"
           @click="item.onClick()"
         >
           <UIcon
-            :name="item.icon" class="w-4 h-4 text-gray-400" 
+            :name="item.icon" class="w-4 h-4 text-black" 
             :class="item.label === 'Public'? project?.isPublic === 1 ? 'text-green-500 animate-pulse' : 'text-red-500': ''"
           />
           <span>{{ item.label }}</span>

@@ -20,19 +20,19 @@
 
       <!-- Panel -->
       <div
-        class="relative z-10 mx-auto my-4 flex w-[min(1200px,95vw)] flex-1 flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0D1117]/95 shadow-2xl ring-1 ring-white/10"
+        class="relative z-10 mx-auto my-4 flex w-[min(1200px,95vw)] flex-1 flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-white/10"
       >
         <!-- Header / Title bar -->
         <div
-          class="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sticky top-0 bg-[#0D1117]/90 backdrop-blur supports-[backdrop-filter]:bg-[#0D1117]/60 border-b border-white/10"
+          class="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sticky top-0 lg:border-b lg:border-gray-200"
         >
           <div class="min-w-0">
-            <div class="text-xs text-indigo-300/90 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
+            <div class="text-xs text-indigo-500 inline-flex items-center gap-2 rounded-lg border border-black/10 bg-black/5 px-2.5 py-1">
               <UIcon name="i-lucide-file-code" class="size-4" />
               Preview
             </div>
-            <h2 class="mt-1 truncate text-lg font-semibold text-white">
-              {{ props.selectedProject?.title || "No title"}}
+            <h2 class="mt-1 truncate text-lg text-black font-semibold">
+              {{ props.selectedProject?.title && props.selectedProject?.title.length > 50 ? props.selectedProject?.title.slice(0,50)+"..." : props.selectedProject?.title || "No title"}}
             </h2>
           </div>
 
@@ -41,16 +41,16 @@
             <div class="hidden lg:flex gap-2 rounded-xl p-1">
               <button
                v-if="props.selectedProject?.projectId"
-               class="border border-white/10 bg-white/5 px-3 py-1.5 text-sm rounded-lg transition text-slate-300 hover:bg-white/20 cursor-pointer"
+               class="border border-gray-200 px-3 py-1.5 text-sm rounded-lg transition text-black hover:bg-gray-200 cursor-pointer"
                 @click="onRemix(props.selectedProject?.projectId)"
               >
                 <div class="inline-flex items-center gap-2">
-                  <UIcon name="i-lucide-layers" class="size-4" />
+                  <UIcon name="i-lucide-shuffle" class="size-4" />
                   Remix
                 </div>
               </button>
               <a
-                class="border border-white/10 bg-white/5 px-3 py-1.5 text-sm rounded-lg transition text-slate-300 hover:bg-white/20 cursor-pointer"
+                class="border border-gray-200 px-3 py-1.5 text-sm rounded-lg transition text-black hover:bg-gray-200 cursor-pointer"
                 :href="props.selectedProject?.link + `?back=${fullPath}`"
               >
                 <div class="inline-flex items-center gap-2">
@@ -62,7 +62,7 @@
 
             <!-- Close -->
             <button
-              class="cursor-pointer rounded-full px-2 pt-2 pb-1 bg-red-600 text-white hover:bg-red-700 transition"
+              class="cursor-pointer rounded-md px-2 pt-2 pb-1 hover:bg-gray-100 transition"
               aria-label="Close preview"
               @click="closePreview"
             >
@@ -71,19 +71,19 @@
           </div>
         </div>
 
-        <div class="py-1 flex justify-center">
-               <div class="lg:hidden flex gap-2 rounded-xl p-1">
+        <div class="lg:hidden border-b border-gray-200 py-1 flex justify-center">
+               <div class="flex flex-1 gap-2 rounded-xl p-1">
               <button
-                class="border border-white/10 bg-white/5 px-3 py-1.5 text-sm rounded-lg transition text-slate-300 hover:bg-white/20 cursor-pointer"
-                @click="onRemix(props.selectedProject?.projectId)"
+               class="w-full border border-gray-200 px-3 py-1.5 text-sm rounded-lg transition text-black hover:bg-gray-200 cursor-pointer"
+                @click="onRemix(props.selectedProject?.projectId as string)"
               >
                 <div class="inline-flex items-center gap-2">
-                  <UIcon name="i-lucide-layers" class="size-4" />
+                  <UIcon name="i-lucide-shuffle" class="size-4" />
                   Remix
                 </div>
               </button>
               <a
-                class="border border-white/10 bg-white/5 px-3 py-1.5 text-sm rounded-lg transition text-slate-300 hover:bg-white/20 cursor-pointer"
+               class="w-full flex justify-center border border-gray-200 px-3 py-1.5 text-sm rounded-lg transition text-black hover:bg-gray-200 cursor-pointer"
                 :href="props.selectedProject?.link"
               >
                 <div class="inline-flex items-center gap-2">

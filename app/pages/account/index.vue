@@ -1,30 +1,15 @@
 <template>
-  <main v-if="form.isLogin === 'yes'" class="mx-auto max-w-[1200px] relative">
-    <!-- Background polish -->
-    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div class="absolute inset-0 bg-[#0b0f14]"/>
-      <div
-        class="absolute inset-0 opacity-80 rounded-full"
-        :style="{
-          backgroundImage: [
-            `radial-gradient(1200px 700px at 50% -12%, rgba(144,180,255,.35), rgba(144,180,255,0) 70%)`,
-            `radial-gradient(1100px 800px at 50% 92%, rgba(255,172,70,.28), rgba(255,120,110,0) 70%)`
-          ].join(', ')
-        }"
-      />
-      <div class="absolute inset-0 bg-[radial-gradient(1200px_700px_at_50%_50%,transparent_60%,rgba(0,0,0,.55))]"/>
-    </div>
-
+  <main v-if="form.isLogin === 'yes'" class="mx-auto max-w-[1200px] my-8 relative">
     <form
-      class="lg:bg-[#0D1117]/70  lg:rounded-2xl lg:border lg:border-white/10 backdrop-blur-md shadow-2xl lg:ring-1 lg:ring-white/10"
+      class="lg:rounded-2xl lg:border lg:border-gray-200 lg:bg-white px-4"
       @submit.prevent="onSaveChanges"
     >
       <!-- Header -->
       <div class="lg:p-6 pb-4 lg:pb-0 lg:border-b lg:border-white/10">
         <div class="flex items-start justify-between gap-4 pb-8">
           <div>
-            <h2 class="text-xl font-semibold text-white">Profile</h2>
-            <p class="text-sm text-slate-400 mt-1">
+            <h2 class="text-2xl font-semibold text-black">Profile</h2>
+            <p class="text-sm text-gray-400 mt-1">
               Manage your profile settings and connected accounts.
             </p>
           </div>
@@ -41,45 +26,45 @@
         <!-- Avatar -->
         <section class="flex flex-col lg:flex-row items-center lg:items-start gap-6">
           <div
-            class="relative w-24 h-24 rounded-full overflow-hidden ring-1 ring-white/10 bg-slate-800/60"
+            class="relative w-24 h-24 rounded-full overflow-hidden ring-1 ring-white/10 bg-gray-800/60"
             @dragover.prevent
             @drop.prevent="handleFileDrop"
           >
             <nuxt-img :src="avatarSrc" class="w-full h-full object-cover" />
             <!-- overlay hint -->
-            <div class="absolute inset-0 bg-black/0 hover:bg-black/30 transition grid place-items-center text-xs text-white/90">
+            <div class="absolute inset-0 bg-black/0 hover:bg-black/30 transition grid place-items-center text-xs text-black/90">
               <div class="hidden group-hover:block">Drop to upload</div>
             </div>
           </div>
 
           <div class="flex-1 flex flex-col items-center lg:items-start">
-            <label class="block text-sm font-medium text-slate-200 mb-2">Avatar</label>
-            <div class="flex items-center gap-3 w-full">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Avatar</label>
+            <div class="flex items-center gap-2 w-full">
               <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="handleFileChange" >
               <button
                 type="button"
-                class="w-full lg:w-auto h-9 px-3 rounded-lg bg-white text-black text-sm font-semibold cursor-pointer hover:bg-slate-100 active:scale-[.99]"
+                class="w-full lg:w-auto h-9 px-3 rounded-lg bg-white border border-gray-200 bg-white text-black text-sm font-semibold cursor-pointer hover:bg-gray-200 active:scale-[.99]"
                 @click="fileInput?.click()"
               >
                 Upload
               </button>
               <button
                 type="button"
-                class="w-full lg:w-auto h-9 px-3 rounded-lg border border-white/10 bg-white/5 text-white text-sm font-semibold hover:bg-white/10 active:scale-[.99] cursor-pointer"
+                class="w-full lg:w-auto h-9 px-3 rounded-lg border border-gray-200 bg-white text-black text-sm font-semibold hover:bg-gray-200 active:scale-[.99] cursor-pointer"
                 :disabled="!avatarBase64 && !form.avatarUrl"
                 @click="removeAvatar"
               >
                 Remove
               </button>
             </div>
-            <p class="text-xs text-slate-400 mt-2">JPG, GIF, PNG or WEBP. 2MB max. You can also drop an image onto the avatar.</p>
+            <p class="text-xs text-gray-400 mt-2">JPG, GIF, PNG or WEBP. 2MB max. You can also drop an image onto the avatar.</p>
           </div>
         </section>
 
         <!-- Name Inputs -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label for="firstname" class="block text-sm font-medium text-slate-200 mb-2">First Name</label>
+            <label for="firstname" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
             <div class="relative">
               <input
                 id="firstname"
@@ -88,14 +73,14 @@
                 maxlength="50"
                 type="text"
                 placeholder="Enter your first name"
-                class="peer px-3 py-2 w-full h-11 rounded-lg text-white bg-[#0D1117] border border-white/10 focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/50 placeholder:text-slate-500"
+              class="px-3 py-2 w-full min-h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               >
             </div>
             <p v-if="!validFirst" class="mt-1 text-xs text-rose-400">Use at least 2 characters.</p>
           </div>
 
           <div>
-            <label for="lastname" class="block text-sm font-medium text-slate-200 mb-2">Last Name</label>
+            <label for="lastname" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
             <div class="relative">
               <input
                 id="lastname"
@@ -104,7 +89,7 @@
                 maxlength="50"
                 type="text"
                 placeholder="Enter your last name"
-                class="peer px-3 py-2 w-full h-11 rounded-lg text-white bg-[#0D1117] border border-white/10 focus:border-[#1F6FEB] focus:ring-[#1F6FEB]/50 placeholder:text-slate-500"
+              class="px-3 py-2 w-full min-h-11 rounded-lg text-black bg-white border border-gray-200 focus:outline-none focus:border-indigo-500 placeholder:text-gray-500"
               >
             </div>
             <p v-if="!validLast" class="mt-1 text-xs text-rose-400">Use at least 2 characters.</p>
@@ -113,18 +98,18 @@
 
         <!-- Email (read-only) -->
         <section>
-          <label for="email" class="block text-sm font-medium text-slate-200 mb-2">Email</label>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
           <div class="flex gap-2">
             <input
               id="email"
               v-model="form.email"
               type="email"
               disabled
-              class="px-3 py-2 w-full h-11 rounded-lg text-white bg-white/10 border border-white/10 placeholder:text-slate-500"
+              class="px-3 py-2 w-full h-11 rounded-lg text-black bg-gray-100 border border-gray-200 placeholder:text-gray-500"
             >
             <button
               type="button"
-              class="hidden md:inline-flex h-11 px-3 flex items-center rounded-lg border border-white/10 bg-white/5 text-white text-sm hover:bg-white/10 active:scale-[.99] cursor-pointer"
+              class="hidden md:inline-flex py-2 px-6 flex items-center rounded-lg border border-gray-200 bg-white text-black text-sm hover:bg-gray-200 active:scale-[.99] cursor-pointer"
               @click="copy(form.email)"
             >
               Copy
@@ -134,12 +119,12 @@
 
         <!-- Password -->
         <section class="border-t border-white/10 pt-6 space-y-4">
-          <h3 class="text-lg font-medium text-white">Password</h3>
+          <h3 class="text-lg font-medium text-black">Password</h3>
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
-            <p class="text-sm text-slate-400">To change your password, click the button below.</p>
+            <p class="text-sm text-gray-400">To change your password, click the button below.</p>
             <a
               :href="`/auth/forgot-password`"
-              class="flex min-w-[140px] items-center justify-center h-9 px-4 rounded-lg border border-white/10 bg-white/5 text-white text-sm hover:bg-white/10 active:scale-[.99]"
+              class="flex min-w-[140px] items-center justify-center h-9 px-4 rounded-lg border border-gray-200 bg-white text-black text-sm hover:bg-gray-200 active:scale-[.99]"
             >
               Change Password
           </a>
@@ -148,15 +133,15 @@
 
         <!-- Connected Accounts -->
         <section class="border-t border-white/10 pt-6 space-y-4">
-          <h3 class="text-lg font-medium text-white">Connected Accounts</h3>
-          <p class="text-sm text-slate-400">Manage your third-party account connections.</p>
+          <h3 class="text-lg font-medium text-black">Connected Accounts</h3>
+          <p class="text-sm text-gray-400">Manage your third-party account connections.</p>
 
           <div class="space-y-3">
             <!-- GitHub -->
-            <div class="flex items-center justify-between p-4 rounded-xl bg-[#0D1117] border border-white/10">
+            <div class="flex items-center justify-between p-4 rounded-xl border border-gray-200">
               <div class="flex items-center gap-3">
-                <UIcon name="i-lucide-github" class="size-5 text-white" />
-                <span class="text-sm font-medium text-white">GitHub</span>
+                <UIcon name="i-lucide-github" class="size-5 text-black" />
+                <span class="text-sm font-medium text-black">GitHub</span>
               </div>
               <span
                 v-if="form.isGithubConnected === 1"
@@ -164,16 +149,16 @@
               >
                 <span class="h-2 w-2 rounded-full bg-emerald-400"/> Connected
               </span>
-              <span v-else class="inline-flex items-center gap-2 rounded-full bg-white/5 text-white border border-white/10 px-3 py-1 text-xs">
-                <span class="h-2 w-2 rounded-full bg-slate-300"/> Disconnected
+              <span v-else class="inline-flex items-center gap-2 rounded-full bg-white/5 text-black border border-white/10 px-3 py-1 text-xs">
+                <span class="h-2 w-2 rounded-full bg-gray-300"/> Disconnected
               </span>
             </div>
 
             <!-- Google -->
-            <div class="flex items-center justify-between p-4 rounded-xl bg-[#0D1117] border border-white/10">
+            <div class="flex items-center justify-between p-4 rounded-xl border border-gray-200">
               <div class="flex items-center gap-3">
-                <UIcon name="i-lucide-at-sign" class="size-5 text-white" />
-                <span class="text-sm font-medium text-white">Google</span>
+                <UIcon name="i-lucide-at-sign" class="size-5 text-black" />
+                <span class="text-sm font-medium text-black">Google</span>
               </div>
               <span
                 v-if="form.isGoogleConnected === 1"
@@ -181,8 +166,8 @@
               >
                 <span class="h-2 w-2 rounded-full bg-emerald-400"/> Connected
               </span>
-              <span v-else class="inline-flex items-center gap-2 rounded-full bg-white/5 text-white border border-white/10 px-3 py-1 text-xs">
-                <span class="h-2 w-2 rounded-full bg-slate-300"/> Disconnected
+              <span v-else class="inline-flex items-center gap-2 rounded-full bg-white/5 text-black border border-white/10 px-3 py-1 text-xs">
+                <span class="h-2 w-2 rounded-full bg-gray-300"/> Disconnected
               </span>
             </div>
           </div>
@@ -190,20 +175,20 @@
       </div>
 
       <!-- Action bar -->
-      <div class="lg:p-6 py-6 bg-[#0D1117]/90 lg:border-t lg:border-white/10 rounded-b-2xl sticky bottom-0 backdrop-blur supports-backdrop-blur:bg-white/5">
+      <div class="lg:p-6 py-6 bg-white/20 lg:border-t lg:border-gray-200 rounded-b-2xl sticky bottom-0 backdrop-blur-sm supports-backdrop-blur:bg-white/5">
         <div class="flex items-center justify-end gap-3">
-          <div v-if="hasDirty" class="inline-flex items-center gap-2 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 px-3 py-1 text-xs">
-            <span class="h-2 w-2 rounded-full bg-amber-400"/> Unsaved changes
+          <div v-if="hasDirty" class="inline-flex items-center gap-2 rounded-full bg-black text-white border border-black px-3 py-1 text-xs">
+            <span class="h-2 w-2 rounded-full bg-white"/> Unsaved changes
           </div>
 
           <button
             type="submit"
             :disabled="!canSave || isSaving"
-            class="w-full lg:w-auto flex min-w-[140px] items-center justify-center h-10 px-4 rounded-lg text-white text-sm font-semibold cursor-pointer
+            class="w-full lg:w-auto flex min-w-[140px] items-center justify-center h-10 px-4 rounded-lg text-sm cursor-pointer
                    transition active:scale-[.99]"
-            :class="canSave && !isSaving ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-indigo-400/50 cursor-not-allow'"
+            :class="canSave && !isSaving ? 'bg-indigo-500 hover:bg-indigo-600 text-white' : 'bg-indigo-300 cursor-not-allow text-white'"
           >
-            <svg v-if="isSaving" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+            <svg v-if="isSaving" class="animate-spin -ml-1 mr-2 h-4 w-4 text-black" viewBox="0 0 24 24" fill="none">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
               <path class="opacity-75" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
             </svg>

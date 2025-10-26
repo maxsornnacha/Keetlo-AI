@@ -24,26 +24,26 @@
       >
         <!-- Header / Title bar -->
         <div
-          class="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sticky top-0 bg-[#0D1117]/90 backdrop-blur supports-[backdrop-filter]:bg-[#0D1117]/60 border-b border-white/10"
+          class="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sticky top-0 bg-gray-50 backdrop-blur supports-[backdrop-filter]:bg-gray-50 border-b border-gray-200"
         >
           <div class="min-w-0">
-            <div class="text-xs text-indigo-300/90 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
+            <div class="text-xs text-indigo-500 inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-2.5 py-1">
               <UIcon name="i-lucide-file-code" class="size-4" />
               Preview & Code
             </div>
-            <h2 class="mt-1 truncate text-lg font-semibold text-white">
+            <h2 class="mt-1 truncate text-lg font-semibold text-black">
               {{ selectedPage.label.toUpperCase() }}
             </h2>
           </div>
 
           <div class="flex items-center gap-2">
             <!-- Tabs -->
-            <div class="hidden sm:flex rounded-xl border border-white/10 bg-white/5 p-1">
+            <div class="hidden sm:flex rounded-xl border border-gray-200 bg-gray-100">
               <button
                 class="px-3 py-1.5 text-sm rounded-lg transition"
                 :class="activeTab === 'preview'
-                  ? 'bg-white/10 text-white'
-                  : 'text-slate-300 hover:bg-white/5'"
+                  ? 'bg-gray-200 text-black'
+                  : 'cursor-pointer text-gray-500 hover:bg-gray-100'"
                 @click="onChangeActiveTab('preview')"
               >
                 <div class="inline-flex items-center gap-2">
@@ -54,8 +54,8 @@
               <button
                 class="px-3 py-1.5 text-sm rounded-lg transition"
                 :class="activeTab === 'code'
-                  ? 'bg-white/10 text-white'
-                  : 'text-slate-300 hover:bg-white/5'"
+                   ? 'bg-gray-200 text-black'
+                  : 'cursor-pointer text-gray-500 hover:bg-gray-100'"
                 @click="onChangeActiveTab('code')"
               >
                 <div class="inline-flex items-center gap-2">
@@ -67,22 +67,22 @@
 
             <!-- Close -->
             <button
-              class="cursor-pointer rounded-full px-2 pt-2 pb-1 bg-red-600 text-white hover:bg-red-700 transition"
+              class="cursor-pointer rounded-md pt-2 px-2 pb-1 text-black hover:bg-gray-200 transition"
               aria-label="Close preview"
               @click="closePreview"
             >
-              <UIcon name="i-lucide-x" class="size-5" />
+              <UIcon name="i-lucide-x" class="size-5 " />
             </button>
           </div>
         </div>
 
         <!-- Toolbar -->
-        <div class="px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3 border-b border-white/10 bg-[#0D1117]/60">
-          <div class="flex items-center gap-2 text-sm text-slate-300">
+        <div class="px-4 sm:px-6 py-2 flex flex-wrap items-center gap-3 border-b border-gray-200 bg-gray-50">
+          <div class="flex items-center gap-2 text-sm text-gray-700">
             <span class="hidden sm:inline">Path Directory:</span>
             <select
               :value="selectedPath"
-              class="h-9 min-w-[12rem] rounded-lg border border-white/10 bg-[#0D1117] px-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+              class="h-9 min-w-[12rem] rounded-lg border border-gray-200 bg-white px-3 text-sm text-black focus:outline-none focus:border focus:border-indigo-500 cursor-pointer"
               @change="emit('update:selectedPath', ($event.target as HTMLSelectElement).value)"
             >
               <option
@@ -96,24 +96,31 @@
           </div>
 
           <!-- Mobile tabs fallback -->
-          <div class="sm:hidden ml-auto inline-flex rounded-lg border border-white/10 bg-white/5 p-1">
+          <div class="sm:hidden ml-auto inline-flex rounded-xl border border-gray-200 bg-gray-100">
             <button
               class="px-3 py-1 text-sm rounded-md transition"
               :class="activeTab === 'preview'
-                ? 'bg-white/10 text-white'
-                : 'text-slate-300 hover:bg-white/5'"
+                ? 'bg-gray-200 text-black'
+                  : 'cursor-pointer text-gray-500 hover:bg-gray-100'"
               @click="onChangeActiveTab('preview')"
-            >Preview</button>
+            >   <div class="inline-flex items-center gap-2">
+                  <UIcon name="i-lucide-maximize-2" class="size-4" />
+                  Preview
+                </div></button>
             <button
               class="px-3 py-1 text-sm rounded-md transition"
               :class="activeTab === 'code'
-                ? 'bg-white/10 text-white'
-                : 'text-slate-300 hover:bg-white/5'"
+                  ? 'bg-gray-200 text-black'
+                  : 'cursor-pointer text-gray-500 hover:bg-gray-100'"
               @click="onChangeActiveTab('code')"
-            >HTML</button>
+            >
+               <div class="inline-flex items-center gap-2">
+                  <UIcon name="i-lucide-code-xml" class="size-4" />
+                  HTML
+                </div></button>
           </div>
 
-          <div class="ml-auto hidden sm:block text-xs text-slate-400">
+          <div class="ml-auto hidden sm:block text-xs text-gray-400">
             Tip: <kbd class="rounded bg-white/10 px-1">Esc</kbd> to close
           </div>
         </div>
@@ -135,10 +142,10 @@
             <div class="flex-1 overflow-auto">
               <CodeViewer :html="prettyHtml" />
             </div>
-            <div class="border-t border-white/10 bg-[#0D1117]/70 px-4 py-3 sm:px-6">
+            <div class="border-t border-white/10 bg-gray-50 px-4 py-3 sm:px-6">
               <div class="flex justify-end">
                 <button
-                  class="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-indigo-500 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-600 active:scale-[.99] transition"
+                  class="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-indigo-500 px-4 py-2 text-sm text-white hover:bg-indigo-600 active:scale-[.99] transition"
                   @click="copyHTML(prettyHtml)"
                 >
                   <UIcon name="i-lucide-clipboard-copy" class="size-4" />

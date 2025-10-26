@@ -1,30 +1,30 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <footer class="border-t border-[#21262d] bg">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-10">
+  <footer>
+    <div class="bg-white border border-gray-200 rounded-t-4xl mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10 py-10">
       <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
         <div class="flex flex-col items-center gap-2 sm:items-start">
           <div class="flex items-center gap-0">
               <nuxt-img
-        src="/logo.png"
-        class="h-10 w-10"
+        src="/icon-256.png"
+        class="size-5"
         />
-            <h3 class="text-lg font-bold">EETLO</h3>
+            <h3 class="text-xl font-bold">EETLO</h3>
           </div>
-          <p class="text-sm text-gray-400">
+          <p class="text-sm text-gray-500">
             © 2025 Sornnacha Buranapongwattana
           </p>
         </div>
         <div
-          class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400"
+          class="flex flex-wrap items-center justify-center gap-6 text-sm"
         >
-          <a class="hover:text-white transition-colors" href="/terms-of-service"
+          <a class="hover:text-black transition-colors hover:text-gray-500" href="/terms-of-service"
             >Terms of Service</a
           >
-          <a class="hover:text-white transition-colors" href="/privacy-policy"
+          <a class="hover:text-black transition-colors hover:text-gray-500" href="/privacy-policy"
             >Privacy Policy</a
           >
-          <a class="hover:text-white transition-colors" href="/contact-us">Contact Us</a>
+          <a class="hover:text-black transition-colors hover:text-gray-500" href="/contact-us">Contact Us</a>
         </div>
       </div>
     </div>

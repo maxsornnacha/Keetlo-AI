@@ -1,5 +1,5 @@
 <template>
-  <main class="relative min-h-screen grid place-items-center overflow-hidden text-white">
+  <main class="relative min-h-screen grid place-items-center overflow-hidden text-black">
     <!-- Soft gradient background -->
     <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
       <div class="absolute -top-40 -left-40 h-[46rem] w-[46rem] rounded-full blur-3xl opacity-30 bg-[conic-gradient(at_left,_theme(colors.indigo.500),_theme(colors.sky.400),_theme(colors.emerald.400),_theme(colors.indigo.500))]" />
@@ -9,7 +9,7 @@
     <!-- Card -->
     <section class="w-full max-w-xl rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:backdrop-blur-md lg:shadow-2xl px-6 py-8 sm:px-8">
       <!-- States -->
-      <div v-if="loading" class="h-[30vh] grid place-items-center text-white/70">Loading order…</div>
+      <div v-if="loading" class="h-[30vh] grid place-items-center text-black/70">Loading order…</div>
       <div v-else-if="errorMsg" class="h-[30vh] grid place-items-center text-red-300">{{ errorMsg }}</div>
 
       <template v-else>
@@ -27,7 +27,7 @@
           <h1 class="text-3xl font-bold tracking-tight">
             {{ orderDetail.status?.toUpperCase() === 'PAID' ? 'Payment Successful' : 'Order Created' }}
           </h1>
-          <p class="text-white/70">
+          <p class="text-black/70">
             {{ orderDetail.status?.toUpperCase() === 'PAID'
               ? "You're all set! Your purchase is confirmed—jump right in and start building."
               : "We’ve recorded your order. Complete payment to access your plan." }}
@@ -40,14 +40,14 @@
 
           <dl class="mt-4 space-y-4">
             <div class="flex items-center justify-between gap-4">
-              <dt class="text-white/70">Order number</dt>
+              <dt class="text-black/70">Order number</dt>
               <dd class="flex flex-wrap items-center gap-2">
                 <code class="font-mono text-sm bg-white/10 rounded px-2 py-1">
                   #{{ orderDetail.receiptId || "—" }}
                 </code>
                 <button
                   v-if="orderDetail.receiptId"
-                  class="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-white/90 bg-white/10 hover:bg-white/15 transition"
+                  class="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-black/90 bg-white/10 hover:bg-white/15 transition"
                   :aria-label="copied ? 'Copied' : 'Copy order number'"
                   @click="copyOrder()"
                 >
@@ -58,18 +58,18 @@
             </div>
 
             <div class="flex items-center justify-between gap-4">
-              <dt class="text-white/70">Date</dt>
-              <dd class="text-white">{{ formattedDate }}</dd>
+              <dt class="text-black/70">Date</dt>
+              <dd class="text-black">{{ formattedDate }}</dd>
             </div>
 
             <div class="flex items-center justify-between gap-4">
-              <dt class="text-white/70">Plan</dt>
-              <dd class="text-white">{{ orderDetail.planName }}</dd>
+              <dt class="text-black/70">Plan</dt>
+              <dd class="text-black">{{ orderDetail.planName }}</dd>
             </div>
 
             <div class="flex items-center justify-between gap-4 border-t border-dashed border-white/10 pt-4">
-              <dt class="text-white font-semibold">Total</dt>
-              <dd class="text-white font-semibold">{{ formattedTotal }}</dd>
+              <dt class="text-black font-semibold">Total</dt>
+              <dd class="text-black font-semibold">{{ formattedTotal }}</dd>
             </div>
           </dl>
         </div>
@@ -77,7 +77,7 @@
         <!-- Actions -->
         <div class="mt-6 grid gap-3 sm:grid-cols-2">
           <a href="/account/projects" class="w-full">
-            <button class="cursor-pointer w-full h-11 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors">
+            <button class="cursor-pointer w-full h-11 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-black font-semibold transition-colors">
               Go to my projects
             </button>
           </a>
@@ -87,13 +87,13 @@
             :href="`/account/billing/receipt/${orderDetail.receiptId}`"
             class="w-full"
           >
-            <button class="cursor-pointer w-full h-11 rounded-lg bg-white/10 hover:bg-white/15 text-white font-medium transition-colors">
+            <button class="cursor-pointer w-full h-11 rounded-lg bg-white/10 hover:bg-white/15 text-black font-medium transition-colors">
               View receipt
             </button>
           </a>
           <button
             v-else
-            class="w-full h-11 rounded-lg bg-white/10 text-white/60 cursor-not-allowed"
+            class="w-full h-11 rounded-lg bg-white/10 text-black/60 cursor-not-allowed"
             disabled
           >
             Receipt unavailable
@@ -101,7 +101,7 @@
         </div>
 
         <!-- Secondary links -->
-        <p class="mt-6 text-center text-sm text-white/60">
+        <p class="mt-6 text-center text-sm text-black/60">
           Need help?
           <a class="text-indigo-300 hover:text-indigo-200" href="/contact-us">Contact support</a>
         </p>

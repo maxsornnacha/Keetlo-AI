@@ -1,21 +1,21 @@
 <!-- /pages/public/projects/[projectId]/[indexPage].vue -->
 <template>
-  <div class="min-h-screen bg-[#0D1117] text-white flex flex-col">
+  <div class="min-h-screen text-black flex flex-col">
     <!-- Topbar (normal flow, not fixed/absolute; sits above content and renders in front) -->
     <header
       v-if="!hiddenTheHeader"
-      class="relative bg-[#0D1117] border-b border-white/10"
+      class="relative"
     >
-      <div class="px-4 py-3 grid grid-cols-2 lg:grid-cols-3 items-center gap-3">
+      <div class="mx-auto container p-1 flex justify-between  lg:grid lg:grid-cols-3 items-center gap-3">
         <!-- Left: Back + Title -->
         <div class="flex items-center gap-3 min-w-0">
           <a
             :href="`${back as string}`"
-            class="text-sm opacity-80 hover:opacity-100 whitespace-nowrap"
+            class="text-sm opacity-80 hover:text-gray-500 whitespace-nowrap"
             >← Back</a
           >
           <h1
-            class="text-base sm:text-lg font-semibold truncate max-w-[50vw] sm:max-w-[40vw]"
+            class="truncate max-w-[50vw] sm:max-w-[40vw]"
           >
             {{ project.title || "Project" }}
           </h1>
@@ -35,7 +35,7 @@
               :class="
                 activeTab === 'preview'
                   ? 'bg-indigo-600 text-white'
-                  : 'text-slate-300 hover:bg-white/10 cursor-pointer'
+                  : 'text-black border border-gray-200 hover:bg-gray-200 cursor-pointer'
               "
               role="tab"
               :aria-selected="activeTab === 'preview'"
@@ -47,8 +47,8 @@
               class="px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
               :class="
                 activeTab === 'canvas'
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-slate-300 hover:bg-white/10 cursor-pointer'
+            ? 'bg-indigo-600 text-white'
+                  : 'text-black border border-gray-200 hover:bg-gray-200 cursor-pointer'
               "
               role="tab"
               :aria-selected="activeTab === 'canvas'"
@@ -61,14 +61,14 @@
 
         <!-- Right: Controls (UserProfile is in normal header flow, in front of everything) -->
         <div
-          class="flex items-center gap-3 ml-auto order-2 sm:order-none justify-end"
+          class="flex items-end gap-3 ml-auto order-2 sm:order-none justify-end"
         >
           <button
             @click="onRemix(project.projectId)"
-            class="border border-white/10 bg-white/5 px-3 py-1.5 text-sm rounded-lg transition text-slate-300 hover:bg-white/20 cursor-pointer"
+            class="border border-gray-200 px-3 py-1.5 text-sm rounded-lg transition text-black hover:bg-gray-200 cursor-pointer"
           >
             <div class="inline-flex items-center gap-2">
-              <UIcon name="i-lucide-layers" class="size-4" />
+              <UIcon name="i-lucide-shuffle" class="size-4" />
               Remix
             </div>
           </button>
@@ -88,8 +88,8 @@
             class="px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
             :class="
               activeTab === 'preview'
-                ? 'bg-indigo-600 text-white'
-                : 'text-slate-300 hover:bg-white/10 cursor-pointer'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-black border border-gray-200 hover:bg-gray-200 cursor-pointer'
             "
             role="tab"
             :aria-selected="activeTab === 'preview'"
@@ -101,8 +101,8 @@
             class="px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
             :class="
               activeTab === 'canvas'
-                ? 'bg-indigo-600 text-white'
-                : 'text-slate-300 hover:bg-white/10 cursor-pointer'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-black border border-gray-200 hover:bg-gray-200 cursor-pointer'
             "
             role="tab"
             :aria-selected="activeTab === 'canvas'"
@@ -126,7 +126,7 @@
         }"
       >
         <div
-          class="flex items-center gap-2 sm:gap-3 rounded-xl border border-white/10 bg-[#0D1117]/90 backdrop-blur px-2.5 py-2 sm:px-3 shadow-lg z-0 m-2"
+          class="flex items-center gap-2 sm:gap-3 rounded-xl bg-gray-50 px-2.5 py-2 sm:px-3 shadow-lg z-0 m-2"
           role="group"
           aria-label="Preview controls"
         >
@@ -134,7 +134,7 @@
           <label class="sr-only" for="page-select">Select page</label>
           <select
             id="page-select"
-            class="h-9 min-w-[10rem] sm:min-w-[12rem] max-w-[65vw] truncate rounded-lg border border-white/10 bg-[#0D1117] px-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+            class="h-9 min-w-[10rem] sm:min-w-[12rem] max-w-[65vw] truncate rounded-lg border border-white/10 bg-white px-3 text-sm text-black ring-1 ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
             v-model="selectedPageId"
           >
             <option
@@ -205,7 +205,7 @@
       </section>
 
       <!-- CANVAS TAB -->
-      <section v-else class="p-0 sm:p-2">
+      <section v-else class="">
         <PublicPageCanvas
           :project="project"
           :web-pages="project.pages"

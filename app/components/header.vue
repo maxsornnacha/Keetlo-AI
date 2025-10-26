@@ -1,13 +1,14 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="sticky top-0 z-50 border-b border-b-[#21262d] bg-[#0D1117]/80 backdrop-blur-sm">
+  <div class="sticky top-0 z-50 backdrop-blur-sm">
   <header
-    class="mx-auto max-w-[1400px] grid grid-cols-2 md:grid-cols-3 whitespace-nowrap px-4 lg:px-8 py-4"
+    class="mx-auto max-w-[1400px] grid grid-cols-2 whitespace-nowrap px-4 lg:px-8 py-2"
   >
     <!-- Left: Logo + mobile menu -->
+     <div class="flex gap-8 items-center">
     <div class="flex items-center gap-2">
       <button
-        class="lg:hidden hover:bg-slate-50/20 pt-1 px-1 rounded-md cursor-pointer"
+        class="lg:hidden hover:bg-gray-200 pt-1 px-1 rounded-md cursor-pointer"
         aria-label="Open menu"
         @click="onOpenMobileSidebar"
       >
@@ -15,41 +16,46 @@
       </button>
 
       <NuxtLink to="/" class="flex items-center gap-0">
-        <nuxt-img src="/logo.png" class="h-9 w-9" />
+        <nuxt-img src="/icon-256.png" class="h-5 w-5" />
         <h1 class="text-xl font-bold tracking-tight">EETLO</h1>
       </NuxtLink>
     </div>
-
-    <!-- Center: Desktop nav -->
-    <nav class="hidden md:flex justify-center items-center gap-6 text-sm font-medium">
+        <nav class="hidden md:flex justify-center items-center gap-6 text-sm font-medium">
       <NuxtLink
         to="/"
-        class="hover:text-white transition-colors"
-        :class="route.path === '/' ? 'text-white' : 'text-gray-300'"
+        class="hover:text-gray-400 transition-colors"
+        :class="route.path === '/' ? 'text-gray-500' : 'text-black'"
       >Home</NuxtLink>
 
       <NuxtLink
         to="/features"
-        class="hover:text-white transition-colors"
-        :class="route.path === '/features' ? 'text-white' : 'text-gray-300'"
+        class="hover:text-gray-400 transition-colors"
+        :class="route.path === '/features' ? 'text-gray-500' : 'text-black'"
       >Features</NuxtLink>
 
       <NuxtLink
         to="/pricing"
-        class="hover:text-white transition-colors"
-        :class="route.path === '/pricing' ? 'text-white' : 'text-gray-300'"
+        class="hover:text-gray-400 transition-colors"
+        :class="route.path === '/pricing' ? 'text-gray-500' : 'text-black'"
       >Pricing</NuxtLink>
+
+      <NuxtLink
+        to="/public/projects"
+        class="hover:text-gray-400 transition-colors"
+        :class="route.path.includes('/public/projects') ? 'text-gray-500' : 'text-black'"
+      >Public Projects</NuxtLink>
     </nav>
+    </div>
 
     <!-- Right: Actions -->
-    <div class="flex justify-end gap-4">
+    <div class="flex items-center justify-end gap-2">
       <NuxtLink
         v-if="props.user.isLogin === 'yes'"
-        to="/account/projects"
-        class="flex items-center gap-2 border border-slate-50/20 px-2 rounded-md hover:bg-slate-50/20 duration-300 transition"
+        v-tooltip="'My Projects'"
+         to="/account/projects"
+        class="flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
       >
-        <UIcon name="i-lucide-folder-open" class="w-6 h-6 shrink-0 mt-1" />
-        <span>Projects</span>
+        <UIcon name="i-lucide-folder-open" class="size-6" />
       </NuxtLink>
 
       <UserProfile :user="props.user" />
@@ -62,18 +68,18 @@
           @click="onCloseMobileSidebar"
         />
         <aside
-          class="h-screen bg-[#0D1117] opacity-90 border border-slate-50/20 fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 w-72"
+          class="h-screen fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 min-w-72 bg-gray-50"
           :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
           @keydown.esc="onCloseMobileSidebar"
         >
-          <div class="bg-[#0D1117] border-b border-[#30363d] flex justify-between items-center p-3">
+          <div class="border-b border-gray-200 flex justify-between items-center px-3 py-2">
             <h2 class="text-base font-semibold">Menu</h2>
             <button
-              class="pt-1 px-1 hover:bg-slate-50/20 border border-slate-50/20 rounded-lg cursor-pointer"
+              class="pt-1 px-1 hover:bg-gray-200 rounded-lg cursor-pointer"
               aria-label="Close menu"
               @click="onCloseMobileSidebar"
             >
-              <UIcon name="i-lucide-x" class="size-6" />
+              <UIcon name="i-lucide-x" class="size-5" />
             </button>
           </div>
 

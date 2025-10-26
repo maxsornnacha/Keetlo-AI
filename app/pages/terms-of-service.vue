@@ -2,14 +2,14 @@
   <main>
     <div class="mx-auto max-w-4xl">
       <div class="mb-10">
-        <h1 class="text-4xl font-bold text-white tracking-tight">
+        <h1 class="text-2xl font-bold text-black tracking-tight">
           Terms and Conditions
         </h1>
         <p class="mt-2 text-gray-400">Last updated: October 26, 2023</p>
       </div>
-      <div class="space-y-8 text-gray-300">
+      <div class="space-y-8 text-gray-400">
         <div>
-          <h2 class="text-2xl font-semibold text-white mb-4">
+          <h2 class="text-xl font-semibold text-black mb-4">
             1. Acceptance of Terms
           </h2>
           <p class="leading-relaxed">
@@ -20,7 +20,7 @@
           </p>
         </div>
         <div>
-          <h2 class="text-2xl font-semibold text-white mb-4">
+          <h2 class="text-xl font-semibold text-black mb-4">
             2. User Responsibilities
           </h2>
           <p class="leading-relaxed">
@@ -32,7 +32,7 @@
           </p>
         </div>
         <div>
-          <h2 class="text-2xl font-semibold text-white mb-4">
+          <h2 class="text-xl font-semibold text-black mb-4">
             3. Intellectual Property
           </h2>
           <p class="leading-relaxed">
@@ -45,7 +45,7 @@
           </p>
         </div>
         <div>
-          <h2 class="text-2xl font-semibold text-white mb-4">
+          <h2 class="text-xl font-semibold text-black mb-4">
             4. Limitation of Liability
           </h2>
           <p class="leading-relaxed">
@@ -58,7 +58,7 @@
           </p>
         </div>
         <div>
-          <h2 class="text-2xl font-semibold text-white mb-4">
+          <h2 class="text-xl font-semibold text-black mb-4">
             5. Modifications to Terms
           </h2>
           <p class="leading-relaxed">
@@ -70,7 +70,7 @@
           </p>
         </div>
         <div>
-          <h2 class="text-2xl font-semibold text-white mb-4">
+          <h2 class="text-xl font-semibold text-black mb-4">
             6. Governing Law
           </h2>
           <p class="leading-relaxed">
