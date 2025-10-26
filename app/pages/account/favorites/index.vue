@@ -226,6 +226,14 @@
         </template>
       </div>
 
+       <div v-if="!loading && items.length === 0" class="col-span-3 flex flex-col justify-center items-center min-h-[50dvh] w-full">
+            <img
+              src="/images/not-found/not-found.png"
+              class="w-[250px] h-[250px]"
+              alt="Not Found"
+            >
+            <h4 class="uppercase text-lg font-semibold">Projects Not found</h4>
+          </div>
       <!-- Pagination -->
       <div v-if="total > 0" class="mt-8 flex items-center justify-between">
         <div class="text-sm text-black/70">
@@ -274,14 +282,6 @@
           </button>
         </div>
       </div>
-       <div v-else class="col-span-3 flex flex-col justify-center items-center min-h-[50dvh] w-full">
-            <img
-              src="/images/not-found/not-found.png"
-              class="w-[250px] h-[250px]"
-              alt="Not Found"
-            >
-            <h4 class="uppercase text-lg font-semibold">Projects Not found</h4>
-          </div>
     </section>
 
     <PublicProjectPreviewDialog

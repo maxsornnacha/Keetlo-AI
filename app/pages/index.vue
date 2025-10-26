@@ -4,11 +4,11 @@
     <!-- Hero -->
     <section class="mx-auto w-full max-w-5xl py-28 px-4 text-center">
       <div class="flex justify-center mb-2">
-            <nuxt-img
-              src="/images/accounts/ai.png"
-              class="h-16 w-16 rounded-full object-cover ring-1 ring-white/10 bg-yellow-500"
-            />
-            </div>
+        <nuxt-img
+          src="/images/accounts/ai.png"
+          class="h-16 w-16 rounded-full object-cover ring-1 ring-white/10 bg-yellow-500"
+        />
+      </div>
       <h2 class="text-4xl lg:text-5xl">
         Build Your Ideas with Keetlo Assistant
       </h2>
@@ -111,21 +111,19 @@
                   />
                 </div>
 
-                 <!-- floating actions -->
+                <!-- floating actions -->
+                <div class="absolute inset-0 gap-2 z-[20] pointer-events-none">
                   <div
-                    class="absolute inset-0 gap-2 z-[20] pointer-events-none"
+                    class="flex justify-center items-center gap-2 h-full opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-auto"
                   >
-                    <div
-                      class="flex justify-center items-center gap-2 h-full opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-auto"
+                    <button
+                      class="flex items-center justify-center gap-1 rounded-lg p-2 text-white cursor-pointer bg-black/70"
                     >
-                      <button
-                        class="flex items-center justify-center gap-1 rounded-lg p-2 text-white cursor-pointer bg-black/70"
-                      >
-                        <UIcon name="i-lucide-eye" class="size-6" />
-                        Preview
-                      </button>
-                    </div>
+                      <UIcon name="i-lucide-eye" class="size-6" />
+                      Preview
+                    </button>
                   </div>
+                </div>
               </div>
 
               <!-- Body -->
@@ -145,7 +143,11 @@
                     <h3
                       class="text-base font-semibold leading-tight flex flex-wrap gap-2 items-center"
                     >
-                      {{ project?.title && project.title?.length > 50 ? project.title.slice(0, 50)+"..." : project.title  || "No title" }}
+                      {{
+                        project?.title && project.title?.length > 50
+                          ? project.title.slice(0, 50) + "..."
+                          : project.title || "No title"
+                      }}
                     </h3>
                     <div class="flex flex-col items-start gap-3">
                       <div class="flex gap-2">
@@ -153,7 +155,10 @@
                           v-tooltip="'Likes'"
                           class="inline-flex items-center gap-1 text-xs"
                         >
-                          <UIcon name="i-heroicons-heart-20-solid" class="size-6 bg-red-500" />
+                          <UIcon
+                            name="i-heroicons-heart-20-solid"
+                            class="size-6 bg-red-500"
+                          />
                           {{ format(project.favoriteCount) }}
                         </span>
                         <span
@@ -183,8 +188,16 @@
                     class="rounded-lg pt-2 pb-1 px-2 text-black/90 cursor-pointer hover:text-gray-300"
                     @click="toggleFavorite(project)"
                   >
-                    <UIcon v-if="project.isFavorite" name="i-heroicons-heart-20-solid" class="size-7 text-red-500" />
-                    <UIcon v-else name="i-lucide-heart" class="size-7 text-gray-700" />
+                    <UIcon
+                      v-if="project.isFavorite"
+                      name="i-heroicons-heart-20-solid"
+                      class="size-7 text-red-500"
+                    />
+                    <UIcon
+                      v-else
+                      name="i-lucide-heart"
+                      class="size-7 text-gray-700"
+                    />
                   </button>
                 </div>
               </div>
@@ -197,17 +210,17 @@
           </template>
         </div>
 
-                    <div
-      v-if="publicProjects.length === 0"
-      class="flex flex-col justify-center items-center min-h-[50dvh]"
-    >
-      <img
-        src="/images/not-found/not-found.png"
-        class="w-[250px] h-[250px]"
-        alt="Not Found"
-      >
-      <h4 class="uppercase text-lg font-semibold">Projects Not found</h4>
-    </div>
+        <div
+          v-if="!loadingProjects && publicProjects.length === 0"
+          class="flex flex-col justify-center items-center min-h-[50dvh]"
+        >
+          <img
+            src="/images/not-found/not-found.png"
+            class="w-[250px] h-[250px]"
+            alt="Not Found"
+          >
+          <h4 class="uppercase text-lg font-semibold">Projects Not found</h4>
+        </div>
       </section>
     </div>
 

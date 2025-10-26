@@ -249,6 +249,17 @@
     </section>
 
     <!-- Pagination -->
+    <div
+      v-if="!loadingProjects && publicProjects.length === 0"
+      class="flex flex-col justify-center items-center min-h-[50dvh]"
+    >
+      <img
+        src="/images/not-found/not-found.png"
+        class="w-[250px] h-[250px]"
+        alt="Not Found"
+      />
+      <h4 class="uppercase text-lg font-semibold">Projects Not found</h4>
+    </div>
     <div v-if="total > 0" class="mt-8 flex items-center justify-between">
       <div class="text-sm text-black/70">
         Showing <span class="text-black">{{ startIndex + 1 }}</span
@@ -296,17 +307,6 @@
         </button>
       </div>
     </div>
-    <div
-      v-else
-      class="flex flex-col justify-center items-center min-h-[50dvh]"
-    >
-      <img
-        src="/images/not-found/not-found.png"
-        class="w-[250px] h-[250px]"
-        alt="Not Found"
-      />
-      <h4 class="uppercase text-lg font-semibold">Projects Not found</h4>
-    </div>
 
     <PublicProjectPreviewDialog
       :selected-project="selectedProject"
@@ -320,9 +320,8 @@ import axios from "axios";
 import type { PublicProject } from "~/types/PublicProject";
 import PublicProjectPreviewDialog from "~/components/dialog/PublicProjectPreviewDialog.vue";
 import type { SortKey } from "~/types/SortKey";
-import { debounce } from "lodash";
+import debounce from 'lodash/debounce'
 
-const router = useRouter();
 const route = useRoute();
 const config = useRuntimeConfig();
 const sortBy = ref<SortKey>(
