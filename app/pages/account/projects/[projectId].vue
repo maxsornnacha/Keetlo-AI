@@ -110,7 +110,11 @@
                   class="cursor-pointer relative h-[108px] w-[108px] overflow-hidden rounded-lg bg-white shadow"
                   @click="onPageSelection(page)"
                 >
-                  <img :src="`/api/thumbnail/page/${page.generatedPageId}`" :alt="page.label" class="w-full aspect-[16/10] h-full object-cover" loading="lazy">
+                  <nuxt-img 
+                  :src="`${siteUrl}/api/thumbnail/page/${page.generatedPageId}`" 
+                  :alt="page.label" 
+                  class="w-full aspect-[16/10] h-full object-cover" 
+                  />
                 </button>
               </div>
             </template>
@@ -345,6 +349,7 @@ const props = defineProps<{ user: User }>();
 const route = useRoute();
 const router = useRouter();
 const config = useRuntimeConfig();
+const siteUrl = config.public.SITE_URL;
 const projectId = route.params.projectId as string;
 
 const loadingProject = ref(true);

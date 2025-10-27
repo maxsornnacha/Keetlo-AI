@@ -95,7 +95,11 @@
                 />
 
                 <div class="absolute inset-0 grid place-items-center">
-                  <img :src="`/api/thumbnail/${project.projectId}`" :alt="project.projectId || 'No title'" class="w-full aspect-[16/10] object-cover" loading="lazy">
+                  <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                    :alt="project.title || 'No title'"
+                    class="w-full aspect-[16/10] object-cover h-full"
+                  />
                 </div>
 
                 <!-- floating actions -->
@@ -227,6 +231,7 @@ import PublicProjectPreviewDialog from "~/components/dialog/PublicProjectPreview
 import type { SortKey } from "~/types/SortKey";
 
 const config = useRuntimeConfig();
+const siteUrl = config.public.SITE_URL;
 const sortBy = ref<SortKey>("newest");
 const page = ref(1);
 const pageSize = ref(18);

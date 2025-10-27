@@ -63,7 +63,11 @@
             <div
               class="flex-none w-[50px] h-[50px] overflow-hidden border border-gray-200 rounded-md shadow bg-white relative"
             >
-             <img :src="`/api/thumbnail/${project.projectId}`" alt="" class="w-full aspect-[16/10] object-cover" loading="lazy">
+                <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                    :alt="project.title || 'No title'"
+                    class="w-full aspect-[16/10] object-cover h-full"
+                  />
             </div>
 
             <!-- Meta -->
@@ -115,6 +119,7 @@ import axios from "axios";
 import { toErrorMessage } from "@/utils/axios";
 
 const config = useRuntimeConfig();
+const siteUrl = config.public.SITE_URL;
 const props = defineProps<{
   heightFull?: boolean;
   project?: Project;

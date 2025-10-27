@@ -35,7 +35,11 @@
         <div class="px-6 pb-6 pt-5 overflow-auto max-h-[90dvh] flex flex-col gap-4 lg:gap-8">
 
           <div class="self-center flex-none w-[250px] h-[250px] overflow-hidden border border-gray-200 rounded-md shadow-lg bg-white relative">
-              <img :src="`/api/thumbnail/${project.projectId}`" :alt="project.title || 'No title'" class="w-full aspect-[16/10] object-cover" loading="lazy">
+            <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                    :alt="project.title || 'No title'"
+                    class="w-full aspect-[16/10] object-cover h-full"
+                  />
             </div>
            <div>
                       <!-- Title -->
@@ -121,6 +125,9 @@ const emit = defineEmits<{
   (e: 'onClose'): void
   (e: 'edit', project: Project): void
 }>()
+
+const config = useRuntimeConfig();
+const siteUrl = config.public.SITE_URL;
 
 const close = () => emit('onClose')
 const openEdit = () => emit('edit', props.project)

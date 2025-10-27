@@ -133,7 +133,11 @@
             />
 
             <div class="absolute inset-0 grid place-items-center">
-              <img :src="`/api/thumbnail/${project.projectId}`" :alt="project.title || 'No title'" class="w-full aspect-[16/10] object-cover" loading="lazy">
+                 <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                    :alt="project.title || 'No title'"
+                    class="w-full aspect-[16/10] object-cover h-full"
+                  />
             </div>
 
             <!-- floating actions -->
@@ -311,6 +315,7 @@ import debounce from 'lodash/debounce'
 
 const route = useRoute();
 const config = useRuntimeConfig();
+const siteUrl = config.public.SITE_URL;
 const sortBy = ref<SortKey>(
   route.query.sort ? (route.query.sort as SortKey) : "newest"
 );
