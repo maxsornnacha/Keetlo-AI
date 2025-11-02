@@ -26,7 +26,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final SessionService sessionService;
     private final SubscriptionService subscriptionService;
-    @Value("${client.url}")
+    @Value("${client.url.email}")
     private String CLIENT_URL;
 
     public AuthService(JdbcTemplate database, PasswordEncoder passwordEncoder, EmailService emailService,

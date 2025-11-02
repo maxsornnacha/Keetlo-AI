@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -112,8 +113,6 @@ public Map<String, Object> getProjectsByUserIdPaginated(
         p.setIsPublic(rs.getInt("is_public"));
         p.setIndexPage(rs.getString("index_page"));
         p.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
-        String html = getProjectMainHtmlContentByProjectId(p.getProjectId());
-        p.setMainHtmlContent(html);
         return p;
     });
 
@@ -148,34 +147,15 @@ public Map<String, Object> getProjectsByUserIdPaginated(
     return response;
 }
 
+public Optional<Project> getProjectByProjectId(String projectId, String userId) {
+    final String sql = """
+        SELECT project_id, title, description, type, is_public, index_page, created_at
+        FROM projects
+        WHERE project_id = ? AND user_id = ?
+        LIMIT 1
+    """;
 
-    public String getProjectMainHtmlContentByProjectId(String projectId) {
-        String sql = """
-            SELECT generated_pages.html_content
-            FROM project_messages 
-            JOIN generated_pages 
-            ON generated_pages.project_message_id = project_messages.project_message_id
-            WHERE project_messages.project_id = ?
-            ORDER BY 
-                CASE WHEN generated_pages.generated_page_id = 
-                    (SELECT index_page FROM projects WHERE project_id = ?) 
-                    THEN 0 ELSE 1 END,
-                generated_pages.created_at ASC
-            LIMIT 1
-        """;
-
-        List<String> results = database.query(
-            sql, 
-            new Object[]{projectId, projectId}, 
-            (rs, _) -> rs.getString("html_content")
-        );
-
-        return results.isEmpty() ? "" : results.get(0);
-    }
-
-    public Project getProjectByProjectId(String projectId, String userId) {
-    String sql = "SELECT project_id, title, description, type, is_public, index_page, created_at FROM projects WHERE project_id = ? AND user_id = ?";
-    Project project =  database.queryForObject(sql, new Object[]{projectId, userId}, ((resultRow,_)->{
+    List<Project> rows = database.query(sql, (resultRow, _) -> {
         Project p = new Project();
         p.setProjectId(resultRow.getString("project_id"));
         p.setTitle(resultRow.getString("title"));
@@ -184,16 +164,14 @@ public Map<String, Object> getProjectsByUserIdPaginated(
         p.setIsPublic(resultRow.getInt("is_public"));
         p.setIndexPage(resultRow.getString("index_page"));
         p.setCreatedAt(resultRow.getTimestamp("created_at").toLocalDateTime());
-        String html = getProjectMainHtmlContentByProjectId(p.getProjectId());
-        p.setMainHtmlContent(html);
-        List<String> projectTags = this.getTagsByProjectId(projectId);
-        p.setTags(projectTags);
-        List<Message> messages =  projectMessageService.getProjectMessagesByProjectId(projectId);
-        p.setMessages(messages);
+        p.setTags(getTagsByProjectId(projectId));
+        p.setMessages(projectMessageService.getProjectMessagesByProjectId(projectId));
         return p;
-    }));
-    return project;
+    }, projectId, userId);
+
+    return rows.stream().findFirst();
     }
+
 
     public List<String> getTagsByProjectId(String projectId) {
         String sql = "SELECT tag FROM project_tags WHERE project_id = ?";

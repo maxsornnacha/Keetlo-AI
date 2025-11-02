@@ -1,6 +1,7 @@
 package com.keetlo.ai.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,6 +14,7 @@ public class Message {
     private String userId;
     private String role; // "user" or "ai"
     private String message;
+    private List<File> files;
     private LocalDateTime createdAt;
 
     public enum Role {
@@ -60,6 +62,14 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 
     public LocalDateTime getCreatedAt() {

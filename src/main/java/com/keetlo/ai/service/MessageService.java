@@ -5,15 +5,18 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.keetlo.ai.model.File;
 import com.keetlo.ai.model.Message;
 
 @Service
 public class MessageService {
 
     private final JdbcTemplate database;
+    private final FileService fileService;
 
-    public MessageService(JdbcTemplate database) {
+    public MessageService(JdbcTemplate database, FileService fileService) {
         this.database = database;
+        this.fileService = fileService;
     }
 
      public String createMessage(String projectId, String userId, String role, String message) {
@@ -42,6 +45,8 @@ public class MessageService {
             projectMessage.setRole(resultRow.getString("role"));
             projectMessage.setMessage(resultRow.getString("message"));
             projectMessage.setCreatedAt(resultRow.getTimestamp("created_at").toLocalDateTime());
+            List<File> files = fileService.getProjectFilesByMessageId(projectMessage.getProjectMessageId());
+            projectMessage.setFiles(files);
             return projectMessage;
         });
         return projectMessages;

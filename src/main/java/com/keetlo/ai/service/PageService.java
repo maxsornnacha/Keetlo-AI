@@ -58,7 +58,7 @@ public class PageService {
                     JOIN projects ON
                         project_messages.project_id = projects.project_id
                     WHERE projects.project_id = ? AND projects.user_id = ?
-                    ORDER BY generated_pages.created_at DESC
+                    ORDER BY generated_pages.created_at ASC
                     """;
             return database.query(sql, new BeanPropertyRowMapper<>(Page.class), projectId, userId);
         } catch (Exception error) {

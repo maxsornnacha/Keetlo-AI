@@ -73,7 +73,7 @@ public class UserController {
                 }
                 String filePath = uploadDir + imageName;
                 try {
-                    fileUtil.saveBase64File(base64Image, filePath);
+                    fileUtil.saveBase64Image(base64Image, filePath);
                     if(existingUser.getAvatarUrl() != null && !existingUser.getAvatarUrl().trim().isEmpty()) {
                         String oldFilePath = existingUser.getAvatarUrl();
                         fileUtil.deleteFile(oldFilePath);

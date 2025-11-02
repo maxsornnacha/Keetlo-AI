@@ -120,7 +120,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
         // Exclude public endpoints
-        String[] excludedPaths = { "/auth", "/stripe/webhook", "/images", "/subscription", "/ws", "/public", "/contact-message" };
+        String[] excludedPaths = { "/auth", "/stripe/webhook", "/images", "/files", "/subscription", "/ws", "/public", "/contact-message" };
         String[] includePaths = {"/auth/logout"};
            for (String p : includePaths) {
             if (path.startsWith(p) ) {

@@ -91,7 +91,16 @@ public class PublicProjectController {
                         return ResponseEntity.status(404).body("The project not found");
                 }
                 return ResponseEntity.ok(project);
-        }
+    }
+
+    @GetMapping("/main-html/{projectId}")
+    public ResponseEntity<?> getMainHtml(@PathVariable String projectId) {
+                String mainHtml = publicProjectService.getProjectMainHtmlContentByProjectId(projectId);
+                if (mainHtml == null) {
+                        return ResponseEntity.status(404).body("The project not found");
+                }
+                return ResponseEntity.ok(mainHtml);
+    }
 
      @GetMapping("/page/{generatedPageId}")
     public ResponseEntity<?> getPageByGeneratedPageId(@PathVariable String generatedPageId) {
