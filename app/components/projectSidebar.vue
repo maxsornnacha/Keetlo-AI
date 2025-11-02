@@ -64,9 +64,9 @@
               class="flex-none w-[50px] h-[50px] overflow-hidden border border-gray-200 rounded-md shadow bg-white relative"
             >
                 <nuxt-img
-                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}?v=${timeStamp}`"
                     :alt="project.title || 'No title'"
-                    class="w-full aspect-[16/10] object-cover h-full"
+                    class="w-full aspect-[16/10] object-cover h-full skeleton-animate"
                   />
             </div>
 

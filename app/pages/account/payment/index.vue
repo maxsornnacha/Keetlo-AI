@@ -170,7 +170,7 @@
       <div class="flex items-center gap-2">
         <button
           v-tooltip="'Previous page'"
-          class="rounded-xl bg-white/10 border border-white/10 px-3 py-2 text-sm disabled:opacity-40 hover:bg-white/15"
+          class="cursor-pointer rounded-md border border-gray-200 px-3 py-2 text-sm disabled:opacity-40 hover:bg-gray-200"
           :disabled="page === 1"
           @click="page = Math.max(1, page - 1)"
         >
@@ -180,10 +180,10 @@
         <template v-for="(p, i) in pagesToShow" :key="`${p}-${i}`">
           <button
             v-if="p !== '...'"
-            class="rounded-xl px-3 py-2 text-sm border transition"
+            class="rounded-md px-3 py-2 text-sm border transition"
             :class="page === p
-              ? 'bg-indigo-500/30 border-indigo-400/40 text-black'
-              : 'bg-white/10 border-white/10 hover:bg-white/15 text-black/90 cursor-pointer'"
+              ? 'bg-indigo-500 text-white'
+                : 'bg-white border-gray-200 hover:bg-gray-200 cursor-pointer'"
             :aria-current="page === p ? 'page' : undefined"
             @click="page = p as number"
           >
@@ -194,7 +194,7 @@
 
         <button
           v-tooltip="'Next page'"
-          class="rounded-xl bg-white/10 border border-white/10 px-3 py-2 text-sm disabled:opacity-40 hover:bg-white/15"
+          class="cursor-pointer rounded-md border border-gray-200 px-3 py-2 text-sm disabled:opacity-40 hover:bg-gray-200"
           :disabled="page === totalPages"
           @click="page = Math.min(totalPages, page + 1)"
         >

@@ -1,9 +1,9 @@
 <!-- components/PageCanvas.vue -->
 <template>
-  <div class="relative w-full h-screen">
+  <div class="relative flex flex-col w-full h-screen">
     <!-- Header -->
     <div
-      class="relative sticky top-0 left-0 flex items-center justify-between gap-4 p-2 opacity-90 backdrop-blue-sm text-black z-30"
+      class="flex-0 relative sticky top-0 left-0 flex items-center justify-between gap-4 p-2 opacity-90 backdrop-blue-sm text-black z-30"
     >
       <div class="hidden lg:block">
         <h2 class=" font-semibold">
@@ -12,6 +12,31 @@
       </div>
 
       <div class="flex items-center gap-2">
+
+        <div v-if="selectedDisplay === 'preview' && webPages.length > 0">
+            <select
+            id="page-select"
+            v-model="selectedPreviewPage"
+            class="w-full lg:w-auto h-8 min-w-[10rem] sm:min-w-[12rem] max-w-[65vw] truncate rounded-lg border border-white/10 bg-white px-3 text-sm text-black ring-1 ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+          >
+            <option
+              v-for="page in webPages"
+              :key="page.generatedPageId"
+              :value="page"
+            >
+              {{ page.path }}
+            </option>
+          </select>
+        </div>
+        
+        <div v-if="webPages.length > 0" class="flex gap-1 text-xs bg-gray-200 rounded-xl p-1">
+          <button 
+          :class="selectedDisplay === 'preview' ? 'duration-500 transition cursor-default bg-indigo-500 text-white p-2 rounded-xl' : 'cursor-pointer hover:bg-gray-300 p-2 rounded-xl text-slate-500'" 
+          @click="onSelectDisplay('preview')">Preview</button>
+          <button 
+          :class="selectedDisplay === 'canvas' ? 'duration-500 transition cursor-default bg-indigo-500 text-white p-2 rounded-xl' : 'cursor-pointer hover:bg-gray-300 p-2 rounded-xl text-slate-500'" 
+          @click="onSelectDisplay('canvas')">Canvas</button>
+        </div>
         <button
         v-tooltip="'Collapsed'"
          class="cursor-pointer flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
@@ -24,15 +49,17 @@
         </button>
         <!-- Download project -->
         <button
-                v-tooltip="'Download Project'"
-            class="cursor-pointer flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
+           v-tooltip="'Download Project'"
+           :disabled="webPages.length === 0"
+            class="flex items-center gap-2 p-2 rounded-md duration-300 transition"
+            :class="webPages.length === 0 ? 'cursor-default text-gray-400':'hover:bg-gray-200 cursor-pointer'"
           @click="props.downloadProject"
         >
           <UIcon name="i-lucide-download" class="size-5" />
         </button>
 
         <!-- Zoom controls -->
-        <div class="flex gap-2 border border-slate-50/30 p-1 rounded-lg">
+        <div v-if="selectedDisplay === 'canvas'" class="flex gap-2 border border-slate-50/30 p-1 rounded-lg">
           <button
             class="px-3 py-1 text-black border border-gray-200 rounded cursor-pointer hover:bg-gray-200"
             @click="zoomOut"
@@ -52,7 +79,7 @@
         </div>
 
         <!-- Canvas BG color -->
-        <div class="relative">
+        <div  v-if="selectedDisplay === 'canvas'" class="relative">
           <button
             ref="TriggerPaletteButtonRef"
             v-tooltip="'Canvas background color'"
@@ -118,13 +145,18 @@
         <!-- Public toggle -->
         <button
           v-tooltip="'Public'"
-          class="cursor-pointer flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 duration-300 transition"
+          :disabled="webPages.length === 0"
+          class="flex items-center gap-2 p-2 rounded-md duration-300 transition"
+          :class="webPages.length === 0?'cursor-default text-gray-400':'cursor-pointer hover:bg-gray-200 '"
           @click="props.onOpenChangePublicStatusDialog"
         >
           <UIcon
             name="i-lucide-globe"
             class="size-5"
             :class="
+              webPages.length === 0 ?
+              'text-gray-400'
+              :
               project?.isPublic === 1
                 ? 'text-emerald-600 animate-pulse'
                 : 'text-red-500'
@@ -134,8 +166,24 @@
       </div>
     </div>
 
+    <!-- Preview page -->
+     <div
+     v-if="selectedDisplay === 'preview' && webPages.length > 0"
+     class="flex-1 p-0 overflow-hidden h-full max-w-full rounded-lg border border-slate-200"
+     >
+      <iframe
+            :srcdoc="selectedPreviewPage?.htmlContent"
+            title="Project Preview"
+            class="w-full h-full overflow-auto"
+            sandbox="allow-scripts allow-same-origin" 
+            referrerpolicy="no-referrer"
+            @load="lockIframe"
+     />
+     </div>
+
     <!-- Canvas viewport (mouse zoom + background) -->
     <div
+      v-if="selectedDisplay === 'canvas' && webPages.length > 0"
       ref="viewportRef"
       class="relative overflow-auto z-10 py-8 max-h-full max-w-full rounded-lg border border-slate-200"
       :style="{ backgroundColor: canvasBg }"
@@ -306,6 +354,41 @@
       </div>
     </div>
 
+ <!--  Display when no WebPages yet -->
+<div
+  v-if="webPages.length === 0"
+  class="flex-1 relative grid place-items-center overflow-hidden rounded-lg border border-slate-200"
+>
+  <div class="absolute inset-0 bg-gradient-to-br from-indigo-100 via-white to-sky-100" />
+  <div class="relative z-10 max-w-2xl mx-auto p-8 text-center">
+    <!-- Mascot -->
+    <nuxt-img
+      src="/images/projects/mascot-waiting.png"
+      alt="Keetlo mascot waiting"
+      class="mx-auto w-56 h-auto drop-shadow-xl select-none pointer-events-none"
+      decoding="async"
+    />
+
+    <h2 class="mt-6 text-2xl font-semibold text-gray-900">
+      No pages yet
+    </h2>
+    <p class="mt-2 text-gray-600">
+      Start by sending a brief to the assistant or import your own HTML to see it on the canvas.
+    </p>
+
+    <!-- Hints -->
+    <div
+      class="mt-8 mx-auto grid gap-2 text-left text-sm text-gray-600 max-w-md"
+    >
+      <div class="flex gap-2">
+        <UIcon name="i-lucide-message-circle" class="mt-0.5 size-4 text-indigo-600" />
+        <span><b>Tip:</b> say “Create a landing page for a fintech app with hero, features, pricing.”</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <!-- Preview & HTML Dialog -->
     <PreviewAndHtmlDialog
       v-model:selected-path="selectedPath"
@@ -368,6 +451,7 @@ const props = defineProps<{
   chatDisplayIsCollapsed: boolean;
 }>();
 const loadingOnDeletePage = ref(false);
+const selectedDisplay = ref("preview");
 
 const canvasWidth = computed(() => {
   if (!webPages.value.length) return 1200 // default
@@ -419,6 +503,9 @@ const setCanvasBg = (c: string) => {
   showPalette.value = false;
 };
 
+const onSelectDisplay = (value: string) => {
+  selectedDisplay.value = value;
+}
 onMounted(() => {
   const saved = localStorage.getItem("canvas:bg");
   if (saved) canvasBg.value = saved;
@@ -477,11 +564,19 @@ const initialDpr = ref(2);
 
 const webPages = ref(props.webPages);
 const selectedPage = ref<null | (typeof webPages.value)[0]>(null);
+const selectedPreviewPage  = ref<null | (typeof webPages.value)[0]>(props.webPages[props.webPages.length - 1] || null);
 const activeTab = ref<"preview" | "code">("preview");
 const selectedPath = ref<null | string>(null);
 const config = useRuntimeConfig();
 let stompClient: Client;
 
+watch(
+  () => webPages.value,
+  (pages) => {
+    if (pages?.length) selectedPreviewPage.value = pages[pages.length - 1] ?? null
+  },
+  { deep: true, immediate: true }
+)
 onMounted(() => {
   const socket = new SockJS(`${config.public.NUXT_PUBLIC_API_BASE}/ws`);
   stompClient = new Client({

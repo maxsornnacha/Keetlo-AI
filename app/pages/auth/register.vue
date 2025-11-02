@@ -1,5 +1,5 @@
 <template>
-  <main v-if="!verifyEmailProcess" class="flex lg:gap-16 xl:gap-32 lg:min-h-screen lg:items-center lg:justify-center py-16 lg:py-0 px-4">
+  <main v-if="!verifyEmailProcess" class="flex lg:gap-16 xl:gap-32 lg:min-h-screen lg:items-center lg:justify-center py-8 lg:py-0 px-4">
         <div
         class="hidden min-w-[500px] flex-0 lg:flex flex-col items-center justify-center gap-8"
       >

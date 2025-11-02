@@ -111,10 +111,10 @@
               />
 
               <div class="absolute inset-0 grid place-items-center">
-               <nuxt-img
-                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                  <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}?v=${timeStamp}`"
                     :alt="project.title || 'No title'"
-                    class="w-full aspect-[16/10] object-cover h-full"
+                    class="w-full aspect-[16/10] object-cover h-full skeleton-animate"
                   />
               </div>
 

@@ -35,10 +35,10 @@
         <div class="px-6 pb-6 pt-5 overflow-auto max-h-[90dvh] flex flex-col gap-4 lg:gap-8">
 
           <div class="self-center flex-none w-[250px] h-[250px] overflow-hidden border border-gray-200 rounded-md shadow-lg bg-white relative">
-            <nuxt-img
-                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}?v=${timeStamp}`"
                     :alt="project.title || 'No title'"
-                    class="w-full aspect-[16/10] object-cover h-full"
+                    class="w-full aspect-[16/10] object-cover h-full skeleton-animate"
                   />
             </div>
            <div>

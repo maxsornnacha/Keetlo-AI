@@ -1,3 +1,5 @@
+import type { File } from "~/types/Projects";
+
 // modules/pageStream.ts
 export interface WebPage {
   generatedPageId: string;
@@ -13,11 +15,15 @@ export interface WebPage {
 
 export async function streamPages(
   input: string,
+  files: File[],
   apiBase: string,
   token: string,
   onChunk?: (chunk: string) => void,
-  onPage?: (page: WebPage) => void
+  onPage?: (page: WebPage) => void,
+  onError?: (err: unknown) => void,               // <- optional callback
+  externalAbort?: AbortSignal,
 ) {
+  const controller = new AbortController();
   const res = await fetch(`${apiBase}/page/generate`, {
     method: "POST",
     headers: {
@@ -25,8 +31,27 @@ export async function streamPages(
       Accept: "text/event-stream",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ input }),
+    body: JSON.stringify({ input: input, files: files }),
   });
+
+      // 1) HTTP status guard
+    if (!res.ok) {
+      // try to surface server error text (useful for 400/503)
+      let bodyText = "";
+      try { bodyText = await res.text(); } catch { /* empty */ }
+      const err = new Error(
+        `HTTP ${res.status} ${res.statusText}${bodyText ? ` — ${bodyText}` : ""}`
+      );
+      throw err;
+    }
+
+     // 2) Content-Type guard
+    const ct = res.headers.get("content-type") || "";
+    if (!ct.includes("text/event-stream")) {
+      const err = new Error(`Unexpected content-type: ${ct}`);
+      throw err;
+    }
+
 
   const reader = res.body?.getReader();
   if (!reader) return;
@@ -36,6 +61,7 @@ export async function streamPages(
   let jsonBuffer = "";
   let braceCount = 0;
 
+  try {
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -117,5 +143,14 @@ export async function streamPages(
         }
       }
     }
+  }
+   } catch (err) {
+    // Centralized error surfacing
+    onError?.(err);
+    // Also rethrow so caller can `try/catch` if they didn’t pass onError
+    throw err;
+  } finally {
+    // Ensure we abort any pending network activity if *we* created the controller
+    if (!externalAbort) controller.abort();
   }
 }

@@ -77,15 +77,15 @@
       </div>
 
       <nav
-        class="lg:hidden ml-auto sm:mx-auto w-full col-span-2 lg:col-span-1 flex justify-center"
+        class="lg:hidden border-y border-gray-200 ml-auto sm:mx-auto w-full col-span-2 lg:col-span-1 flex justify-center"
       >
         <div
-          class="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1"
+          class="w-full inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 p-1"
           role="tablist"
           aria-label="Preview mode"
         >
           <button
-            class="px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+            class="w-full px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
             :class="
               activeTab === 'preview'
                   ? 'bg-indigo-600 text-white'
@@ -98,7 +98,7 @@
             UX/UI Preview
           </button>
           <button
-            class="px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+            class="w-full px-3 py-1.5 text-sm rounded-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
             :class="
               activeTab === 'canvas'
                   ? 'bg-indigo-600 text-white'
@@ -126,15 +126,16 @@
         }"
       >
         <div
-          class="flex items-center gap-2 sm:gap-3 rounded-xl bg-gray-50 px-2.5 py-2 sm:px-3 shadow-lg z-0 m-2"
+          class="w-full  flex flex-col lg:flex-row items-center gap-2 sm:gap-3 rounded-xl bg-gray-50 px-2.5 py-2 sm:px-3 shadow-lg z-0 m-2"
           role="group"
           aria-label="Preview controls"
         >
+        <div class="w-full lg:w-auto">
           <!-- Page select -->
           <label class="sr-only" for="page-select">Select page</label>
           <select
             id="page-select"
-            class="h-9 min-w-[10rem] sm:min-w-[12rem] max-w-[65vw] truncate rounded-lg border border-white/10 bg-white px-3 text-sm text-black ring-1 ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+            class="w-full lg:w-auto h-9 min-w-[10rem] sm:min-w-[12rem] max-w-[65vw] truncate rounded-lg border border-white/10 bg-white px-3 text-sm text-black ring-1 ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
             v-model="selectedPageId"
           >
             <option
@@ -145,11 +146,13 @@
               {{ page.path }}
             </option>
           </select>
+          </div>
 
+          <!-- Fit toggle -->
+           <div class="flex gap-2 ">
           <!-- Divider -->
           <div class="hidden sm:block w-px h-6 bg-white/10"></div>
 
-          <!-- Fit toggle -->
           <label
             class="inline-flex items-center gap-2 cursor-pointer select-none"
           >
@@ -175,6 +178,7 @@
             />
             <span class="text-xs sm:text-sm opacity-90">Hidden the header</span>
           </label>
+          </div>
         </div>
       </div>
 

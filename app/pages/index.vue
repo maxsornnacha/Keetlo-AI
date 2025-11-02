@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <main class="relative min-h-screen pb-8 lg:pb-16">
+  <main class="lg:p-8 relative min-h-screen pb-8 lg:pb-16">
     <!-- Hero -->
     <section class="mx-auto w-full max-w-5xl py-28 px-4 text-center">
       <div class="flex justify-center mb-2">
@@ -95,10 +95,10 @@
                 />
 
                 <div class="absolute inset-0 grid place-items-center">
-                  <nuxt-img
-                    :src="`${siteUrl}/api/thumbnail/${project.projectId}`"
+                   <nuxt-img
+                    :src="`${siteUrl}/api/thumbnail/${project.projectId}?v=${timeStamp}`"
                     :alt="project.title || 'No title'"
-                    class="w-full aspect-[16/10] object-cover h-full"
+                    class="w-full aspect-[16/10] object-cover h-full skeleton-animate"
                   />
                 </div>
 

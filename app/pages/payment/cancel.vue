@@ -14,7 +14,7 @@
 
     <!-- Card -->
     <section
-      class="w-full max-w-xl rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:backdrop-blur-md lg:shadow-2xl px-6 py-8 sm:px-8"
+      class="w-full max-w-xl rounded-2xl lg:border lg:border-gray-200 lg:bg-white px-6 py-8 sm:px-8"
       aria-labelledby="cancel-title"
     >
       <!-- Warning badge -->
@@ -70,7 +70,7 @@
         <!-- Primary: Back home -->
         <a href="/" class="w-full">
           <button
-            class="cursor-pointer w-full h-11 rounded-lg bg-[#0D1117] hover:bg-[#0D1117]/70 text-black font-semibold transition-colors"
+            class="cursor-pointer w-full h-11 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition-colors"
           >
             Go back home
           </button>
@@ -79,7 +79,7 @@
         <!-- Secondary: Try again (optional: point back to your pricing/checkout) -->
         <a href="/pricing" class="w-full">
           <button
-            class="cursor-pointer w-full h-11 rounded-lg bg-white/10 hover:bg-white/15 text-black font-medium transition-colors"
+            class="cursor-pointer w-full h-11 rounded-lg bg-white border border-gray-200 hover:bg-gray-200 text-black font-medium transition-colors"
           >
             Try again
           </button>
@@ -89,7 +89,7 @@
       <!-- Support -->
       <p class="mt-6 text-center text-sm text-black/60">
         Still stuck?
-        <a class="text-indigo-300 hover:text-indigo-200" href="/contact-us"
+        <a class="text-indigo-500 hover:text-indigo-600" href="/contact-us"
           >Contact support</a
         >
       </p>

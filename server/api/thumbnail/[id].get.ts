@@ -59,8 +59,8 @@ export default defineEventHandler(async (event) => {
 async function getProjectHtml(projectId: string, config: { public: { NUXT_PUBLIC_API_BASE: string } }) {
     try{
   const apiBase = config.public.NUXT_PUBLIC_API_BASE
-  const data = await $fetch<{ mainHtmlContent: string }>(`${apiBase}/public/projects/${projectId}`)
-  return data?.mainHtmlContent ?? '<div/>'
+  const data = await $fetch<string>(`${apiBase}/public/projects/main-html/${projectId}`)
+  return data ?? '<div/>'
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
         return '<div/>';

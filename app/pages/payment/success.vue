@@ -7,10 +7,10 @@
     </div>
 
     <!-- Card -->
-    <section class="w-full max-w-xl rounded-2xl lg:border lg:border-white/10 lg:bg-white/5 lg:backdrop-blur-md lg:shadow-2xl px-6 py-8 sm:px-8">
+    <section class="w-full max-w-xl rounded-2xl lg:border lg:border-gray-200 lg:bg-white px-6 py-8 sm:px-8">
       <!-- States -->
-      <div v-if="loading" class="h-[30vh] grid place-items-center text-black/70">Loading order…</div>
-      <div v-else-if="errorMsg" class="h-[30vh] grid place-items-center text-red-300">{{ errorMsg }}</div>
+      <div v-if="loading" class="h-[30vh] grid place-items-center text-black text-lg">Loading order…</div>
+      <div v-else-if="errorMsg" class="h-[30vh] grid place-items-center text-red-500 text-lg">{{ errorMsg }}</div>
 
       <template v-else>
         <!-- Success badge + shimmer ring -->
@@ -35,7 +35,7 @@
         </header>
 
         <!-- Order summary -->
-        <div class="mt-8 rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6" aria-labelledby="order-summary">
+        <div class="mt-8 rounded-xl border border-gray-100 bg-white p-5 sm:p-6 " aria-labelledby="order-summary">
           <h2 id="order-summary" class="text-lg font-semibold">Order summary</h2>
 
           <dl class="mt-4 space-y-4">
@@ -47,7 +47,7 @@
                 </code>
                 <button
                   v-if="orderDetail.receiptId"
-                  class="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-black/90 bg-white/10 hover:bg-white/15 transition"
+                  class="cursor-pointer inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-black bg-white hover:bg-gray-100 transition"
                   :aria-label="copied ? 'Copied' : 'Copy order number'"
                   @click="copyOrder()"
                 >
@@ -77,23 +77,23 @@
         <!-- Actions -->
         <div class="mt-6 grid gap-3 sm:grid-cols-2">
           <a href="/account/projects" class="w-full">
-            <button class="cursor-pointer w-full h-11 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-black font-semibold transition-colors">
+            <button class="cursor-pointer w-full h-11 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition-colors">
               Go to my projects
             </button>
           </a>
 
           <a
             v-if="orderDetail.receiptId && orderDetail.status?.toUpperCase() === 'PAID'"
-            :href="`/account/billing/receipt/${orderDetail.receiptId}`"
+            :href="`/account/billing/receipt/${orderDetail.receiptId}?back=${route.fullPath}`"
             class="w-full"
           >
-            <button class="cursor-pointer w-full h-11 rounded-lg bg-white/10 hover:bg-white/15 text-black font-medium transition-colors">
+            <button class="cursor-pointer w-full h-11 rounded-lg bg-white border border-gray-200 hover:bg-gray-200 text-black font-medium transition-colors">
               View receipt
             </button>
           </a>
           <button
             v-else
-            class="w-full h-11 rounded-lg bg-white/10 text-black/60 cursor-not-allowed"
+            class="w-full h-11 rounded-lg bg-gray-200 text-black border border-gray-200 cursor-not-allowed"
             disabled
           >
             Receipt unavailable
@@ -103,7 +103,7 @@
         <!-- Secondary links -->
         <p class="mt-6 text-center text-sm text-black/60">
           Need help?
-          <a class="text-indigo-300 hover:text-indigo-200" href="/contact-us">Contact support</a>
+          <a class="text-indigo-500 hover:text-indigo-600" href="/contact-us">Contact support</a>
         </p>
       </template>
     </section>

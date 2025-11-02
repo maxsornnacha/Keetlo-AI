@@ -37,9 +37,6 @@
             alt="Profile image"
             title="Profile image"
           />
-          <div v-if="props.user.limitRequests === 0 && props.user.leftRequests === 0" class="absolute -top-3 -right-1">
-            <UIcon name="i-mdi-crown" class="size-6 text-yellow-500" />
-          </div>
         </button>
       </div>
     </div>
