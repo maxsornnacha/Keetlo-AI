@@ -184,9 +184,9 @@ public class PageController {
       String userInput = request.getInput();
 
         ObjectNode body = objectMapper.createObjectNode();
-        body.put("model", "gpt-4.1-mini");
+        // body.put("model", "gpt-4.1-mini");
         body.put("temperature", 0.5);
-        // body.put("model", "gpt-4.1");
+        body.put("model", "gpt-4.1");
         body.put("stream", true);
 
 
